@@ -6,7 +6,7 @@
   <!-- theme meta -->
   <meta name="theme-name" content="quixlab" />
 
-  <title>{{$title ?? 'dashboard'}}</title>
+  <title>{{$title}}</title>
   <!-- Favicon icon -->
   <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
   <!-- Pignose Calender -->
