@@ -3,6 +3,47 @@
     Dashboard
   </x-slot>
   
- Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique inventore itaque adipisci, nam suscipit minus veniam. Corrupti, ad veritatis tempora quia sunt dolore animi, doloremque omnis, vel id dicta est repellat? Nihil asperiores nam amet optio eum nostrum rem! Ratione quam dignissimos placeat. Dolorum aliquam nihil placeat quod at ullam corrupti itaque excepturi obcaecati! Ipsam corporis minus neque quis sit nostrum repellat eaque consequuntur ullam cumque quaerat, in harum rem, et nam ea ipsa dolore omnis. Deleniti omnis sit est fugit suscipit ab labore nihil nam ipsam corrupti amet rem molestias minima laboriosam quas quidem, voluptas modi. Eum, odio magni!
+  <div class="table-responsive">
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">firstname</th>
+                <th scope="col">surname</th>
+                <th scope="col">Email</th>
+                <th scope="col">othername</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+
+
+            @foreach ($students as $index => $student)
+                <tr>
+                    <th scope="row"> {{ $index + 1 }}</th>
+                    <td> {{ $student->firstname }}</td>
+                    <td> {{ $student->surname }}</td>
+                    <td> {{ $student->email }}</td>
+                    <td> {{ $student->othername }}</td>
+                    <td> {{ $student->hostel }}</td>
+                    <td>
+                        <button type="button" class="btn btn-primary">Edit</button>
+                        <button type="button" class="btn btn-danger">Delete</button>
+                    </td>
+                </tr>
+            @endforeach
+
+
+
+
+
+        </tbody>
+    </table>
+
+
+
+</div>
+  
+
 </x-layout>
 
