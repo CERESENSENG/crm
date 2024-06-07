@@ -2,6 +2,16 @@
   <x-slot:title>
     Dashboard
   </x-slot>
+  <li>
+    <form method="POST" action="{{ route('logout') }}">
+        @csrf
+
+        <button type="submit" class="btn waves-effect waves-light btn-danger"
+                style="float:right;">
+            Logout
+        </button>
+    </form>
+</li>
   
   <div class="table-responsive">
     <table class="table table-striped table-hover">

@@ -88,10 +88,10 @@
                 <div class="col-lg-6">
                     <div class="navigation container">
                         <a href="#">
-                            <h4>Registration Steps</h4>
+                            <h4 class="pt-2">Registration Steps</h4>
                         </a>
                         <hr style="color: black">
-                        <a href="{{ route('register.page1') }}">
+                        <a href="{{route('register.page1')}}">
                             <h4>Click here to apply</h4>
                         </a>
                         <hr style="color: black">
@@ -99,10 +99,27 @@
                             <h4>Student Login</h4>
                         </a>
                         <hr style="color: black">
-                        <a href="#">
+                        @if (Route::has('login'))
+                        @auth
+                            <a href="{{ url('/dashboard') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">
+                                <h4>Dashboard</h4>
+                            </a>
+                        @else
+                            <a href="{{ route('login') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">
+                                <h4>Admin Login</h4>
+                            </a>
+                            <hr style="color: black">
+                            @if (Route::has('register'))
+                                {{-- <a href="{{ route('register') }}" class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">
+                                    <h4>Register</h4>
+                                </a> --}}
+                            @endif
+                        @endauth
+                    @endif
+                        {{-- <a href="#">
                             <h4>Admin Login</h4>
-                        </a>
-                        <hr style="color: black">
+                        </a> --}}
+                        {{-- <hr style="color: black"> --}}
                     </div>
                 </div>
             </div>
