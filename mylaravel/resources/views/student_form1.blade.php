@@ -5,14 +5,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="{{ asset('asset/css/bootstrap.css') }}">
-    <script src="{{ asset('asset/js/bootstrap.js') }}"></script>
+    <link rel="stylesheet" href="{{asset('asset/css/bootstrap.css')}}">
+    <script src="{{asset('asset/js/bootstrap.js')}}"></script>
     <title>Document</title>
 </head>
 
 <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light py-3">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img class="ms-2" src="asset/images/ceresense_logo.png" alt="">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </nav>
     <div class="container">
-        <div class="card">
+        <div class="card mt-2">
             <div class="card-header bg-secondary text-white">STEP 1/2 - BIO-DATA</div>
             <div class="card-body">
                 <form action="{{ route('register.store1') }}" method="post">
@@ -98,7 +110,7 @@
                             @enderror
                         </span>
                     </div>
-                    <button type="submit" class="btn btn-primary">NEXT</button>
+                    <button style="float: right;" type="submit" class="btn btn-primary mt-4">NEXT</button>
                 </form>
             </div>
         </div>

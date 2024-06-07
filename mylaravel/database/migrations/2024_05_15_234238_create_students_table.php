@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('surname');
             $table->string('firstname');
             $table->string('othername')->nullable();
+            $table->string('app_no')->nullable();
             $table->string('password')->nullable();
             $table->unsignedBigInteger('department_id')->nullable();
             $table->foreign('department_id')->references('id')->on('departments');
@@ -31,7 +32,7 @@ return new class extends Migration
             $table->enum('wifi',['yes','no'])->nullable();
             $table->enum('hostel',['yes','no'])->nullable();
             $table->enum('skill_monetization',['yes','no'])->nullable();
-            $table->enum('payment_method',['one_time','installments'])->nullable();
+            $table->enum('payment_method',['one-time','installments'])->nullable();
             $table->string('passport')->nullable();
             $table->timestamps();
         });
