@@ -31,7 +31,7 @@
                 <div class="text-center mt-4">
                     <img height="30%"  src="/asset/images/ceresense_logo.png" alt="">
                     <h6><a href="">www.ceresense.com.ng</a></h6>
-                    <h6 class="fw-light">No 2,foyeke street,opposite tawheed junction,basin,ilorin,kwara state</h6>
+                    <h6 class="fw-light">No 2,foyeke street,opposite tawheed junction, basin, ilorin, kwara state.</h6>
                     <h6 class="display-6">Application Slip</h6>
                 </div>
             </div>
@@ -144,7 +144,7 @@
                                 <td>
 
                                     <div class="struct">
-                                        <h5>Next_Of_Kin:</h5>
+                                        <h5>Next of Kin:</h5>
                                         <h4 class="ms-3 fw-light">{{ $student->next_of_kin }} </h4>
 
 
@@ -157,7 +157,7 @@
                                 <td>
 
                                     <div class="struct">
-                                        <h5>Next_Of_Kin Phone Number:</h5>
+                                        <h5>Next of Kin Phone Number:</h5>
                                         <h4 class="ms-3 fw-light">{{ $student->next_of_kin_phone }} </h4>
 
 

@@ -52,8 +52,9 @@ class CeresenseMail extends Mailable
      */
     public function content(): Content
     {
+          // change d name of dis test_email: use  applicationNotififcation
         return new Content(
-            view: 'test_email',
+            view: 'application.mail.test_email',
             with:['surname'=>$this->surname,
                   'firstname'=>$this->firstname,
                   'course'=>$this->course,

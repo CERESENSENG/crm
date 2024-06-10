@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{{ asset('asset/css/bootstrap.css') }}">
     <script src="{{ asset('asset/js/bootstrap.js') }}"></script>
-    <title>Document</title>
+    <title>Application  - Registration ::  Stage 2</title>
 </head>
 
 <body>
@@ -26,9 +26,9 @@
     </nav>
     <div class="container">
         <div class="card mt-2">
-            <div class="card-header bg-secondary text-white">STEP 2/2 - BIO-DATA</div>
+            <div class="card-header bg-secondary text-white">STEP 2/2 - OTHER INFO   </div>
             <div class="card-body">
-                <form action="{{ route('register.store2', ['id' => $student->id]) }}" method="POST"
+                <form action="{{ route('register.stage-2.store', ['id' => $student->id]) }}" method="POST"
                     enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">

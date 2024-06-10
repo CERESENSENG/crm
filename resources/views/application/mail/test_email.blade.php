@@ -10,7 +10,7 @@
     <h6>Name:  {{$surname}}  {{$firstname}} </h6>
     <h6>Course applied:  {{$course}} </h6>
     <p>Click here to print your application slip</p>
-    <a href="{{ route('applicationSlip') }}?app_no={{ urlencode($appno) }}">
+    <a  target="_blank" href="{{ route('application.slip') }}?app_no={{ urlencode($appno) }}">
       <button type="button" class="btn btn-success">Print application slip</button>
     </a>
   </div>

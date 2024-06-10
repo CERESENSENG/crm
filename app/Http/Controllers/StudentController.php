@@ -21,13 +21,18 @@ use Illuminate\Support\Facades\Mail;
 
 class StudentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function RegistrationPage1(){
-       
-        return view('student_form1');
-    }
+
+
+
+     //  COMMENT:   Dashboard shoould display the analytical tools  such as metrics, charts: you can leave this page to display only welcome to Ceresense CRM Dashboard for now
+     //  pending d time we will work on it.
+     // Also,  clean up the template: you need to display only menu needed in the template and remove d  others.
+      /****
+       * Menus:  Dasboard
+       *          Students main menu: sub-menu: seach, view, enrol
+       *        Admission: 
+       *        Payment Main menu: sub-menu:  schedule, manage, upload       */
+     
     
     public function index()
     {
@@ -37,6 +42,15 @@ class StudentController extends Controller
         return view('admin',$data);
         
     }
+
+    /**
+     * Display a listing of the resource.
+     */
+    public function applicationRegister_Stage1(){
+       
+        return view('application.stage-1');
+    }
+    
 
     /**
      * Show the form for creating a new resource.
@@ -49,7 +63,7 @@ class StudentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function applicationStore_Stage1(Request $request)
     {
         $validate =   $request->validate([
             'surname' => 'required|string',
@@ -64,12 +78,21 @@ class StudentController extends Controller
         
          ]);
 
+
+          // COMMENT: you need to add column to store year of admission: admission_year
+
          $validate['password'] = Hash::make($request->input('password'));
       
 
-         $num = rand(10000, 99999); // Generate a random 5-digit number
+           // COMMENT: more code added to make it more unique
+        // $num = rand(10000, 99999); // Generate a random 5-digit number
+        $uniq = substr(hexdec(uniqid()),-4);
+         $num =   strval(rand(1000, 9999));   // Generate a random 4-digit number
+          $str =  str_shuffle($num.$uniq);
+            //  str_shuffle($str);
+         
         $year = date('Y'); // Get the current year
-        $appNum = 'APP/'. $num .'/'. $year;
+        $appNum = 'APP/'.$year.'/'.$str ;
 
         
      
@@ -77,7 +100,7 @@ class StudentController extends Controller
         $student->update(['app_no'=>$appNum]);
 
         if($student){
-            return redirect()->route('register.page2',['id'=>$student->id]);
+            return redirect()->route('register.stage-2',['id'=>$student->id]);
 
         }else{
             return redirect()->back()->with('error, student creation failed');
@@ -93,13 +116,13 @@ class StudentController extends Controller
 
 
     //  }
-    public function registrationPage2($id) {
+    public function applicationRegister_Stage2($id) {
         $student = Student::findOrFail($id);
         $depts = Department::all();
-        return view('student_form2', compact('student', 'depts'));
+        return view('application.stage-2', compact('student', 'depts'));
     }
 
-    public function store2(Request $request, $id){
+    public function applicationStore_Stage2(Request $request, $id){
         $validate =   $request->validate([
                 'next_of_kin_phone' => 'required|string',
                 'address' => 'required|string',
@@ -117,8 +140,14 @@ class StudentController extends Controller
   
           
            if($request->hasFile('passport')){
-            $passport=$request->File('passport');
-            $passportName='passport_'.time().''. $passport->getClientOriginalname();
+            $passport = $request->File('passport');    // leave a  space for   variable asssignmnet
+              $rad =  mt_rand(1000,9999);
+               
+          //  $passportName ='passport_'.time().''. $passport->getClientOriginalname();
+                    //  let hash the possport name to avoid name collision      
+            $passportName =  md5($passport->getClientOriginalName()).mt_rand(000,999).'.'.$passport->getClientOriginalExtension();
+
+
             $passport->move(public_path('upload/'),$passportName);
             $upload='upload/'.$passportName;
 
@@ -136,12 +165,12 @@ class StudentController extends Controller
            $student->update($validate);
            
         //    return redirect()->route('successPage')->with('success','you have registered successfully')
-           return redirect()->route('register.success',['id'=>$student->id]);
+           return redirect()->route('register.message',['id'=>$student->id]);
           
             
      
     }
-    public function Success($id){
+    public function applicationMessage($id){
         // $student = Student::findorfail($id);
         $student=student::with('department')->findorfail($id);
         $data=['student'=>$student];
@@ -152,10 +181,15 @@ class StudentController extends Controller
         $date=$student->created_at;
         
 
-        Mail::to('testreceiver@gmail.com')->send(new CeresenseMail($surname,$firstname,$course,$appno,$date));
+           //  COMMENT:  You are just copy and paste the code witout editi it  properly, You need to pass the email address of the student not static email address
+        //Mail::to('testreceiver@gmail.com')->send(new CeresenseMail($surname,$firstname,$course,$appno,$date));
+        
+          // CHange the name of CeresenseMail  to ApplicationMailNotification
+         
+        Mail::to($student->email)->send(new CeresenseMail($surname,$firstname,$course,$appno,$date));
         
         // return 'Mail sent successfully';
-        return view('success',$data);
+        return view('application.message',$data);
     }
  
 
@@ -179,7 +213,7 @@ public function ShowApplicationSlip(Request $request) {
 
     $app_no = $request->input('app_no');
     $student=student::with('department')->where('app_no',$app_no)->firstorfail();
-    return view('application_slip',compact('student'));
+    return view('application.slip',compact('student'));
 
 }
 
