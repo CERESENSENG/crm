@@ -16,13 +16,13 @@
                   </li>
                   <li class="mega-menu mega-menu-sm">
                       <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                          <i class="icon-globe-alt menu-icon"></i><span class="nav-text">Layouts</span>
+                          <i class="icon-globe-alt menu-icon"></i><span class="nav-text">Students</span>
                       </a>
                       <ul aria-expanded="false">
-                          <li><a href="./layout-blank.html">Blank</a></li>
-                          <li><a href="./layout-one-column.html">One Column</a></li>
-                          <li><a href="./layout-two-column.html">Two column</a></li>
-                          <li><a href="./layout-compact-nav.html">Compact Nav</a></li>
+                          <li><a href="./layout-blank.html">Search</a></li>
+                          <li><a href="./layout-one-column.html">View</a></li>
+                          <li><a href="./layout-two-column.html">Enrol</a></li>
+                          {{-- <li><a href="./layout-compact-nav.html">Compact Nav</a></li>
                           <li><a href="./layout-vertical.html">Vertical</a></li>
                           <li><a href="./layout-horizontal.html">Horizontal</a></li>
                           <li><a href="./layout-boxed.html">Boxed</a></li>
@@ -30,21 +30,33 @@
                           
                           
                           <li><a href="./layout-fixed-header.html">Fixed Header</a></li>
-                          <li><a href="layout-fixed-sidebar.html">Fixed Sidebar</a></li>
+                          <li><a href="layout-fixed-sidebar.html">Fixed Sidebar</a></li> --}}
                       </ul>
                   </li>
-                  <li class="nav-label">Apps</li>
-                  <li>
+                   <li>
                       <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                          <i class="icon-envelope menu-icon"></i> <span class="nav-text">Email</span>
+                          <i class="icon-screen-tablet menu-icon"></i><span class="nav-text">Admission</span>
                       </a>
                       <ul aria-expanded="false">
-                          <li><a href="./email-inbox.html">Inbox</a></li>
-                          <li><a href="./email-read.html">Read</a></li>
-                          <li><a href="./email-compose.html">Compose</a></li>
+                          <li><a href="{{route('admissionPending.show')}}">Pending</a></li>
+                          <li><a href="{{route('admissionApprove.show')}}">Approved</a></li>
+                          <li><a href="{{route('admissionReject.show')}}">Rejected</a></li>
+                     
+                      </ul>
+                  </li> 
+                  {{-- <li class="nav-label">Admission</li> --}}
+                  
+                  <li>
+                      <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                          <i class="icon-envelope menu-icon"></i> <span class="nav-text">Payment</span>
+                      </a>
+                      <ul aria-expanded="false">
+                          <li><a href="./email-inbox.html">Schedule</a></li>
+                          <li><a href="./email-read.html">Manage</a></li>
+                          <li><a href="./email-compose.html">Upload</a></li>
                       </ul>
                   </li>
-                  <li>
+                  {{-- <li>
                       <a class="has-arrow" href="javascript:void()" aria-expanded="false">
                           <i class="icon-screen-tablet menu-icon"></i><span class="nav-text">Apps</span>
                       </a>
@@ -52,7 +64,7 @@
                           <li><a href="./app-profile.html">Profile</a></li>
                           <li><a href="./app-calender.html">Calender</a></li>
                       </ul>
-                  </li>
+                  </li> --}}
                   <li>
                       <a class="has-arrow" href="javascript:void()" aria-expanded="false">
                           <i class="icon-graph menu-icon"></i> <span class="nav-text">Charts</span>
@@ -66,7 +78,7 @@
                           <li><a href="./chart-peity.html">Peity</a></li>
                       </ul>
                   </li>
-                  <li class="nav-label">UI Components</li>
+                  {{-- <li class="nav-label">UI Components</li>
                   <li>
                       <a class="has-arrow" href="javascript:void()" aria-expanded="false">
                           <i class="icon-grid menu-icon"></i><span class="nav-text">UI Components</span>
@@ -88,13 +100,13 @@
                           <li><a href="./ui-progressbar.html">Progressbar</a></li>
                           <li><a href="./ui-tab.html">Tab</a></li>
                           <li><a href="./ui-typography.html">Typography</a></li>
-                      <!-- </ul>
+                      </ul>
                   </li>
                   <li>
                       <a class="has-arrow" href="javascript:void()" aria-expanded="false">
                           <i class="icon-layers menu-icon"></i><span class="nav-text">Components</span>
                       </a>
-                      <ul aria-expanded="false"> -->
+                      <ul aria-expanded="false"> 
                           <li><a href="./uc-nestedable.html">Nestedable</a></li>
                           <li><a href="./uc-noui-slider.html">Noui Slider</a></li>
                           <li><a href="./uc-sweetalert.html">Sweet Alert</a></li>
@@ -118,7 +130,7 @@
                           <li><a href="./form-editor.html">Editor</a></li>
                           <li><a href="./form-picker.html">Picker</a></li>
                       </ul>
-                  </li>
+                  </li> --}}
                   <li class="nav-label">Table</li>
                   <li>
                       <a class="has-arrow" href="javascript:void()" aria-expanded="false">
@@ -129,7 +141,7 @@
                           <li><a href="./table-datatable.html" aria-expanded="false">Data Table</a></li>
                       </ul>
                   </li>
-                  <li class="nav-label">Pages</li>
+                  {{-- <li class="nav-label">Pages</li>
                   <li>
                       <a class="has-arrow" href="javascript:void()" aria-expanded="false">
                           <i class="icon-notebook menu-icon"></i><span class="nav-text">Pages</span>
@@ -148,7 +160,7 @@
                               </ul>
                           </li>
                       </ul>
-                  </li>
+                  </li> --}}
               </ul>
           </div>
       </div>

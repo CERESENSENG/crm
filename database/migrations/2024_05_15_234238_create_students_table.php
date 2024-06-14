@@ -16,7 +16,12 @@ return new class extends Migration
             $table->string('surname');
             $table->string('firstname');
             $table->string('othername')->nullable();
-            $table->string('app_no')->nullable();
+            $table->string('app_no')->nullable();;
+            $table->string('matric_no')->nullable();;
+            $table->string('admission_year')->nullable();;
+            $table->string('status')->default(0);
+            $table->string('approved_at')->nullable();
+            $table->string('rejected_at')->nullable();
             $table->string('password')->nullable();
             $table->unsignedBigInteger('department_id')->nullable();
             $table->foreign('department_id')->references('id')->on('departments');

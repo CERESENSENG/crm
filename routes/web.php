@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdmissionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
@@ -44,16 +45,24 @@ Route::get('/application/register/stage-2/student/{id}', [StudentController::cla
 Route::post('application/register/stage-2/student/{id}', [StudentController::class, 'applicationStore_Stage2'])->name('register.stage-2.store');
 Route::get('/application/message/{id}',[StudentController::class, 'applicationMessage'])->name('register.message');
 Route::get('/application/slip',[StudentController::class, 'ShowApplicationSlip'])->name('application.slip');
+Route::get('/applicant/details',[StudentController::class,'showApplicantFullDetails'])->name('applicant.FullDetails');
 
 // COMENT:   I have git ignore the public/upload   folder so that git wont store any passport, check  .gitignore
 
+Route::get('/admission/pending',[AdmissionController::class, 'show'])->name('admissionPending.show');
+Route::get('/admission/approve/',[AdmissionController::class, 'showApproveStudent'])->name('admissionApprove.show');
+Route::get('/admission/reject/',[AdmissionController::class, 'showRejectStudent'])->name('admissionReject.show');
+Route::post('/approve/{id}',[AdmissionController::class, 'approveStudent'])->name('approve');
+Route::post('/reject/{id}',[AdmissionController::class, 'rejectStudent'])->name('reject');
+Route::get('/admission/slip',[AdmissionController::class, 'admissionSlip'])->name('admission.slip');
 
 // COMMENT: How many dashboard so you want to ahave ?  there is home after login
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/admin', function () {
+//     return view('index');
+// })->middleware(['auth', 'verified'])->name('admin');
 
  // COMMENT:  What are you using this one for ?
+ // they are for laravel breeze
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

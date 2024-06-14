@@ -10,7 +10,7 @@ use Illuminate\Mail\Mailables\address;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class CeresenseMail extends Mailable
+class ApplicationMailNotification extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -54,7 +54,7 @@ class CeresenseMail extends Mailable
     {
           // change d name of dis test_email: use  applicationNotififcation
         return new Content(
-            view: 'application.mail.test_email',
+            view: 'application.mail.applicationNotification',
             with:['surname'=>$this->surname,
                   'firstname'=>$this->firstname,
                   'course'=>$this->course,

@@ -12,8 +12,8 @@
         </button>
     </form>
 </li>
-  
-  <div class="table-responsive">
+  <h6 class="display-5">  Welcome to Ceresense CRM</h6>
+  {{-- <div class="table-responsive">
     <table class="table table-striped table-hover">
         <thead>
             <tr>
@@ -52,7 +52,7 @@
 
 
 
-</div>
+</div> --}}
   
 
 </x-layout>

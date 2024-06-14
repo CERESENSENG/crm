@@ -9,7 +9,7 @@ use App\Http\Requests\StorestudentRequest;
 use App\Http\Requests\UpdatestudentRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use App\Mail\CeresenseMail;
+use App\Mail\ApplicationMailNotification;
 use Illuminate\Support\Facades\Mail;
 
 
@@ -97,7 +97,7 @@ class StudentController extends Controller
         
      
         $student =  Student::create($validate);
-        $student->update(['app_no'=>$appNum]);
+        $student->update(['app_no'=>$appNum,'admission_year'=>$year,'matric_no'=>$appNum]);
 
         if($student){
             return redirect()->route('register.stage-2',['id'=>$student->id]);
@@ -140,6 +140,7 @@ class StudentController extends Controller
   
           
            if($request->hasFile('passport')){
+            
             $passport = $request->File('passport');    // leave a  space for   variable asssignmnet
               $rad =  mt_rand(1000,9999);
                
@@ -186,7 +187,7 @@ class StudentController extends Controller
         
           // CHange the name of CeresenseMail  to ApplicationMailNotification
          
-        Mail::to($student->email)->send(new CeresenseMail($surname,$firstname,$course,$appno,$date));
+        //  Mail::to($student->email)->send(new ApplicationMailNotification($surname,$firstname,$course,$appno,$date));
         
         // return 'Mail sent successfully';
         return view('application.message',$data);
@@ -218,6 +219,13 @@ public function ShowApplicationSlip(Request $request) {
 }
 
 
+public function showApplicantFullDetails(request $request){
+    $appNo=$request->input('app_no');
+    $student=student::with('department')->where('app_no',$appNo)->firstorfail();
+    return view('application.applicant_details',compact('student'));
+
+        
+}
 
 
     /**

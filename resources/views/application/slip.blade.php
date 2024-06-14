@@ -20,6 +20,7 @@
             color: blueviolet;
             font-size: 50px;
         }
+
     </style>
 </head>
 
@@ -40,7 +41,7 @@
     </div>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-10">
+             <div class="col-10">
                 <div style="overflow-x: hidden" class="table-responsive">
                     <table class="table table-borderless">
                         <thead>
