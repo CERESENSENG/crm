@@ -4,15 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class department extends Model
+class Payment extends Model
 {
     use HasFactory;
     protected $guarded=[];
-   
 
-    public function students(){
-     return $this->hasMany(student::class);
+
+    public function student(){
+        return $this->hasmany(student::class);
     }
-    
 }

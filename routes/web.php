@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdmissionController;
+use App\Http\Controllers\Payments_schedule_controller;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
@@ -56,6 +57,15 @@ Route::post('/approve/{id}',[AdmissionController::class, 'approveStudent'])->nam
 Route::post('/reject/{id}',[AdmissionController::class, 'rejectStudent'])->name('reject');
 Route::get('/admission/slip',[AdmissionController::class, 'admissionSlip'])->name('admission.slip');
 
+
+Route::get('/payment', [Payments_schedule_controller::class, 'index'])->name('index.show');
+Route::post('/payment/details', [Payments_schedule_controller::class, 'getDetails'])->name('payment.details');
+Route::post('/payment/init',[Payments_schedule_controller::class,'SchoolfeePaystackInit'])->name('payment.init');
+Route::get('/payment/callback',[Payments_schedule_controller::class,'checkSchFeePaystackTxn'])->name('payment.callback');
+Route::get('/payment/back/{transactionRef}',[Payments_schedule_controller::class,'verifyPaystackTxn'])->name('payment.verify');
+
+
+    
 // COMMENT: How many dashboard so you want to ahave ?  there is home after login
 // Route::get('/admin', function () {
 //     return view('index');

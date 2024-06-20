@@ -11,11 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('payments_schedule', function (Blueprint $table) {
+        Schema::create('payment_schedules', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('department_id')->constrained();
-            $table->integer('amount');
-            $table->string('purpose');
+            $table->string('cohort');
+            $table->string('year');
+             $table->foreignId('department_id')->constrained();
+            $table->decimal('amount',10,2);
+            $table->string('purpose')->nullable();
             $table->timestamps();
         });
     }
@@ -25,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('payments_schedule');
+        Schema::dropIfExists('payment_schedules');
     }
 };

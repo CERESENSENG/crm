@@ -14,13 +14,16 @@ return new class extends Migration
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('student_id')->constrained();
-            $table->enum('amount_due', ['full payment', 'half payment']);
-            $table->string('purpose');
-            $table->string('invoice');
-            $table->string('txn_id');
-            $table->string('gateway');
-            $table->integer('amount');
-            $table->string('status_no');
+            $table->enum('payment_option', ['full_payment', 'half_payment']);
+            $table->string('purpose')->nullable();
+            $table->string('invoice')->nullable();
+            $table->string('transaction_reference');
+            $table->string('gateway')->nullable();
+            $table->decimal('amount', 10, 2);
+            $table->string('status')->default(0);
+            $table->string('gateway_response')->nullable();
+            $table->string('signature')->nullable();
+            $table->string('payment_date')->nullable();
             $table->timestamps();
         });
     }

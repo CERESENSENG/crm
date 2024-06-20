@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\student;
 use App\Models\department;
+use App\Models\Setting;
 
 use App\Http\Requests\StorestudentRequest;
 use App\Http\Requests\UpdatestudentRequest;
@@ -95,9 +96,9 @@ class StudentController extends Controller
         $appNum = 'APP/'.$year.'/'.$str ;
 
         
-     
+        $cohort=setting::where('item','cohort')->value('value');
         $student =  Student::create($validate);
-        $student->update(['app_no'=>$appNum,'admission_year'=>$year,'matric_no'=>$appNum]);
+        $student->update(['app_no'=>$appNum,'admission_year'=>$year,'matric_no'=>$appNum,'cohort'=>$cohort]);
 
         if($student){
             return redirect()->route('register.stage-2',['id'=>$student->id]);

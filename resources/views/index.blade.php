@@ -16,6 +16,7 @@
         }
 
         .main {
+            /* background-image: url('{{ asset("asset/images/image5.jpg") }}'); */
             background-image: url('{{ asset("asset/images/image.jpg") }}');
             height: 150vh;
             background-repeat: no-repeat;

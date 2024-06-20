@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\admissionMailNotification;
 use App\Models\student;
 use App\Models\department;
+use App\Models\Payment;
 use App\Mail\ApplicationMailNotification;
 use Illuminate\Support\Facades\Mail;
 
@@ -49,7 +50,7 @@ class AdmissionController extends Controller
         $firstname = $students->firstname;
         $course = $students->department->name;
         $appno = $students->app_no;
-        Mail::to($students->email)->send(new admissionMailNotification($surname, $firstname, $course, $appno,));
+        // Mail::to($students->email)->send(new admissionMailNotification($surname, $firstname, $course, $appno,));
         return redirect()->back()->with('message', 'Applicant Approved Successfully');
     }
 
@@ -86,11 +87,20 @@ class AdmissionController extends Controller
         $request = $request->input('app_no');
         $status = 1;
         $current_Date = date('F d,Y h:i:s A');
-        $students = student::with('department')->where('app_no', '=', $request)->where('status', '=', $status)->first();
-        if ($students === null) {
+
+         $getId=student::where('app_no', $request)->value('id');
+        $checkPaymentStatus = payment::where('student_id',$getId)
+        ->where('status', '=', 'success')
+        ->first();
+         $students = student::with('department')->where('app_no', '=', $request)->where('status', '=', $status)->first();
+         if ($students == null) {
             return  redirect()->back()->with('message', 'Invalid Application Details');
-        } else {
+        } elseif($checkPaymentStatus !==null){
             return view('admission.letter', compact('students', 'current_Date'));
+
+        }
+        else  {return  redirect()->back()->with('message','you have not make payment');
+            
         }
     }
 

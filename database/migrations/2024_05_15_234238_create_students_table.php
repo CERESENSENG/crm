@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('othername')->nullable();
             $table->string('app_no')->nullable();;
             $table->string('matric_no')->nullable();;
-            $table->string('admission_year')->nullable();;
+            $table->string('admission_year')->nullable();
+            $table->string('cohort')->nullable();
             $table->string('status')->default(0);
             $table->string('approved_at')->nullable();
             $table->string('rejected_at')->nullable();
