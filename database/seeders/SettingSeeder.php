@@ -14,9 +14,11 @@ class SettingSeeder extends Seeder
     public function run(): void
     {
         DB::table('settings')->insert([
-            'item'=>'cohort',
-            'value'=> 1
-
-        ]);
+            ['item'=>'cohort','value'=> 1],
+            ['item'=>'cohort','value'=> 2],
+            ['item'=>'cohort','value'=> 3],
+            ['item'=>'cohort','value'=> 4],
+    
+    ]);
     }
 }

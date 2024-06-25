@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\student;
 use App\Models\department;
 use App\Models\Setting;
+use Illuminate\Support\Facades\Log;
+
 
 use App\Http\Requests\StorestudentRequest;
 use App\Http\Requests\UpdatestudentRequest;
@@ -201,16 +203,6 @@ class StudentController extends Controller
      * Display the specified resource.
      */
 
-
-// public function ShowApplicationSlip($app)
-// {
-
-//     $student=student::with('department')->where('app_no',$app)->firstorfail();
-//     return view('application_slip',compact('student'));
-
-
-
-// }
 public function ShowApplicationSlip(Request $request) {
 
     $app_no = $request->input('app_no');
@@ -228,21 +220,174 @@ public function showApplicantFullDetails(request $request){
         
 }
 
+// public function loadSearchPage(){
+//     $depts=department::all();
+//     $settings=setting::all();
 
-    /**
+
+//     $max=intval(date('Y'));
+//     $years=[];
+//     $years[0]['name']=2020;
+//     for ($i=1; $i<=($max-2020); $i++){
+//         $years[$i]['name']=2020 +$i;    
+
+//     }
+//     // dd($years);
+//     return view('student.search', compact('depts','settings','years'));   
+// }
+
+public function searchStudent(Request $request){ 
+    $depts=department::all();
+    $settings=setting::all();
+
+
+    $max=intval(date('Y'));
+    $years=[];
+    $years[0]['name']=2020;
+    for ($i=1; $i<=($max-2020); $i++){
+        $years[$i]['name']=2020 +$i;    
+
+    }            
+
+    $validate=$request->validate([
+        'app_no' => 'nullable|string',
+        'department_id' => 'nullable|string',
+        'value' => 'nullable|string',
+        'admission_year' => 'nullable|string'
+
+
+    ]);
+    $status=1;
+    $students=Student::with('department')->where('status',$status);
+
+    if($request->input('app_no')){
+        $students->where('app_no',$request->app_no);
+
+    }
+   else if($request->input('department_id')){
+        $students->where('department_id',$request->department_id);
+
+    }
+     elseif($request->input('value')){
+        $students->where('cohort',$request->value);
+
+    }
+   else if($request->input('admission_year')){
+        $students->where('admission_year',$request->admission_year);
+
+    }
+    $studentList=$students->get();
+   
+
+    if($studentList->isEmpty()){
+        return redirect()->back()->with('message','No Match Found');
+    }
+
+
+return view('student.search',compact('studentList', 'depts','settings','years'));
+
+}
+
+public function enroll(){
+    return view('student.enrollment');
+
+}
+
+public function view(){
+    $status=1;
+    $students = student::with('department')->where('status',$status)->get();
+
+    return view('student.view', compact('students'));
+}
+   /**
      * Show the form for editing the specified resource.
      */
-    public function edit(student $student)
-    {
-        //
+    public function edit(request $request)
+    { $id=$request->id;
+      $student=student::with('department')->where('id',$id)->first();
+        
+
+    return view('student.edit',compact('student'));    
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatestudentRequest $request, student $student)
-    {
-        //
+    public function update(request $request ,$id)
+    { 
+        $validate=$request->validate([
+            'surname' => 'required|string',
+            'firstname' => 'required|string',
+            'othername' => 'required|string',
+            'phone' => 'required|string',
+            'password' => 'required|string',
+            'email' => 'required|email|unique:students',
+            'next_of_kin' => 'required|string',
+            'sponsors' => 'required|string',
+            'sponsor_phone' => 'required|string',
+
+        ]);
+        $validate['password'] = Hash::make($request->input('password'));
+        
+        $student=student::findorfail($id);
+
+       $student->update($validate);
+       
+       return redirect()->route('student.edit2',['id'=>$student->id]);  
+        
+    }
+    
+    public function editStage(Request $request, $id){
+        $student=student::where('id',$id)->first();
+        $depts=department::all();
+
+         return view('student.edit2',compact('student','depts'));
+
+    }
+    public function updateStage(request $request, $id){
+        $validate=$request->validate([
+            'next_of_kin_phone' => 'required|string',
+            'address' => 'required|string',
+            'department_id' => 'required|integer|exists:departments,id',
+            'class_method' => 'required|in:online,physical',
+            'skill_monetization' => 'required|in:yes,no',
+            'payment_method' => 'required|in:one-time,installments',
+            'hostel' => 'required|in:yes,no',
+            'wifi' => 'required|in:yes,no',
+            'passport' => 'required|image|max:1024', // Ensure the passport is an image and not too large
+            'terms' => 'accepted',
+
+        ]);
+        
+          
+        if($request->hasFile('passport')){
+            
+            $passport = $request->File('passport');    // leave a  space for   variable asssignmnet
+              $rad =  mt_rand(1000,9999);
+               
+          //  $passportName ='passport_'.time().''. $passport->getClientOriginalname();
+                    //  let hash the possport name to avoid name collision      
+            $passportName =  md5($passport->getClientOriginalName()).mt_rand(000,999).'.'.$passport->getClientOriginalExtension();
+
+
+            $passport->move(public_path('upload/'),$passportName);
+            $upload='upload/'.$passportName;
+
+            if ($upload){
+                $validate['passport']=$passportName;
+
+               }else{
+                return redirect()->back()->with('error passport upload failed');
+               }
+
+           }
+         
+
+           $student=Student::findorfail($id);
+           $student->update($validate);
+
+           return redirect()->back()->with('message', 'Record updated Successfully');
+
     }
 
     /**
@@ -252,4 +397,213 @@ public function showApplicantFullDetails(request $request){
     {
         //
     }
+
+    public function checkAppno($appNo){
+        //  dd($appNo);
+        $students=student::where('app_no',$appNo)->doesntExist();
+        // dd($students);
+        if($students == true){
+            return  $appNo;
+        }else{
+            return  false;
+        }
+
+    }
+
+
+    public function upload(Request $request){
+
+        Log::info('Upload method called');
+        $validate=$request->validate([
+            ['csv'=>'required|file|mimes:csv,txt|max:50'],
+            ['mimes:csv,txt'=>'Only CSV accept']
+        
+           ]);
+        $file=$request->file('csv')->getRealPath();
+       $studentRows=$this->readCsvToArray($file);
+    //    dd($studentRows);
+    $data=[];
+    $k=0;
+    $myErr=false;
+    $error_in_row=$error_in_csv=false;
+    $error=$error_n_appNo=false;
+   
+    foreach($studentRows as $r){
+        $surname=ucfirst(strtolower($r[0]));
+        $firstname=ucfirst(strtolower($r[1]));
+        $othername=ucfirst(strtolower($r[2]));
+        $appNo=$r[3]; 
+        $matricNo=$r[4];
+        $admission_year=$r[5];
+        $cohort=$r[6];
+        $status=$r[7];
+        $department_id=$r[8];
+        $classMethod=$r[9];
+        $next_of_kin=$r[10];
+        $next_of_kin_phone=$r[11];
+        $email=$r[12];
+        $phone=$r[13];
+        $sponsors=$r[14];
+        $address=$r[15];
+        $terms=$r[16]; 
+        $sponsorsPhone=$r[17];
+        $wifi=$r[18];
+        $hostel=$r[19];
+        $skillMonetization=$r[20];
+        $paymentMethod=$r[21];
+        
+        
+        $error_in_row=$error_in_csv=false;
+        $error=$error_n_appNo=false;
+
+        if(trim($surname) == '' && trim($firstname) == '' && trim($othername) == '' 
+          && trim($appNo) == '' && trim($matricNo) == '' && trim($admission_year) == ''
+          && trim($cohort) == '' && trim($status) == '' && trim($department_id) == ''
+          && trim($classMethod) == '' && trim($next_of_kin) == '' && trim($next_of_kin_phone) == ''
+          && trim($email) == '' &&  trim($phone) == '' && trim($sponsors) == '' && trim($address) == ''
+          && trim($terms) == '' && trim($sponsorsPhone) == '' && trim($wifi) == '' && trim($hostel) == ''
+          && trim($skillMonetization) == '' && trim($paymentMethod) == ''  ){
+
+            $error='Error ignored';
+          } else if(trim($surname) == '' || trim($firstname) == '' || trim($othername) == '' 
+          && trim($appNo) == '' || trim($matricNo) == '' || trim($admission_year) == ''
+          && trim($cohort) == '' || trim($status) == '' || trim($department_id) == ''
+          && trim($classMethod) == '' || trim($next_of_kin) == '' || trim($next_of_kin_phone) == ''
+          && trim($email) == '' ||  trim($phone) == '' || trim($sponsors) == '' || trim($address) == ''
+          && trim($terms) == '' || trim($sponsorsPhone) == '' || trim($wifi) == '' || trim($hostel) == ''
+          && trim($skillMonetization) == '' || trim($paymentMethod) == ''){
+            
+            $error_in_csv=true;
+            $error_in_row= true;
+            $error='One of required field(s) omiited .';
+            $myErr=true;
+
+          }else{
+            $dpmt= new DepartmentController();
+            $dept=$dpmt->checkDepartment($department_id);
+            
+            $appNo=$this->checkAppno($appNo);
+            
+
+            if(empty($dept)){
+                $error_in_csv=true;
+                $error_in_row=true;
+                $error.='Invalid department id';
+                $myErr=true;
+
+
+            }
+            if(empty($appNo)){
+                $error_in_csv=true;
+                $error_in_row=true;
+                $error_n_matric=true;
+                $error .=($error) ? 'and matric no already exists ':'matric no already exists';
+
+            }
+          }
+
+          $data[$k]['sn']=$k + 1;
+          $data[$k]['surname']=$surname;
+          $data[$k]['firstname']=$firstname;
+          $data[$k]['othername']=$othername;
+          $data[$k]['appNo']=$appNo;
+          $data[$k]['matricNo']=$matricNo;
+          $data[$k]['admission_year']=$admission_year;
+          $data[$k]['cohort']=$cohort;
+          $data[$k]['status']=$status;
+          $data[$k]['deptName']=$dept;
+          $data[$k]['classMethod']=$classMethod;
+          $data[$k]['next_of_kin']=$next_of_kin;
+          $data[$k]['next_of_kin_phone']=$next_of_kin_phone;
+          $data[$k]['email']=$email;
+          $data[$k]['phone']=$phone;
+          $data[$k]['sponsors']=$sponsors;
+          $data[$k]['address']=$address;
+          $data[$k]['terms']=$terms;
+          $data[$k]['sponsorsPhone']=$sponsorsPhone;
+          $data[$k]['wifi']=$wifi;
+          $data[$k]['hostel']=$hostel;
+          $data[$k]['skillMonetization']=$skillMonetization;
+          $data[$k]['paymentMethod']=$paymentMethod;
+
+
+          $data[$k]['error']=$error;
+          $data[$k]['error_in_matric']=$error_n_appNo;
+          if($error)
+              $data[$k]['comment']=$error;
+            elseif($error_in_row)
+               $data[$k]['comment']=$error;
+            else 
+              $data[$k]['comment']='ok';
+
+              $k++;
+
+
+            $result=json_decode(json_encode($data));
+          
+
+    }
+    
+    $result =  json_decode(json_encode($data));
+
+    // dd($result);
+    $storedeptId=department::find($department_id);
+    // dd ($storedeptId->id);
+
+    return view
+    ( 'student.confirm',['confirms'=>$result,'CSV_ERR'=> $myErr , 'storedeptId'=>$storedeptId]);
+      
+    }
+
+
+    public function studentEnroll(Request $request){
+        $validate=$request->validate([
+            'data' => 'required'
+
+        ],
+        [ 'required'=>':attribute is required.' ] );
+    
+        foreach($validate['data'] as $rowStd){
+            $tudent=Student::create([
+                'surname'=>$rowStd['surname'],
+                'firstname'=>$rowStd['firstname'],
+                'othername'=>$rowStd['othername'],
+                'app_no'=>$rowStd['appNo'],
+                'matric_no'=>$rowStd['matricNo'],
+                'admission_year'=>$rowStd['surname'],
+                'cohort'=>$rowStd['cohort'],
+                'status'=>$rowStd['status'],
+                'department_id'=>$rowStd['dept_id'],
+                'class_method'=>$rowStd['classMethod'],
+                'next_of_kin'=>$rowStd['next_of_kin'],
+                'next_of_kin_phone'=>$rowStd['next_of_kin_phone'],
+                'email'=>$rowStd['email'],
+                'phone'=>$rowStd['phone'],
+                'sponsors'=>$rowStd['sponsors'],
+                'address'=>$rowStd['address'],
+                'terms'=>$rowStd['terms'],
+                'sponsor_phone'=>$rowStd['sponsorsPhone'],
+                'wifi'=>$rowStd['wifi'],
+                'hostel'=>$rowStd['hostel'],
+                'skill_monetization'=>$rowStd['skillMonetization'],
+                'payment_method'=>$rowStd['paymentMethod'],
+            ]);
+
+        }
+
+        return redirect()->route('student.enroll')->with('success', 'Data stored successfully!');
+
+        
+    }
+
+
+
+
+
+ 
+
+
+
+
+    
 }

@@ -134,18 +134,18 @@
                     </div>
                 </div>
                 <div class="col">
-                    <form action="{{route('admission.slip')}}" method="GET">
-                        <label for="exampleDataList" class="form-label"><h6>Print admission letter using your application number</h6></label>
-                        @if (session('message'))
-                        <div class="alert alert-danger">
-                            {{session('message')}}
-            
-                        </div>
-                        @endif
-                        <input name="app_no" class="form-control"  placeholder="Type to search...">
-                        <button type="submit" class="btn btn-primary mt-2">Search</button>
-           
-                       </form>
+                    @if(session('message'))
+                    <div class="alert alert-danger">
+                      {{ session('message') }}
+                    </div>
+                  
+                    @endif
+                    <form action="{{route('payment.details')}}" method="POST">
+                      @csrf
+                      <label  for="exampleDataList" class="form-label">Enter application Number To Print Your Admission Letter</label>
+                      <input name="app_no" class="form-control" id="exampleDataList" placeholder="Type to search...">
+                      <button type="submit" class="btn btn-primary mt-2">Submit</button>
+                   </form>
                 </div>
             </div>
             

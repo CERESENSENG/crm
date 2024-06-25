@@ -12,9 +12,11 @@ class student extends Model
     
 
     public function department(){
+
         return $this->belongsTo(department::class);
     }
     public function payment(){
-        return $this->hasOne(payment::class);
+
+        return $this->hasMany(payment::class,);
     }
 }

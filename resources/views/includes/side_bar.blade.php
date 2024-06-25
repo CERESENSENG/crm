@@ -10,7 +10,7 @@
                           <i class="icon-speedometer menu-icon"></i><span class="nav-text">Dashboard</span>
                       </a>
                       <ul aria-expanded="false">
-                          <li><a href="./index.html">Home 1</a></li>
+                          <li><a href="{{url('/admin')}}">Home 1</a></li>
                           <!-- <li><a href="./index-2.html">Home 2</a></li> -->
                       </ul>
                   </li>
@@ -19,9 +19,9 @@
                           <i class="icon-globe-alt menu-icon"></i><span class="nav-text">Students</span>
                       </a>
                       <ul aria-expanded="false">
-                          <li><a href="./layout-blank.html">Search</a></li>
-                          <li><a href="./layout-one-column.html">View</a></li>
-                          <li><a href="./layout-two-column.html">Enrol</a></li>
+                          <li><a href="{{route('student.search')}}">Search</a></li>
+                          <li><a href="{{ route('student.view') }}">View</a></li>
+                          <li><a href="{{ route('student.enroll') }}">Enrol</a></li>
                           {{-- <li><a href="./layout-compact-nav.html">Compact Nav</a></li>
                           <li><a href="./layout-vertical.html">Vertical</a></li>
                           <li><a href="./layout-horizontal.html">Horizontal</a></li>
@@ -38,10 +38,7 @@
                           <i class="icon-screen-tablet menu-icon"></i><span class="nav-text">Admission</span>
                       </a>
                       <ul aria-expanded="false">
-                          <li><a href="{{route('admissionPending.show')}}">Pending</a></li>
-                          <li><a href="{{route('admissionApprove.show')}}">Approved</a></li>
-                          <li><a href="{{route('admissionReject.show')}}">Rejected</a></li>
-                     
+                          <li><a  href="{{route('admission.show')}}">View</a></li>
                       </ul>
                   </li> 
                   {{-- <li class="nav-label">Admission</li> --}}

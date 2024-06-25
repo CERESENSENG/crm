@@ -50,7 +50,7 @@ class AdmissionController extends Controller
         $firstname = $students->firstname;
         $course = $students->department->name;
         $appno = $students->app_no;
-        // Mail::to($students->email)->send(new admissionMailNotification($surname, $firstname, $course, $appno,));
+        //  Mail::to($students->email)->send(new admissionMailNotification($surname, $firstname, $course, $appno,));
         return redirect()->back()->with('message', 'Applicant Approved Successfully');
     }
 
@@ -65,37 +65,30 @@ class AdmissionController extends Controller
     
     public function show()
     {
-        //   $departments=Department::all();
-        $students = Student::with('department')->where('status', '0')->get();
-        // dd($students);
-        return view('admission.pending_page', compact('students'));
-    }
-    public function showApproveStudent()
-    {
 
-        $students = student::with('department')->where('status', 1)->get();
-        return view('admission.approve_page', compact('students'));
+        $pendingStudents= Student::with('department')->where('status', '0')->get();
+        $approveStudents = student::with('department')->where('status', 1)->get();
+        $rejectedStudents = student::with('department')->where('status', -1)->get();
+         return view('admission.admission', compact('pendingStudents','approveStudents','rejectedStudents'));
     }
-    public function showRejectStudent()
-    {
-
-        $students = student::with('department')->where('status', -1)->get();
-        return view('admission.reject_page', compact('students'));
-    }
+  
     public function admissionSlip(request $request)
     {
-        $request = $request->input('app_no');
+        $request = $request->query('app_no');
+        //  dd($request);
         $status = 1;
         $current_Date = date('F d,Y h:i:s A');
 
-         $getId=student::where('app_no', $request)->value('id');
+          $getId=student::where('app_no', $request)->value('id');
         $checkPaymentStatus = payment::where('student_id',$getId)
         ->where('status', '=', 'success')
         ->first();
-         $students = student::with('department')->where('app_no', '=', $request)->where('status', '=', $status)->first();
-         if ($students == null) {
-            return  redirect()->back()->with('message', 'Invalid Application Details');
-        } elseif($checkPaymentStatus !==null){
+        // dd($checkPaymentStatus);
+          $students = student::with('department')->where('app_no', '=', $request)->where('status', '=', $status)->first();
+        //  if ($students == null) {
+        //     return  redirect()->back()->with('message', 'Invalid Application Details');
+        // } else
+        if($checkPaymentStatus !== false){
             return view('admission.letter', compact('students', 'current_Date'));
 
         }

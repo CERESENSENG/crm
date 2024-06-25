@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('transaction_reference');
             $table->string('gateway')->nullable();
             $table->decimal('amount', 10, 2);
-            $table->string('status')->default(0);
+            $table->string('status')->default(0); 
             $table->string('gateway_response')->nullable();
             $table->string('signature')->nullable();
             $table->string('payment_date')->nullable();
