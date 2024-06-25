@@ -11,16 +11,16 @@ use App\Models\department;
 class DepartmentController extends Controller
 {
 
-    public function checkDepartment($dept){
+    public function getDepartment($dept){
 
         $depts=department::find($dept);
-
+        return $depts;
      
-        if ($depts){
-            return $depts->name;
-        }else{
-            return false;
-        }
+        // if ($depts){
+        //     return $depts;
+        // }else{
+        //     return false;
+        // }
 
 
     }

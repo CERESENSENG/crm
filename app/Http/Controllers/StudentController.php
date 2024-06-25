@@ -237,54 +237,87 @@ public function showApplicantFullDetails(request $request){
 // }
 
 public function searchStudent(Request $request){ 
-    $depts=department::all();
-    $settings=setting::all();
+   
+   
+  //  dd(3);
+   
+    $depts = department::all();
+    $cohorts = $this->getCohorts();
+     $years = $this->getYear();            
+
+    // $validate=$request->validate([
+    //     'app_no' => 'nullable|string',
+    //     'department_id' => 'nullable|string',
+    //     'value' => 'nullable|string',
+    //     'admission_year' => 'nullable|string'
 
 
-    $max=intval(date('Y'));
-    $years=[];
-    $years[0]['name']=2020;
-    for ($i=1; $i<=($max-2020); $i++){
-        $years[$i]['name']=2020 +$i;    
-
-    }            
-
-    $validate=$request->validate([
-        'app_no' => 'nullable|string',
-        'department_id' => 'nullable|string',
-        'value' => 'nullable|string',
-        'admission_year' => 'nullable|string'
+    // ]);
 
 
-    ]);
+    $matric = $request->app_no;
+    $dept = $request->department_id;
+    $year = $request->admission_year;
+    $cohort = $request->cohort;
+    
     $status=1;
-    $students=Student::with('department')->where('status',$status);
 
-    if($request->input('app_no')){
-        $students->where('app_no',$request->app_no);
 
-    }
-   else if($request->input('department_id')){
-        $students->where('department_id',$request->department_id);
+            //   dd(empty($request->all())? 2 : 1  );
+       $null = (   trim($cohort) == '' &&  trim($matric) == '' &&  trim($dept) == '' && trim($year) == '' );
 
-    }
-     elseif($request->input('value')){
-        $students->where('cohort',$request->value);
-
-    }
-   else if($request->input('admission_year')){
-        $students->where('admission_year',$request->admission_year);
-
-    }
-    $studentList=$students->get();
+       if( empty( $request->all()) ||  $null  )
+           $students  = [];
+       else if( $matric){
+           $students  =  Student::whereMatricNo($matric)
+           ->where('status','>',0)
+           ->get();
+       }
+   
+       else
+       $students  =  Student::
+       when($dept, function ($query) use($dept) {
+           return $query->where('department_id', $dept);
+       })
+       ->when($cohort, function ($query) use($cohort) {
+           return $query->where('cohort', $cohort);
+       })
+       ->where('status','>',0)
+       ->get();
+   
    
 
-    if($studentList->isEmpty()){
-        return redirect()->back()->with('message','No Match Found');
-    }
 
 
-return view('student.search',compact('studentList', 'depts','settings','years'));
+
+//       $students=Student::with('department')->where('status',$status);
+
+//     if($request->input('app_no')){
+//         $students->where('app_no',$request->app_no);
+
+//     }
+//    else if($request->input('department_id')){
+//         $students->where('department_id',$request->department_id);
+
+//     }
+//      elseif($request->input('value')){
+//         $students->where('cohort',$request->value);
+
+//     }
+//    else if($request->input('admission_year')){
+//         $students->where('admission_year',$request->admission_year);
+
+//     }
+//     $studentList=$students->get();
+   
+
+    // if(empty($students)){
+    //     return redirect()->to(route)->with('message','No Match Found');
+    // }
+
+  $studentList = $students;
+
+return view('student.search',compact('studentList', 'depts','cohorts','years'));
 
 }
 
@@ -480,12 +513,12 @@ public function view(){
 
           }else{
             $dpmt= new DepartmentController();
-            $dept=$dpmt->checkDepartment($department_id);
+            $dept = $dpmt->getDepartment($department_id);
             
             $appNo=$this->checkAppno($appNo);
             
 
-            if(empty($dept)){
+            if(!$dept){
                 $error_in_csv=true;
                 $error_in_row=true;
                 $error.='Invalid department id';
@@ -511,7 +544,8 @@ public function view(){
           $data[$k]['admission_year']=$admission_year;
           $data[$k]['cohort']=$cohort;
           $data[$k]['status']=$status;
-          $data[$k]['deptName']=$dept;
+          $data[$k]['deptName']=$dept->name;
+          $data[$k]['deptId']=$dept->id;
           $data[$k]['classMethod']=$classMethod;
           $data[$k]['next_of_kin']=$next_of_kin;
           $data[$k]['next_of_kin_phone']=$next_of_kin_phone;
@@ -547,11 +581,11 @@ public function view(){
     $result =  json_decode(json_encode($data));
 
     // dd($result);
-    $storedeptId=department::find($department_id);
+   // $storedeptId=department::find($department_id);
     // dd ($storedeptId->id);
 
     return view
-    ( 'student.confirm',['confirms'=>$result,'CSV_ERR'=> $myErr , 'storedeptId'=>$storedeptId]);
+    ( 'student.confirm',['confirms'=>$result,'CSV_ERR'=> $myErr  ]);
       
     }
 

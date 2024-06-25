@@ -12,8 +12,8 @@
               <div class="card-body">
                     <h4 class="card-title">Search Students</h4>
                     <div class="basic-form">
-                        <form action="{{route('student.search')}}" method="POST">
-                          @csrf
+                        <form action="{{route('student.search')}}"   >
+                          
                             <div class="row">
                                 <div class="col">
                                   <label>Application No</label>
@@ -34,8 +34,8 @@
                                   <label>Cohorts</label>
                                   <select id="cohort" name="value" class="form-control">
                                     <option id="cohort"  value='' >Choose a cohorts</option>
-                                    @foreach ($settings as $setting )
-                                    <option value="{{ $setting->id}}">{{ $setting->value }}</option>
+                                    @foreach ($cohorts as $cohort )
+                                    <option value="{{ $cohort}}">{{ $cohort }}</option>
                                       
                                     @endforeach
                                    </select>
@@ -55,7 +55,7 @@
                               </div>
                           
                             </div>
-                            <button type="submit" class="btn btn-primary">submit</button>
+                            <button type="submit" class="btn btn-primary">Search</button>
                         </form>
                     </div>
                 </div>
@@ -74,7 +74,7 @@
                   <tr>
                       <th scope="col">#</th>
                       <th scope="col">Name</th>
-                      <th scope="col">App-no</th>
+                      <th scope="col">Matric No  </th>
                       <th scope="col">Dept</th>
                       <th scope="col">Phone</th>
                       <th scope="col">Email</th>

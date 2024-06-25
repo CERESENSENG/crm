@@ -38,7 +38,7 @@
                 <input type="hidden" name="data[{{ $index }}][admission_year]" value="{{ $confirm->admission_year }}">
                 <input type="hidden" name="data[{{ $index }}][cohort]" value="{{ $confirm->cohort }}">
                 <input type="hidden" name="data[{{ $index }}][status]" value="{{ $confirm->status }}">
-                <input type="hidden" name="data[{{ $index }}][dept_id]" value="{{ $storedeptId->id ?? '' }}">
+                <input type="hidden" name="data[{{ $index }}][dept_id]" value="{{ $confirm->deptId ?? '' }}">
                 <input type="hidden" name="data[{{ $index }}][classMethod]" value="{{ $confirm->classMethod }}">
                 <input type="hidden" name="data[{{ $index }}][next_of_kin]" value="{{ $confirm->next_of_kin }}">
                 <input type="hidden" name="data[{{ $index }}][next_of_kin_phone]" value="{{ $confirm->next_of_kin_phone }}">

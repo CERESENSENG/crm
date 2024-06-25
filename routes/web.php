@@ -30,7 +30,7 @@ Route::get('/', function () {
 });
 
 
-Route::get('/admin', [StudentController::class, 'index'])->middleware(['auth', 'verified'])->name('admin');
+
 
 // Route::get('/test', function () {
 //     return view('test');
@@ -69,21 +69,13 @@ Route::get('/payment/receipts/{reference}', [Payments_schedule_controller::class
 
 // Route::get('/students/load',[StudentController::class, 'loadSearchPage'])->name('students.load');
 // Route::post('/student/search',[StudentController::class, 'searchStudent'])->name('student.search');
-Route::match(['get','post'], 'filter/students',[StudentController::class,'searchStudent'])->name('student.search');
-Route::get('/student/enrollment',[StudentController::class, 'enroll'])->name('student.enroll');
-Route::Post('/student/upload/Page',[StudentController::class, 'upload'])->name('student.upload');
-Route::Post('/student/store',[StudentController::class, 'studentEnroll'])->name('student.storecsv');
+
 
 // Route::get('/student/enroll/confirm',[StudentController::class, 'studentEnroll'])->name('confirm.enroll');
 
 
 
 
-Route::get('/student/view',[StudentController::class,'view'])->name('student.view');
-Route::get('/student',[StudentController::class, 'edit'])->name('student.edit');
-Route::put('/student/{id}',[StudentController::class, 'update'])->name('edit.stage-1.store');
-Route::get('/student/continue/{id}',[StudentController::class, 'editStage'])->name('student.edit2');
-Route::put('/student/continue/{id}',[StudentController::class, 'updateStage'])->name('edit.stage-2.store');
 
     
 // COMMENT: How many dashboard so you want to ahave ?  there is home after login
@@ -92,8 +84,29 @@ Route::put('/student/continue/{id}',[StudentController::class, 'updateStage'])->
 // })->middleware(['auth', 'verified'])->name('admin');
 
  // COMMENT:  What are you using this one for ?
+
  // they are for laravel breeze
-Route::middleware('auth')->group(function () {
+
+ //Route::get('/admin', [StudentController::class, 'index'])->middleware(['auth', 'verified'])->name('admin');
+ Route::middleware(['auth', 'verified'])->group(function () {
+  
+  
+  Route::get('/dashboard',[StudentController::class, 'index'])->name('admin');  
+
+  Route::get('/student/search',[StudentController::class, 'searchStudent'])->name('student.search');
+Route::get('/student/view',[StudentController::class,'view'])->name('student.view');
+Route::get('/student',[StudentController::class, 'edit'])->name('student.edit');
+Route::put('/student/{id}',[StudentController::class, 'update'])->name('edit.stage-1.store');
+Route::get('/student/continue/{id}',[StudentController::class, 'editStage'])->name('student.edit2');
+Route::put('/student/continue/{id}',[StudentController::class, 'updateStage'])->name('edit.stage-2.store');
+  
+  //Route::match(['get','post'], 'filter/students',[StudentController::class,'searchStudent'])->name('student.search');
+ 
+  Route::get('/student/enrollment',[StudentController::class, 'enroll'])->name('student.enroll');
+  Route::Post('/student/upload/Page',[StudentController::class, 'upload'])->name('student.upload');
+  Route::Post('/student/store',[StudentController::class, 'studentEnroll'])->name('student.storecsv');
+
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
