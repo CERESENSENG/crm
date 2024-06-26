@@ -143,7 +143,15 @@
                     <form action="{{route('payment.details')}}" method="POST">
                       @csrf
                       <label  for="exampleDataList" class="form-label">Enter application Number To Print Your Admission Letter</label>
+                      @isset($appNo)
+                      
+                      <input name="app_no" value = "{{ $appNo }}" class="form-control" id="exampleDataList" placeholder="Type to search...">
+                      @else
                       <input name="app_no" class="form-control" id="exampleDataList" placeholder="Type to search...">
+        
+                      @endisset
+                    
+                      
                       <button type="submit" class="btn btn-primary mt-2">Submit</button>
                    </form>
                 </div>

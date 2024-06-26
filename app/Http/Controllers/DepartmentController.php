@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\student;
-use App\Models\department;
+use App\Models\Department;
+use App\Models\User;
 
 
 class DepartmentController extends Controller
@@ -28,8 +29,13 @@ class DepartmentController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        //
+    { 
+    // $depts=Department::find(1);
+         $depts=Department::with('user')->get();
+         dd($depts);
+      
+             return view('department.view',compact('depts'));
+        
     }
 
     /**
@@ -59,9 +65,9 @@ class DepartmentController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(request $request, $id)
     {
-        //
+        dd($id);
     }
 
     /**

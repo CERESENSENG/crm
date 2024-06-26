@@ -426,9 +426,13 @@ public function view(){
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(student $student)
-    {
-        //
+    public function destroy(Request $request)
+    {    $student = $request->input('student_id');
+        $delStudent=Student::find($student);
+        $delStudent->delete();
+        return redirect()->back()->with('success','Student Data Deleted Successfully');
+        
+    
     }
 
     public function checkAppno($appNo){

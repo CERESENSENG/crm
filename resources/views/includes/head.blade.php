@@ -16,4 +16,10 @@
   <link rel="stylesheet" href="{{asset('asset/plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css')}}">
   <!-- Custom Stylesheet -->
   <link href="{{asset('asset/css/style.css')}}" rel="stylesheet">
+  <link href="{{asset('asset/css/font-awesome.min.css')}}" rel="stylesheet">
+
+
+  <link href="{{asset('asset/plugins/tables/css/datatable/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
+
+  
 </head>

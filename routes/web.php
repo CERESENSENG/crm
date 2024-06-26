@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdmissionController;
+use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\Payments_schedule_controller;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
@@ -28,6 +29,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('index');
 });
+
+Route::get('/home',[AdmissionController::class, 'getAppnoToHome'])->name('appNo.home');
 
 
 
@@ -88,12 +91,12 @@ Route::get('/payment/receipts/{reference}', [Payments_schedule_controller::class
  // they are for laravel breeze
 
  //Route::get('/admin', [StudentController::class, 'index'])->middleware(['auth', 'verified'])->name('admin');
- Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
   
   
-  Route::get('/dashboard',[StudentController::class, 'index'])->name('admin');  
+Route::get('/dashboard',[StudentController::class, 'index'])->name('admin');  
 
-  Route::get('/student/search',[StudentController::class, 'searchStudent'])->name('student.search');
+Route::get('/student/search',[StudentController::class, 'searchStudent'])->name('student.search');
 Route::get('/student/view',[StudentController::class,'view'])->name('student.view');
 Route::get('/student',[StudentController::class, 'edit'])->name('student.edit');
 Route::put('/student/{id}',[StudentController::class, 'update'])->name('edit.stage-1.store');
@@ -105,6 +108,11 @@ Route::put('/student/continue/{id}',[StudentController::class, 'updateStage'])->
   Route::get('/student/enrollment',[StudentController::class, 'enroll'])->name('student.enroll');
   Route::Post('/student/upload/Page',[StudentController::class, 'upload'])->name('student.upload');
   Route::Post('/student/store',[StudentController::class, 'studentEnroll'])->name('student.storecsv');
+  Route::delete('/student/delete',[StudentController::class, 'destroy'])->name('student.destroy');
+
+  //DEPARTMENTS ROUTES
+  Route::get('/department/view',[DepartmentController::class, 'index'])->name('viewall.dept');
+  Route::put('/department/edit/{id}',[DepartmentController::class, 'edit'])->name('dept.edit');
 
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -17,6 +17,12 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+     public function department(){
+
+        return $this->hasOne(department::class, 'foreign_key','hod_id');
+     }
+
+
     protected $fillable = [
         'name',
         'email',

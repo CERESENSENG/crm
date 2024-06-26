@@ -11,7 +11,6 @@
                       </a>
                       <ul aria-expanded="false">
                           <li><a href="{{url('/admin')}}">Home 1</a></li>
-                          <!-- <li><a href="./index-2.html">Home 2</a></li> -->
                       </ul>
                   </li>
                   <li class="mega-menu mega-menu-sm">
@@ -22,15 +21,7 @@
                           <li><a href="{{route('student.search')}}">Search</a></li>
                           <li><a href="{{ route('student.view') }}">View</a></li>
                           <li><a href="{{ route('student.enroll') }}">Enrol</a></li>
-                          {{-- <li><a href="./layout-compact-nav.html">Compact Nav</a></li>
-                          <li><a href="./layout-vertical.html">Vertical</a></li>
-                          <li><a href="./layout-horizontal.html">Horizontal</a></li>
-                          <li><a href="./layout-boxed.html">Boxed</a></li>
-                          <li><a href="./layout-wide.html">Wide</a></li>
-                          
-                          
-                          <li><a href="./layout-fixed-header.html">Fixed Header</a></li>
-                          <li><a href="layout-fixed-sidebar.html">Fixed Sidebar</a></li> --}}
+            
                       </ul>
                   </li>
                    <li>
@@ -40,9 +31,7 @@
                       <ul aria-expanded="false">
                           <li><a  href="{{route('admission.show')}}">View</a></li>
                       </ul>
-                  </li> 
-                  {{-- <li class="nav-label">Admission</li> --}}
-                  
+                  </li>  
                   <li>
                       <a class="has-arrow" href="javascript:void()" aria-expanded="false">
                           <i class="icon-envelope menu-icon"></i> <span class="nav-text">Payment</span>
@@ -53,16 +42,17 @@
                           <li><a href="./email-compose.html">Upload</a></li>
                       </ul>
                   </li>
-                  {{-- <li>
+                   <li>
                       <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                          <i class="icon-screen-tablet menu-icon"></i><span class="nav-text">Apps</span>
+                          <i class="icon-screen-tablet menu-icon"></i><span class="nav-text">Departments</span>
                       </a>
                       <ul aria-expanded="false">
-                          <li><a href="./app-profile.html">Profile</a></li>
-                          <li><a href="./app-calender.html">Calender</a></li>
+                          <li><a href="{{ route('viewall.dept') }}">View Department</a></li>
+                          <li><a href="./app-calender.html">Edit Department</a></li>
+                          <li><a href="./app-calender.html">Add Department</a></li>
                       </ul>
-                  </li> --}}
-                  <li>
+                  </li> 
+                  {{-- <li>
                       <a class="has-arrow" href="javascript:void()" aria-expanded="false">
                           <i class="icon-graph menu-icon"></i> <span class="nav-text">Charts</span>
                       </a>
@@ -74,7 +64,7 @@
                           <li><a href="./chart-sparkline.html">Sparkline</a></li>
                           <li><a href="./chart-peity.html">Peity</a></li>
                       </ul>
-                  </li>
+                  </li> --}}
                   {{-- <li class="nav-label">UI Components</li>
                   <li>
                       <a class="has-arrow" href="javascript:void()" aria-expanded="false">

@@ -11,7 +11,7 @@
     <h6>Name:  {{$surname}}  {{$firstname}} </h6>
     <h6>Course offered:  {{$course}} </h6>
      <p>Click here to print your admission letter</p>
-    <a  target="_blank" href="{{ url('/') }}">
+    <a  target="_blank" href="{{ route('appNo.home',['appNo'=>$appno]) }}">
       <button type="button" class="btn btn-success">Print admission letter</button>
     </a> 
   </div>

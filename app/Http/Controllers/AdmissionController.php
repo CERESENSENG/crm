@@ -37,6 +37,14 @@ class AdmissionController extends Controller
         //
     }
 
+    public function getAppnoToHome(Request $request){
+        // dd($request->appNo);
+        $appNo=$request->appNo;
+
+        return view('index',['appNo'=>$appNo]);
+
+    }
+
     /**
      * Display the specified resource.
      */
@@ -50,7 +58,7 @@ class AdmissionController extends Controller
         $firstname = $students->firstname;
         $course = $students->department->name;
         $appno = $students->app_no;
-        //  Mail::to($students->email)->send(new admissionMailNotification($surname, $firstname, $course, $appno,));
+         Mail::to($students->email)->send(new admissionMailNotification($surname, $firstname, $course, $appno,));
         return redirect()->back()->with('message', 'Applicant Approved Successfully');
     }
 

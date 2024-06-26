@@ -24,5 +24,16 @@
 <script src="{{asset('asset/plugins/chartist-plugin-tooltips/js/chartist-plugin-tooltip.min.js')}}"></script>
 
 
+<script src="{{asset('asset/plugins/common/common.min.js')}}"></script>
+      <script src="{{asset('asset/js/custom.min.js')}}"></script>
+      <script src="{{asset('asset/js/settings.js')}}"></script>
+      <script src="{{asset('asset/js/gleek.js')}}"></script>
+      <script src="{{asset('asset/js/styleSwitcher.js')}}"></script>
+  
+      <script src="{{asset('asset/plugins/tables/js/jquery.dataTables.min.js')}}"></script>
+      <script src="{{asset('asset/plugins/tables/js/datatable/dataTables.bootstrap4.min.js')}}"></script>
+      <script src="{{asset('asset/plugins/tables/js/datatable-init/datatable-basic.min.js')}}"></script>
+
+
 
 <script src="{{asset('asset/js/dashboard/dashboard-1.js')}}"></script>
