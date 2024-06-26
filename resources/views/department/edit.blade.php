@@ -1,4 +1,4 @@
-<form action="{{ route('dept.edit', ['id' => $dept->id]) }}" method="post" enctype="multipart/form-data">
+<form action="{{ route('edit.dept', ['id' => $dept->id]) }}" method="post" enctype="multipart/form-data">
     @method('put')
     @csrf
 
@@ -15,10 +15,10 @@
                     
                         <div class="form-group">
                             <label for="department_name">Department name</label>
-                            <input style="width: 95%" required name="department_name" type="text" class="form-control"
+                            <input style="width: 95%" required name="name" type="text" class="form-control"
                                 value="{{ $dept->name }}">
                             <span class="text-danger">
-                                @error('department_name')
+                                @error('name')
                                     {{ $message }}
                                 @enderror
                             </span>

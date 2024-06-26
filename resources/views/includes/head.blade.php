@@ -16,9 +16,9 @@
   <link rel="stylesheet" href="{{asset('asset/plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css')}}">
   <!-- Custom Stylesheet -->
   <link href="{{asset('asset/css/style.css')}}" rel="stylesheet">
-  <link href="{{asset('asset/css/font-awesome.min.css')}}" rel="stylesheet">
 
 
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
   <link href="{{asset('asset/plugins/tables/css/datatable/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
 
   

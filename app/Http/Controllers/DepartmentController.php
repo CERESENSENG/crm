@@ -30,20 +30,31 @@ class DepartmentController extends Controller
      */
     public function index()
     { 
-    // $depts=Department::find(1);
-         $depts=Department::with('user')->get();
-         dd($depts);
-      
-             return view('department.view',compact('depts'));
+     
+         $depts=Department::with('hod')->get();
+        //  dd($depts);
+
+      return view('department.view',compact('depts'));
         
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $validate=$request->validate([
+           'name' => 'required|string',
+           'department_code' => 'required|string',
+           'duration' => 'required|string',
+
+        ]);
+
+
+         $status=1;
+        $depts = Department::create($validate);
+
+        return redirect()->back()->with('message','Department Created Successfully');
     }
 
     /**
@@ -66,8 +77,21 @@ class DepartmentController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit(request $request, $id)
-    {
-        dd($id);
+    {    $deptId=$request->id;
+        
+        $validate=$request->validate([
+        'name'=>'required|string',
+        'department_code'=>'required|string',
+        'duration'=>'required|string',
+
+    ]);
+
+    $dept=Department::find($deptId);
+    
+    $dept->update($validate);
+
+    return redirect()->back()->with('Success','Record Updated Successfully');
+        
     }
 
     /**
@@ -81,8 +105,12 @@ class DepartmentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
-        //
+    public function destroy(Request $request, $id)
+    {  $dept = $request->id;
+        $depts = Department::find($dept);
+        $depts->delete();
+
+        return redirect()->back()->with('confirm','Record Deleted Successfully');
+        
     }
 }

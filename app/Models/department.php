@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use  Illuminate\Database\Eloquent\SoftDeletes;
+
+
 
 class department extends Model
-{
+{   use SoftDeletes;
     use HasFactory;
     protected $guarded=[];
    
@@ -16,8 +18,8 @@ class department extends Model
      return $this->hasMany(student::class);
     }
 
-    public function user(){
-        return $this->belongsTo(user::class, 'hod_id');
+    public function hod(){
+        return $this->hasOne(User::class, 'id', 'hod_id',);
     }
     
 }

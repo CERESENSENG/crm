@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('department_code');
             $table->string('duration');
             $table->unsignedBigInteger('hod_id')->nullable();
-            $table->foreign('hod_id')->references('id')->on('users')->nullable();
+            $table->foreign('hod_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

@@ -5,6 +5,7 @@ use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\Payments_schedule_controller;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\UserController;
 use App\Models\student;
 use Illuminate\Support\Facades\Route;
 
@@ -112,12 +113,21 @@ Route::put('/student/continue/{id}',[StudentController::class, 'updateStage'])->
 
   //DEPARTMENTS ROUTES
   Route::get('/department/view',[DepartmentController::class, 'index'])->name('viewall.dept');
-  Route::put('/department/edit/{id}',[DepartmentController::class, 'edit'])->name('dept.edit');
+  Route::post('/department/create',[DepartmentController::class, 'create'])->name('create.dept');
+  Route::put('/department/edit/{id}',[DepartmentController::class, 'edit'])->name('edit.dept');
+  Route::Delete('/department/delete/{id}',[DepartmentController::class, 'destroy'])->name('destroy.dept');
 
+  //USER ROUTES
+  Route::get('/user/view',[UserController::class,'index'])->name('viewall.user');
+  Route::post('/user/create',[UserController::class,'create'])->name('create.user');
+  Route::put('/user/edit/{id}',[UserController::class, 'store'])->name('edit.user');
+  Route::delete('/user/delete/{id}',[UserController::class, 'destroy'])->name('destroy.user');
 
+//lARAVEL BREEZE AUTHENTICATION ROUTES
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 require __DIR__.'/auth.php';
+ 

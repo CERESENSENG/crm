@@ -9,7 +9,36 @@
               <div class="card">
                 <i class='fa-dolid fa-pen-to-square' style='font-size:36px'></i>
                   <div class="card-body">
-                      <h4 class="card-title">Data Table</h4>
+                      <h4 class="card-title">Departments Table</h4>
+                    
+                        <a class="btn btn-primary" href="#" data-toggle="modal" data-target="#basicModalCreate">Add New Department</a>
+                        @include('department.create')
+
+                        @if(session('message'))
+                        <div class="alert alert-sucesss mt-3">
+                          {{ session('message') }}
+                        </div>
+                        @elseif (session('Success'))
+                      <div class="alert alert-success mt-3">
+                        {{ session('Success') }}
+
+                      </div>
+                      @elseif (session('confirm'))
+                      <div class="alert alert-success mt-3">
+                        {{ session('confirm') }}
+
+                      </div>
+                          
+                        @endif
+                        
+                      {{-- @if (session('Success'))
+                      <div class="alert alert-success">
+                        {{ session('Success') }}
+
+                      </div>
+                          
+                      @endif --}}
+                     
                       <div class="table-responsive">
                           <table class="table table-striped table-bordered zero-configuration">
                               <thead>
@@ -24,26 +53,23 @@
                               </thead>
                               <tbody>
                                 @foreach ($depts as $index => $dept )
-                                  
+
                                 
                                 <tr>
                                   <td scope="row"> {{ $index + 1 }}</td>
                                   <td>{{ $dept->name }} </td>
                                   <td>{{ $dept->department_code }}</td>
                                   <td>{{ $dept->duration }} </td>
-                                  <td>{{ $dept->name }}</td>
-                                  @foreach ($depts->user as $users)
-                                  <td>{{ $user->name }}</td>
-                                    
-                                  @endforeach
-                                 
-
-
+                                  <td>{{ $dept->hod->name }}</td>
                                   <td>
-                                      <a class="btn btn-primary" href="#" data-toggle="modal" data-target="#basicModal{{$dept->id}}">Edit</a>
+                                    <div style="display: flex ;">
+                                        <a class="" href="#" data-toggle="modal" data-target="#basicModal{{$dept->id}}"> <i class='fas fa-edit' style='font-size:20px'></i></a>
                                       @include('department.edit')
-                                      <a class="btn btn-danger" href="#" data-toggle="modal"
-                                       data-target="#basicModal">Delete</a>
+                                      <a style="margin-left: 10px" class="" href="#" data-toggle="modal"
+                                       data-target="#basicModalDelete{{$dept->id}}"><i class='fas fa-trash-alt' style='font-size:20px;color:red'></i></a>
+                                       @include('department.delete')
+                                    </div>
+                                      
                                       
                                   </td>
                                 </tr>
