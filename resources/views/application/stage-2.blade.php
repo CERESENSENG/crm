@@ -1,29 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="{{ asset('asset/css/bootstrap.css') }}">
-    <script src="{{ asset('asset/js/bootstrap.js') }}"></script>
-    <title>Application  - Registration ::  Stage 2</title>
-</head>
+<x-pages-layout>
+    <x-slot:title>
+        Application - Registration :: Stage 2
+    </x-slot:title>
 
-<body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light py-3">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <img class="ms-2" src="/asset/images/ceresense_logo.png" alt="">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon">
-                </span>
-            </button>
-        </div>
-    </nav>
     <div class="container">
         <div class="card mt-2">
             <div class="card-header bg-secondary text-white">STEP 2/2 - OTHER INFO   </div>
@@ -31,9 +11,9 @@
                 <form action="{{ route('register.stage-2.store', ['id' => $student->id]) }}" method="POST"
                     enctype="multipart/form-data">
                     @csrf
-                    <div class="form-group">
+                    <div class="form-group  mt-2">
                         <label for="next_of_kin_phone">Next of kin phone number</label>
-                        <input name="next_of_kin_phone" type="number" class="form-control"
+                        <input name="next_of_kin_phone" type="number" class="form-control  mt-2" 
                             value="{{ old('next_of_kin_phone') }}">
                         <span class="text-danger">
                             @error('next_of_kin_phone')
@@ -41,18 +21,18 @@
                             @enderror
                         </span>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group  mt-2">
                         <label for="address">Permanent address</label>
-                        <input name="address" type="text" class="form-control" value="{{ old('address') }}">
+                        <input name="address" type="text" class="form-control  mt-2" value="{{ old('address') }}">
                         <span class="text-danger">
                             @error('address')
                                 {{ $message }}
                             @enderror
                         </span>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group mt-2">
                         <label for="department_id">Department</label>
-                        <select id="department_id" name="department_id" class="form-control">
+                        <select id="department_id" name="department_id" class="form-control  mt-2">
                             <option value=''>Select a dept</option>
                             @foreach ($depts as $dept)
                                 <option value="{{ $dept->id }}"
@@ -86,7 +66,7 @@
                             @enderror
                         </span>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group mt-2">
                         <label class="mb-2 mt-2" for="skill_monetization">Skill Monetization</label><br>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="skill_monetization"
@@ -107,7 +87,7 @@
                         </span>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group mt-2">
                         <label class="mb-2 mt-2" for="payment_method">Method Of Payment</label><br>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="payment_method"
@@ -127,7 +107,7 @@
                             @enderror
                         </span>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group mt-2">
                         <label class="mb-2 mt-2" for="hostel">Hostel Accommodation</label><br>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="hostel" id="hostel_yes"
@@ -145,7 +125,7 @@
                             @enderror
                         </span>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group mt-2">
                         <label class="mb-2 mt-2" for="wifi">School WiFi</label><br>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="wifi" id="wifi_yes"
@@ -165,7 +145,7 @@
                     </div>
                     <div class="form-group mt-3">
                         <label for="passport">Upload Passport</label>
-                        <input name="passport" type="file" class="form-control">
+                        <input name="passport" type="file" class="form-control  mt-2">
                         <span class="text-danger">
                             @error('passport')
                                 {{ $message }}
@@ -184,12 +164,12 @@
                         </span>
                     </div>
                    
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button style="float: right" type="submit" class="btn btn-primary mt-3">Submit</button>
                     
                 </form>
             </div>
         </div>
     </div>
-</body>
 
-</html>
+    
+</x-pages-layout> 

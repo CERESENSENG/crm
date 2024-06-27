@@ -30,6 +30,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('index');
 });
+Route::get('/homePage', function(){
+  return view('home');
+  })->name('home.page');
 
 Route::get('/home',[AdmissionController::class, 'getAppnoToHome'])->name('appNo.home');
 
@@ -76,7 +79,6 @@ Route::get('/payment/receipts/{reference}', [Payments_schedule_controller::class
 
 
 // Route::get('/student/enroll/confirm',[StudentController::class, 'studentEnroll'])->name('confirm.enroll');
-
 
 
 
@@ -128,6 +130,8 @@ Route::put('/student/continue/{id}',[StudentController::class, 'updateStage'])->
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+
 
 require __DIR__.'/auth.php';
  

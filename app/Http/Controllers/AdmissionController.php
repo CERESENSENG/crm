@@ -41,7 +41,7 @@ class AdmissionController extends Controller
         // dd($request->appNo);
         $appNo=$request->appNo;
 
-        return view('index',['appNo'=>$appNo]);
+        return view('home',['appNo'=>$appNo]);
 
     }
 
@@ -74,7 +74,9 @@ class AdmissionController extends Controller
     public function show()
     {
 
+        
         $pendingStudents= Student::with('department')->where('status', '0')->get();
+        // dd($pendingStudents);
         $approveStudents = student::with('department')->where('status', 1)->get();
         $rejectedStudents = student::with('department')->where('status', -1)->get();
          return view('admission.admission', compact('pendingStudents','approveStudents','rejectedStudents'));

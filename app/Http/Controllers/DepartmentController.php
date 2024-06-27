@@ -32,7 +32,7 @@ class DepartmentController extends Controller
     { 
      
          $depts=Department::with('hod')->get();
-        //  dd($depts);
+         // dd($depts);
 
       return view('department.view',compact('depts'));
         

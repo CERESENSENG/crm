@@ -14,8 +14,8 @@ class department extends Model
     protected $guarded=[];
    
 
-    public function students(){
-     return $this->hasMany(student::class);
+    public function student(){
+     return $this->hasMany(Student::class);
     }
 
     public function hod(){

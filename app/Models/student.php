@@ -14,9 +14,10 @@ class student extends Model
     
 
     public function department(){
+        return $this->belongsTo(Department::class,);
 
-        return $this->belongsTo(department::class);
     }
+
     public function payment(){
 
         return $this->hasMany(payment::class,);

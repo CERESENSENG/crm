@@ -190,7 +190,7 @@ class StudentController extends Controller
         
           // CHange the name of CeresenseMail  to ApplicationMailNotification
          
-        //  Mail::to($student->email)->send(new ApplicationMailNotification($surname,$firstname,$course,$appno,$date));
+         Mail::to($student->email)->send(new ApplicationMailNotification($surname,$firstname,$course,$appno,$date));
         
         // return 'Mail sent successfully';
         return view('application.message',$data);

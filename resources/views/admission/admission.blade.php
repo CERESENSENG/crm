@@ -43,7 +43,7 @@
                       <td scope="row"> {{ $index + 1 }}</td>
                       <td> {{ $student->firstname }}  {{ $student->surname }} {{ $student->othername }}</td>
                       <td><a href="{{route("applicant.FullDetails")}}? app_no={{urlencode($student->app_no)}}">{{$student->app_no}}</a></td>
-                      <td> {{ $student->department->name }}</td>
+                       <td> {{ $student->department->name }}</td> 
                       <td>{{$student->phone}} </td>
                       
                       <td>

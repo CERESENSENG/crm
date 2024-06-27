@@ -1,84 +1,115 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ asset('asset/css/bootstrap.css') }}">
-    <title>Admission Letter</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            line-height: 1.6;
-        }
-        h1, p {
-            margin: 0 0 20px;
-        }
-        .header, .footer {
-            text-align: center;
-        }
-        .footer {
-            margin-top: 40px;
-            font-size: 0.9em;
-        }
-        .signature {
-            margin-top: 40px;
-        }
-    </style>
-</head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Admission</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+  
+    <!-- Favicons -->
+    <link href="{{asset('assets/img/favicon.png')}}" rel="icon">
+    <link href="{{asset('assets/img/apple-touch-icon.png')}}" rel="apple-touch-icon">
+  
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  
+    
+    <!-- Main CSS File -->
+    <link href="{{asset('assets/css/main.css')}}" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  
+    <!-- =======================================================
+    * Template Name: Mentor
+    * Template URL: https://bootstrapmade.com/mentor-free-education-bootstrap-theme/
+    * Updated: Jun 14 2024 with Bootstrap v5.3.3
+    * Author: BootstrapMade.com
+    * License: https://bootstrapmade.com/license/
+    ======================================================== -->
+  </head>
 <body>
-  @if($students)
-    <div class="container-fluid">
-        <div class="header">
-            <div class="text-center mt-4">
-                <img height="30%"  src="/asset/images/ceresense_logo.png" alt="">
-                <h6><a href="">www.ceresense.com.ng</a></h6>
-                <h6 class="fw-light">No 2,foyeke street,opposite tawheed junction, basin, ilorin, kwara state.</h6>
+    @if($students)
+    <div class="admission-logo-watermark text-center">
+        <img src="{{asset('assets/img/favicon.png')}}" alt="Logo">
+    </div>
+
+    <div class="container p-3 p-md-4 p-lg-5 ">
+        <!-- Header Section -->
+        <div class="admission-header-section row">
+            <div class="col-2 admission-logo">
+                <img src="{{asset('assets/img/favicon.png')}}" alt="School Logo">
             </div>
-            
+            <div class="col-10 text-center">
+                <h1 class="school-name">Ceresense ICT Institution</h1>
+                <h5 class="school-address">123 Main Street, Ilorin, Nigeria</h5>
+                <h6 class="school-website">Website: <a href="">www.ceresense.com</a> | Contact: <span
+                        class="school-contact">09123456789</span></h6>
+            </div>
         </div>
-        <p class="fw-bold">Dear {{$students->firstname}} {{$students->surname}} {{$students->othername}}</p>
+        <!-- date -->
+        <div class="text-right mt-2">
+            <h6>{{$current_Date}}</h6>
+        </div>
 
-        <h1>Subject: Admission Offer to Ceresense Tech School</h1>
+        <!-- Student Information Section -->
+        <div class="student-info ">
+            <img style="" width="100px" height="100px" src="{{ asset('upload/' . $students->passport) }}"
+              alt="">
+            <p class="mb-0 mt-1"><strong>Name:</strong> {{$students->firstname}} {{$students->surname}} {{$students->othername}}</p>
+            <p><strong>App No:</strong> {{ $students->app_no}}</p>
+        </div>
 
-        <p>We are delighted to inform you that you have been granted admission to Ceresense Tech School for the [academic year/semester]. Congratulations on your achievement!</p>
+        <!-- Main Letter Section -->
+        <div class="mt-2">
+            <h4 class="text-center">Admission Letter</h4>
+            <p>Dear {{$students->firstname}} {{$students->surname}},</p>
+            <p>We are pleased to inform you that you have been offered provisional admission into the Ceresense ICT
+                Institution for the <strong>2024/2025</strong> academic session. We are excited to welcome you to our
+                institution and look forward to supporting you in your academic journey.</p>
 
-        <p>At Ceresense Tech School, we are committed to fostering innovation, critical thinking, and hands-on experience in the fields of technology and engineering. Your application stood out for its exemplary academic performance, extracurricular involvement, and strong personal statement. We are confident that you will contribute significantly to our vibrant community.</p>
+            <div class="mt-3">
+                <!-- note -->
+                <h5 class="mt-2">NOTE:</h5>
+                <p>Student should note that they must pay all fees at the commencement of registration in the
+                    Institution Campus.</p>
+                <p>For the purpose of registration, students are required to bring the following items along:</p>
+                <ul>
+                    <li>The original letter of provisional admission.</li>
+                    <li>Original O level Result/Certificate(s) of Education qualification claimed.</li>
+                    <li>Original Birth Certificate or statutory declaration of age.</li>
+                    <li>Four (4) Passport Size Photographs.</li>
+                    <li>Proof of State of origin signed by the Secretary of your Local Government.</li>
+                </ul>
+                <p>If you accept this offer, you are to resume on: <strong>Monday 12th August, 2024.</strong></p>
+                <p>Please note that all your documents and claims submitted are subject to verification and any false
+                    submission will lead to the withdrawal of the admission and possible sanction.</p>
+                <p>Please note, this offer of Admission is not transferable to another academic session.</p>
+                <p>Ceresense ICT Institution opens for the <strong>2024/2025</strong> academic session on <strong>Monday
+                        12th August, 2024</strong> while orientation and registration for the fresher’s will commence
+                    immediately. Please note that late registration will attract penalty.</p>
+                <p>Please accept my congratulations.</p>
+            </div>
+        </div>
 
-        <p>Here are the details of your admission:</p>
-
-        <ul>
-            <li><strong>Program:</strong>{{$students->department->name}}</li>
-            <li><strong>Duration:</strong>{{$students->department->duration}}</li>
-            <li><strong>Hostel:</strong>{{$students->hostel}}</li>
-            <li><strong>Wifi:</strong>{{$students->wifi}}</li>
-            <li><strong>Skill_monetization:</strong>{{$students->skill_monetization}}</li>
-        </ul>
-
-        <p>Please find enclosed the following documents for your reference:</p>
-        <ul>
-            <li><strong>Admission Agreement:</strong> This document outlines the terms and conditions of your admission. Kindly review, sign, and return a copy to our admissions office by [deadline date].</li>
-            <li><strong>Fee Structure and Payment Schedule:</strong> Details regarding tuition fees, payment deadlines, and available payment plans.</li>
-            <li><strong>Class Schedule:</strong> A tentative schedule of your classes for the cohorts</li>
-           
-        </ul>
-
-        <p>To confirm your acceptance of this offer, please complete the enclosed Admission Agreement and submit it along with the required deposit by [acceptance deadline]. You can submit these documents either by mail or through our online portal at <a href="ceresense.com.ng">Ceresense.com.ng</a></p>
-
-        <p>We look forward to welcoming you to the Ceresense Tech School family. Should you have any questions or need further assistance, please do not hesitate to contact our admissions office at [admissions office contact information]. We are here to support you every step of the way.</p>
-
-        <p>Once again, congratulations on your admission. We are excited to see the remarkable contributions you will make to our community.</p>
-
-        <div class="signature">
-            <p>Warm regards,</p>
-            <p>[Admin]</p>
-            <p>{{$current_Date}}</p>            
+        <!-- Footer Section -->
+        <div class="text-right mt-2">
+            <p class="signature">_______________ Dr. Jane Smith</p>
+            <p>Head of Ceresense ICT Institution</p>
+            <p>{{$current_Date}}</p>
         </div>
     </div>
-    @endif
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+@endif
 </body>
+
 </html>
 
  
