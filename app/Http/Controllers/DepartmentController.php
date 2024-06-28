@@ -32,27 +32,31 @@ class DepartmentController extends Controller
     { 
      
          $depts=Department::with('hod')->get();
-         // dd($depts);
+         $hods = $this->getHod();
+        //   dd($hods);
 
-      return view('department.view',compact('depts'));
+      return view('department.view',compact('depts','hods'));
         
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Request $request)
-    {
-        $validate=$request->validate([
+    public function createDept(Request $request)
+    { 
+        // dd($request->hod_id);
+        $validate= $request->validate([
            'name' => 'required|string',
            'department_code' => 'required|string',
            'duration' => 'required|string',
+           'hod_id' => 'required'
 
         ]);
 
-
-         $status=1;
+    //    dd($validate);
+       
         $depts = Department::create($validate);
+        // dd($depts);
 
         return redirect()->back()->with('message','Department Created Successfully');
     }

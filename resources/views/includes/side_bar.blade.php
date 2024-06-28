@@ -31,15 +31,25 @@
                       <ul aria-expanded="false">
                           <li><a  href="{{route('admission.show')}}">View</a></li>
                       </ul>
-                  </li>  
+                  </li> 
+                  <li>
+                    <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                        <i class="icon-envelope menu-icon"></i> <span class="nav-text">Payments</span>
+                    </a>
+                    <ul aria-expanded="false">
+                        <li><a href="{{ route('view.payment') }}">View</a></li>
+                        <li><a href="{{ route('search.payment') }}">Search</a></li>
+                        <li><a href="{{ route('upload.page') }}">Upload Payments</a></li>
+                        
+                    </ul>
+                </li> 
                   <li>
                       <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                          <i class="icon-envelope menu-icon"></i> <span class="nav-text">Payment</span>
+                          <i class="icon-envelope menu-icon"></i> <span class="nav-text">Payment Schedule</span>
                       </a>
                       <ul aria-expanded="false">
-                          <li><a href="./email-inbox.html">Schedule</a></li>
-                          <li><a href="./email-read.html">Manage</a></li>
-                          <li><a href="./email-compose.html">Upload</a></li>
+                          <li><a href="{{ route('view.schedule') }}">View Schedule</a></li>
+                          
                       </ul>
                   </li>
                    <li>

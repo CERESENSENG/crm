@@ -72,8 +72,9 @@ class Payments_schedule_controller extends Controller
       $inv = 'INV' . str_shuffle($m . $ran . $uniq);
       $students = $student->email;
       $student_id = $student->id;
+      $deptId = $student->department_id;
 
-      return view('payments.cart', compact('schedule', 'txn', 'students', 'student_id', 'inv'));
+      return view('payments.cart', compact('schedule', 'txn', 'students', 'student_id', 'deptId', 'inv'));
     }
 
   }
@@ -89,9 +90,14 @@ class Payments_schedule_controller extends Controller
     $paymentOption = $request->input('payment_option');
     $email = $request->email;
     $inv = $request->inv;
+    $deptId=$request->department_id;
 
+   $checkSchedule = Payment_schedule::where('department_id', $deptId)->find($deptId);
+   $totalAmount = $checkSchedule->amount;
 
+   $amountDue = ( $totalAmount - $amount);
 
+  //  dd($amountDue);
 
     $store = Payment::create([
       'transaction_reference' => $transactionRef,
@@ -99,8 +105,7 @@ class Payments_schedule_controller extends Controller
       'amount' => $amount,
       'payment_option' => $paymentOption,
       'invoice' => $inv,
-
-
+      'amount_due' => $amountDue,
     ]);
 
 
@@ -239,4 +244,73 @@ class Payments_schedule_controller extends Controller
       return view('payments.receipt', compact('payment', 'student'));
     } else return view('error');
   }
+
+  public function  showSchedule(){
+    
+    $payments = Payment_schedule::with('department')->get();
+    $years = $this->getYear();
+    $cohorts = $this->getCohorts();
+    $depts = $this->deptId();
+   
+     
+    return view('payment_schedule.view',compact('payments','years','cohorts','depts'));
+
+  }
+
+  public function createSchedule(Request $request)
+  {  
+    // dd($request->cohort);
+    $validate= $request->validate([
+      'cohort' => 'required|string',
+       'department_id' => 'required|string',
+      'year' => 'required|string',
+      'amount' => 'required|string',
+      'purpose' => 'required|string',
+
+   ]);
+
+   $schedule=Payment_schedule::create($validate);
+
+   return redirect()->back()->with('message','New schedule Added Succesfully');
+
+
+
+  }
+
+  public function updateSchedule(Request $request ,$id)
+  { 
+    $id=$request->id; 
+    // dd($request->cohort);
+    $validate= $request->validate([
+      'cohort' => 'required|string',
+       'department_id' => 'required|string',
+      'year' => 'required|string',
+      'amount' => 'required|string',
+      'purpose' => 'required|string',
+
+   ]);
+
+   $schedule=Payment_schedule::find($id);
+
+   $schedule->update($validate);
+
+   return redirect()->back()->with('Success',' schedule Updated  Succesfully');
+
+
+
+  }
+  public function deleteSchedule(Request $request, $id)
+  {  $id = $request->id;
+    // dd($id);
+      $schedule = Payment_schedule::find($id);
+      $schedule->delete();
+
+      return redirect()->back()->with('confirm','Record Deleted Successfully');
+      
+  }
+
+
+
+
+
 }

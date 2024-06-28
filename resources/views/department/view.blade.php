@@ -15,7 +15,7 @@
                         @include('department.create')
 
                         @if(session('message'))
-                        <div class="alert alert-sucesss mt-3">
+                        <div class="alert alert-success mt-3">
                           {{ session('message') }}
                         </div>
                         @elseif (session('Success'))
@@ -30,14 +30,7 @@
                       </div>
                           
                         @endif
-                        
-                      {{-- @if (session('Success'))
-                      <div class="alert alert-success">
-                        {{ session('Success') }}
-
-                      </div>
-                          
-                      @endif --}}
+                     
                      
                       <div class="table-responsive">
                           <table class="table table-striped table-bordered zero-configuration">

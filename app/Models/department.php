@@ -21,5 +21,6 @@ class department extends Model
     public function hod(){
         return $this->hasOne(User::class, 'id', 'hod_id',);
     }
+
     
 }

@@ -45,8 +45,6 @@ public function getYear()
 
     return $years;
 
-
-
    }
 
 
@@ -57,6 +55,26 @@ public function getYear()
           return $ch;
 
     }
+    
+    public function getHod(){
+        $arr=[1,2,3,4,5,6];
+
+        return $arr;
+    }
+  public function deptID(){
+    $id=[47,48,49,50,51,52,53,54];
+    return $id;
+  }
+
+  public function generateTxn(){
+    $bytes = openssl_random_pseudo_bytes(16);
+    $m = strtoupper(substr(bin2hex($bytes), -10));
+    $uniq = substr(hexdec(uniqid()), -5);
+    $ran = mt_rand(10000, 99999);
+    $txn = str_shuffle($m . $ran . $uniq);
+
+    return $txn;
+  }
 
 
 

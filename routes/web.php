@@ -3,9 +3,12 @@
 use App\Http\Controllers\AdmissionController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\Payments_schedule_controller;
+use App\Http\Controllers\PaymentsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UserController;
+use App\Models\Payment;
+use App\Models\Payment_schedule;
 use App\Models\student;
 use Illuminate\Support\Facades\Route;
 
@@ -115,7 +118,7 @@ Route::put('/student/continue/{id}',[StudentController::class, 'updateStage'])->
 
   //DEPARTMENTS ROUTES
   Route::get('/department/view',[DepartmentController::class, 'index'])->name('viewall.dept');
-  Route::post('/department/create',[DepartmentController::class, 'create'])->name('create.dept');
+  Route::post('/department/create',[DepartmentController::class, 'createDept'])->name('create.dept');
   Route::put('/department/edit/{id}',[DepartmentController::class, 'edit'])->name('edit.dept');
   Route::Delete('/department/delete/{id}',[DepartmentController::class, 'destroy'])->name('destroy.dept');
 
@@ -124,6 +127,24 @@ Route::put('/student/continue/{id}',[StudentController::class, 'updateStage'])->
   Route::post('/user/create',[UserController::class,'create'])->name('create.user');
   Route::put('/user/edit/{id}',[UserController::class, 'store'])->name('edit.user');
   Route::delete('/user/delete/{id}',[UserController::class, 'destroy'])->name('destroy.user');
+
+  //PAYMENTS SCHEDULE ROUTES
+  Route::get('/payments/schedule/view',[Payments_schedule_controller::class, 'showSchedule'])->name('view.schedule');
+  Route::Post('/payments/schedule/create',[Payments_schedule_controller::class, 'createSchedule'])->name('create.schedule');
+  Route::put('/payments/schedule/edit/{id}',[Payments_schedule_controller::class, 'updateSchedule'])->name('edit.schedule');
+  Route::delete('/payments/schedule/edit/{id}',[Payments_schedule_controller::class, 'deleteSchedule'])->name('delete.schedule');
+
+
+ //PAYMENTS ROUTE
+ Route::get('/payments/view',[PaymentsController::class,'index'])->name('view.payment');
+ Route::get('/payments/filter',[PaymentsController::class,'filterPayments'])->name('search.payment');
+ Route::get('/payment/upload',[PaymentsController::class, 'uploadPage'])->name('upload.page');
+ Route::post('/payment/upload/page',[PaymentsController::class, 'uploadPayments'])->name('payment.upload');
+ Route::post('/payment/store/page',[PaymentsController::class, 'storePayments'])->name('payment.storecsv');
+
+
+
+
 
 //lARAVEL BREEZE AUTHENTICATION ROUTES
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

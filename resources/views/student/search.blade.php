@@ -32,7 +32,7 @@
                                 </div>
                                 <div class="col">
                                   <label>Cohorts</label>
-                                  <select id="cohort" name="value" class="form-control">
+                                  <select id="cohort" name="cohort" class="form-control">
                                     <option id="cohort"  value='' >Choose a cohorts</option>
                                     @foreach ($cohorts as $cohort )
                                     <option value="{{ $cohort}}">{{ $cohort }}</option>

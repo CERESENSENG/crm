@@ -21,6 +21,7 @@
     </div>
     <input name="student_id"  type="hidden" value="{{ $student_id }}">
       <input name="inv"  type="hidden" value="{{$inv}}"> 
+      <input type="hidden"  name="department_id"  value="{{ $deptId }}">
     <div class="mb-3">
       <label for="transaction-reference" class="form-label">Transaction Reference</label>
       <input   name="transaction_reference" value="{{ $txn }}" type="text" id="transaction-reference" class="form-control" readonly>

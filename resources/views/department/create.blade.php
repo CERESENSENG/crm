@@ -14,7 +14,7 @@
                   
                       <div class="form-group">
                           <label for="department_name">Department name</label>
-                          <input style="width: 95%" required name="name" type="text" class="form-control"
+                          <input  required name="name" type="text" class="form-control"
                               value="{{ old('name') }}">
                           <span class="text-danger">
                               @error('name')
@@ -24,7 +24,7 @@
                       </div>
                       <div class="form-group">
                           <label for="Department_code">Department Code</label>
-                          <input style="width: 95%" required name="department_code" type="text" class="form-control"
+                          <input  required name="department_code" type="text" class="form-control"
                               value="{{ old('department_code') }} ">
                           <span class="text-danger">
                               @error('department_code')
@@ -34,7 +34,7 @@
                       </div>
                       <div class="form-group">
                           <label for="duration">Duration</label>
-                          <input style="width: 95%" required name="duration" type="text" class="form-control"
+                          <input  required name="duration" type="text" class="form-control"
                               value="{{ old('duration') }} ">
                           <span class="text-danger">
                               @error('duration')
@@ -42,6 +42,26 @@
                               @enderror
                           </span>
                       </div>
+                       
+                      <div class="form-group">
+                        <label> HOD </label>
+                        <select required id="hod_id" name="hod_id" class="form-control  mt-2">
+                            <option value=''>Choose HOD</option>
+                            @foreach ($hods as $hod)
+                                <option value="{{ $hod }}">
+                                    {{ $hod }}
+                                </option>
+                            @endforeach
+                           </select>
+                          <span class="text-danger">
+                            @error('duration')
+                                {{ $message }}
+                            @enderror
+                          </span>
+                         </select>
+                          
+                      </div>
+                     
 
                   </div>
 

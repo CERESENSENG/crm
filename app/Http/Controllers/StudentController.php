@@ -259,6 +259,7 @@ public function searchStudent(Request $request){
     $dept = $request->department_id;
     $year = $request->admission_year;
     $cohort = $request->cohort;
+    // dd($cohort);
     
     $status=1;
 
@@ -284,37 +285,7 @@ public function searchStudent(Request $request){
        })
        ->where('status','>',0)
        ->get();
-   
-   
-
-
-
-
-//       $students=Student::with('department')->where('status',$status);
-
-//     if($request->input('app_no')){
-//         $students->where('app_no',$request->app_no);
-
-//     }
-//    else if($request->input('department_id')){
-//         $students->where('department_id',$request->department_id);
-
-//     }
-//      elseif($request->input('value')){
-//         $students->where('cohort',$request->value);
-
-//     }
-//    else if($request->input('admission_year')){
-//         $students->where('admission_year',$request->admission_year);
-
-//     }
-//     $studentList=$students->get();
-   
-
-    // if(empty($students)){
-    //     return redirect()->to(route)->with('message','No Match Found');
-    // }
-
+  
   $studentList = $students;
 
 return view('student.search',compact('studentList', 'depts','cohorts','years'));
@@ -450,7 +421,7 @@ public function view(){
 
     public function upload(Request $request){
 
-        Log::info('Upload method called');
+        
         $validate=$request->validate([
             ['csv'=>'required|file|mimes:csv,txt|max:50'],
             ['mimes:csv,txt'=>'Only CSV accept']
