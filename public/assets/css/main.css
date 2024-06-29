@@ -894,6 +894,14 @@ width: 100%;
   box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.1);
 }
 
+.hero .app_number2 {
+  margin-top: 20px;
+  padding: 10px;
+  border-radius: 7px;
+  background: black;
+  box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.1);
+}
+
 .app_number .form-control {
   border: none;
 }

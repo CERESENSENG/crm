@@ -68,27 +68,5 @@
 
 
 
-
-
-
-
-
-
-
-
-    // document.addEventListener('DOMContentLoaded', function() {
-    //   var amount = document.querySelector('#amount');  
-    //   var option = document.querySelector('#payment-option');
-    //   var schedule = parseFloat("{{ $schedule }}"); 
-    //   option.addEventListener('change', function() {
-    //     if (option.value == '1') {
-    //       amount.value = (schedule / 2).toFixed(2); 
-    //     } else if (option.value == '2') {
-    //       amount.value = schedule.toFixed(2); 
-    //     } else {
-    //       amount.value = schedule.toFixed(2); 
-    //     }
-    //   });
-    // });
   </script> 
 </x-card>

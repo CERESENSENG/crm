@@ -1,4 +1,4 @@
-<x-guest-layout>
+ <x-guest-layout>
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
@@ -44,10 +44,10 @@
             </x-primary-button>
         </div>
     </form>
-</x-guest-layout>
+</x-guest-layout> 
 
 
-<x-pages-layout>
+{{-- <x-pages-layout>
     <x-slot:title>
         Admin Login Page
 
@@ -61,47 +61,76 @@
                     <div class="card" style="border-radius: 1rem;">
                         <div class="row g-0">
                             <div class="col-md-6 col-lg-5 d-none d-md-block">
-                                <img src="assets/img/image1.png" alt="login form" class="img-fluid login_form_image"
+                                <img src="{{ asset('assets/img/image1.png')}}" alt="login form" class="img-fluid login_form_image"
                                     style="border-radius: 1rem 0 0 1rem;" />
                             </div>
                             <div class="col-md-6 col-lg-7 d-flex align-items-center">
                                 <div class="card-body p-4 p-lg-5 text-black">
 
-                                    <form>
+                                     <!-- Session Status -->
+                                    <x-auth-session-status class="mb-4" :status="session('status')" />
+
+                                    <form method="POST" action="{{ route('login') }}">
+                                        @csrf
 
                                         <div class="d-flex align-items-center mb-3 pb-1">
                                             <img src="assets/img/logo.png" alt="">
                                         </div>
 
-                                        <h5 class="fw-normal mb-1 pb-3" style="letter-spacing: 1px;">Sign into your
-                                            account</h5>
+                                        
 
                                         <div data-mdb-input-init class="form-outline mb-2">
-                                            <label class="form-label" for="form2Example17">Email address</label>
-                                            <input type="email" id="form2Example17"
-                                                class="form-control form-control-lg border border-primary" />
-
+                                            <label class="form-label"   for="email" :value="__('Email')" >Email address</label>
+                                            <input type="email" id="email" class="form-control form-control-lg border border-primary" />
+                                            <x-input-error :messages="$errors->get('email')" class="mt-2" />
                                         </div>
 
                                         <div data-mdb-input-init class="form-outline mb-2">
-                                            <label class="form-label" for="form2Example27">Password</label>
-                                            <input type="password" id="form2Example27"
+                                            <label class="form-label" for="password" :value="__('Password')">Password</label>
+                                            <inputid="password" 
+                                            type="password"
+                                            name="password"
+                                            required autocomplete="current-password"
                                                 class="form-control form-control-lg border border-primary" />
+                                                <x-input-error :messages="$errors->get('password')" class="mt-2" />
 
                                         </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input"  value="{{ __('Remember me') }}" id="remember_me" type="checkbox">
+                                            <label class="form-check-label" for="remember_me">
+                                              Default checkbox
+                                            </label>
+                                          </div>
+                                          
 
                                         <div class="pt-1 mb-4">
+                                            @if (Route::has('password.request'))
+                                            <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}">
+                                                {{ __('Forgot your password?') }}
+                                            </a>
+                                        @endif
                                             <button data-mdb-button-init data-mdb-ripple-init
                                                 class="btn btn-primary btn-lg btn-block"
-                                                type="button">Login</button>
+                                                type="button">  {{ __('Log in') }}</button>
+                                        </div>
+                                        <div class="flex items-center justify-end mt-4">
+                                            @if (Route::has('password.request'))
+                                                <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}">
+                                                    {{ __('Forgot your password?') }}
+                                                </a>
+                                            @endif
+                                
+                                            <x-primary-button class="ms-3">
+                                                {{ __('Log in') }}
+                                            </x-primary-button>
                                         </div>
 
-                                        <a class="small text-muted mb-1" href="#!">Forgot password?</a>
+                                        {{-- <a class="small text-muted mb-1" href="#!">Forgot password?</a>
                                         <p class="mb-5 pb-lg-2" style="color: #3744d1;">Don't have an account? <a
                                                 href="#!" style="color: #212ca8;">Register here</a></p>
                                         <a href="#!" class="small text-muted">Terms of use.</a>
-                                        <a href="#!" class="small text-muted">Privacy policy</a>
-                                    </form>
+                                        <a href="#!" class="small text-muted">Privacy policy</a> --}}
+                                    {{-- </form>
 
                                 </div>
                             </div>
@@ -111,4 +140,4 @@
             </div>
         </div>
     </section>
-</x-pages-layout>
+</x-pages-layout> --}} 

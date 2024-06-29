@@ -72,7 +72,17 @@ Route::post('/payment/details', [Payments_schedule_controller::class, 'getDetail
 Route::post('/payment/init',[Payments_schedule_controller::class,'SchoolfeePaystackInit'])->name('payment.init');
 Route::get('/payment/callback',[Payments_schedule_controller::class,'checkSchFeePaystackTxn'])->name('payment.callback');
 Route::get('/payment/back/{transactionRef}',[Payments_schedule_controller::class,'verifyPaystackTxn'])->name('payment.verify');
-Route::get('/payment/receipts/{reference}', [Payments_schedule_controller::class, 'genReceipts'])->name('payment.receipts');
+Route::get('/payment/receipts/', [Payments_schedule_controller::class, 'genReceipts'])->name('payment.receipts');
+
+
+ //OUTSTANDING PAYMENTS ROUTE
+ Route::get('/outstanding/page', [PaymentsController::class , 'outstanding'])->name('outstanding.page');
+ Route::post('/outstanding/cart',[PaymentsController::class,  'getExistingPayment'])->name('getexisting.payment');
+ Route::post('/outstanding/initialize',[PaymentsController::class,  'outstandingPayment'])->name('payment.outstandingInit');
+ Route::get('outstanding/payment/callback',[PaymentsController::class,'checkoutstandingPaystackTxn'])->name('outstanding.callback');
+ Route::get('outstanding/receipts',[PaymentsController::class,'genoutReceipts'])->name('outstanding.receipts');
+ 
+
 
 
 
@@ -141,6 +151,7 @@ Route::put('/student/continue/{id}',[StudentController::class, 'updateStage'])->
  Route::get('/payment/upload',[PaymentsController::class, 'uploadPage'])->name('upload.page');
  Route::post('/payment/upload/page',[PaymentsController::class, 'uploadPayments'])->name('payment.upload');
  Route::post('/payment/store/page',[PaymentsController::class, 'storePayments'])->name('payment.storecsv');
+
 
 
 

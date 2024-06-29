@@ -68,25 +68,25 @@
         <div class="transaction-info mb-3">
             <div class="row">
                 <div class="col-6">
-                    <p><strong>Billed to:</strong> {{ $student->firstname }} {{ $student->othername }} {{ $student->surname }}</p>
+                    <p><strong>Billed to:</strong> {{ $payments->student->firstname }} {{ $payments->student->othername }} {{ $payments->student->surname }}</p>
 
-                    <p><strong>App No:</strong> {{ $student->app_no}}</p>
+                    <p><strong>App No:</strong> {{$payments->student->app_no}}</p>
 
-                    <p><strong>Cohort:</strong> {{ $student->cohort}}</p>
-                    <p><strong>Gateway Response:</strong>  {{ $payment->gateway_response}}</p>
+                    <p><strong>Cohort:</strong> {{$payments->student->cohort}}</p>
+                   <p><strong>Gateway Response:</strong>  {{$payments->gateway_response}}</p>
                 </div>
 
                 <div class="col-6 text-right">
-                    <p><strong>Admission Year:</strong> {{ $student->admission_year }}</p>
+                    <p><strong>Admission Year:</strong> {{$payments->student->admission_year }}</p>
 
-                    <p><strong>Transaction Ref:</strong> {{ $payment->transaction_reference }}</p>
+                     <p><strong>Transaction Ref:</strong> {{ $payments->transaction_reference }}</p> 
 
                     <p><strong>Payment Gateway:</strong> Paystack</p>
 
-                </div>
+                </div> 
             </div>
 
-        </div>
+        </div> 
 
         <!-- Payment Summary -->
         <div class="payment-summary mb-3">
@@ -103,18 +103,30 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>{{ $payment->payment_date}}</td>
-                        <td>{{ $payment->invoice}}</td>
-                        <td>{{ $payment->transaction_reference}}</</td>
-                        <td>{{ $payment->payment_option}}</td>
-                        <td>{{ $payment->amount }}</td>
-                    </tr>
-                   
+                  @php
+                  $totalAmount = 0; // Initialize total amount
+                  $index = 1; // Initialize index for row numbering
+                 @endphp  
+                  @foreach ($payment as   $invoice)
+                  <tr>
+                    <td>{{ $index}}</td>
+                    <td>{{ $invoice->amount}}</td>
+                    <td>{{ $invoice->status}}</td>
+                    <td>{{ $invoice->transaction_reference}}</</td>
+                    <td>{{ $invoice->payment_option}}</td>
+                    <td>{{ $invoice->amount_due }}</td>
+                </tr>
+                @php
+                $totalAmount += $invoice->amount; // Accumulate amount
+                $index++; // Increment row index
+                @endphp
+                    
+                  @endforeach
+                    
+      
                     <tr>
                         <td colspan="5" class="text-right"><strong>Total Amount</strong></td>
-                        <td class="unique-border"><strong>{{ $payment->amount }}</strong></td>
+                        <td class="unique-border"><strong>{{'#'. $totalAmount .'.00'}}</strong></td>
                     </tr>
                 </tbody>
             </table>
@@ -122,12 +134,12 @@
 
         <!-- Signature/Stamp Section -->
         <div class="signature-section">
-            <p class="total-amount">Total Amount: {{ $payment->amount }}</p>
+            {{-- <p class="total-amount">Total Amount: {{ $payment->amount }}</p> --}}
         </div>
         <div class="text-md-right">
           <button onclick="javascript:window.print();" class="no-print btn btn-warning btn-icon icon-left"><i class="fas fa-print"></i> Print</button>
-         <a href="{{ route('admission.slip',['app_no'=>$student->app_no]) }}">click here to Print Your Admission letter</a>
-          
+         {{-- <a href="{{ route('admission.slip',['app_no'=>$student->app_no]) }}">click here to Print Your Admission letter</a>
+           --}}
         </div>
     </div>
 

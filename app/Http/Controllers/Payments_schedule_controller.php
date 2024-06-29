@@ -64,6 +64,8 @@ class Payments_schedule_controller extends Controller
         ->where('department_id', $dept_id)
         ->where('year', $year)->value('amount');
 
+        // dd($schedule);
+
       $bytes = openssl_random_pseudo_bytes(16);
       $m = strtoupper(substr(bin2hex($bytes), -10));
       $uniq = substr(hexdec(uniqid()), -5);
@@ -92,10 +94,10 @@ class Payments_schedule_controller extends Controller
     $inv = $request->inv;
     $deptId=$request->department_id;
 
-   $checkSchedule = Payment_schedule::where('department_id', $deptId)->find($deptId);
-   $totalAmount = $checkSchedule->amount;
+  //  $checkSchedule = Payment_schedule::where('department_id', $deptId)->find($deptId);
+  //  $totalAmount = $checkSchedule->amount;
 
-   $amountDue = ( $totalAmount - $amount);
+  //  $amountDue = ( $totalAmount - $amount);
 
   //  dd($amountDue);
 
@@ -105,7 +107,7 @@ class Payments_schedule_controller extends Controller
       'amount' => $amount,
       'payment_option' => $paymentOption,
       'invoice' => $inv,
-      'amount_due' => $amountDue,
+      // 'amount_due' => $amountDue,
     ]);
 
 
@@ -115,8 +117,11 @@ class Payments_schedule_controller extends Controller
       'email' => $email,
       'amount' => $amount * 100,
       'reference' => $transactionRef,
-      'student_id' => $student,
       'callback_url' => 'http://localhost:8000/payment/callback',
+      'metadata' => json_encode([
+                   'deptId' => $deptId,
+
+      ])
 
     ];
     //  dd($val);
@@ -151,6 +156,9 @@ class Payments_schedule_controller extends Controller
     $payment_url = $new['data']['authorization_url'];
 
     return redirect::to($payment_url);
+
+
+    
   }
 
   public function checkSchFeePaystackTxn(request $request)
@@ -208,15 +216,23 @@ class Payments_schedule_controller extends Controller
 
       $reference = $responses->data->reference;
       $amount = $responses->data->amount;
+      $deptId = $responses->data->metadata->deptId;
+        
+      // dd($deptId);
       $amountInNaira = ($amount / 100);
 
+       $checkSchedule = Payment_schedule::where('department_id', $deptId)->find($deptId);
+        
+      $totalAmount = $checkSchedule->amount;
 
+       $amountDue = ( $totalAmount - $amountInNaira);
 
       $getId = Payment::where('transaction_reference', $transactionRef)->value('id');
 
 
       $storeTransaction = [
         'amount' => $amountInNaira,
+        'amount_due' => $amountDue,
         'transaction_reference' => $reference,
         'status' => $status,
         'gateway_response' => $gatewayRes,
@@ -235,13 +251,21 @@ class Payments_schedule_controller extends Controller
   public function genReceipts(request $request)
   {
     $reference = $request->reference;
+    // $invoice = $request->invoice;
+
+    // dd($invoice);
     $payment = Payment::with('student')
       ->where('transaction_reference', $reference)
       ->where('status', 'success')
       ->where('gateway_response', 'successful')->first();
+
+    // $getInvoice = payment::where('invoice',$invoice )->get(); 
+    
+
+      
     if ($payment) {
       $student = $payment->student;
-      return view('payments.receipt', compact('payment', 'student'));
+      return view('payments.receipt', compact('payment', 'student',));
     } else return view('error');
   }
 

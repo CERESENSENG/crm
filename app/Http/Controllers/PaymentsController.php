@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 use App\Models\student;
 use App\Models\Payment;
+use App\Models\Payment_schedule;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class PaymentsController extends Controller
 {
@@ -224,6 +226,307 @@ class PaymentsController extends Controller
 
        
     }
+
+    public function outstanding()
+    {
+       
+        return view('payments.balance');
+
+    }
+
+    public function getExistingPayment(request $request)
+    {
+        $appNo = $request->app_no;
+      
+        $getStd = student::with('payment')->where('app_no', $appNo)->first();
+       
+
+
+
+        if($getStd == Null )
+        {
+            return redirect()->back()->with('message', 'No Record Found');   
+        }
+        $getId=$getStd->id;
+        $idExists = Payment::where('student_id', $getId)->doesntexist();
+        if($idExists)
+        {
+           return redirect()->back()->with('message', 'No Record Found');  
+        }
+
+        if($getStd->status <= 0)
+        {
+            return redirect()->back()->with('status', 'You have not been offered admission yet');
+        }
+
+        $student_id = $getStd->id;
+        $email = $getStd->email;
+        $app_no = $getStd->app_no;
+        $deptId = $getStd->department_id;
+        // $txn = $this->generateTxn();
+           
+          $fail = 0; 
+          $pending = 'pending';
+          $amount_due = 0;
+
+        foreach($getStd->payment as $std)
+        {
+            $chkStatus = $std->status;
+            $amountDue = $std->amount_due;
+            $amountPaidBefore = $std->amount;
+            $inv = $std->invoice;
+        
+
+
+        }
+        
+        if(!empty($chkStatus)  && $chkStatus !== $fail && $chkStatus !== $pending &&
+           !empty($amountDue) && $amountDue <= $amount_due  )
+        {
+            // return redirect()->back()->with('success', 'You have no outstanding payment');
+              $payment = payment::with('student')->where('invoice', $inv)->get();
+            //   dd($invoice); 
+
+            $payments = Payment::with('student')
+            ->where('status', 'success')
+            ->where('gateway_response', 'successful')->first();
+
+        
+
+            return view('payments.outstanding-receipts', compact('payment', 'payments'));
+
+        } 
+        if(empty($chkStatus)  || $chkStatus == $fail || $chkStatus == $pending &&
+          empty($amountDue) == false || $amountDue > $amount_due)
+        {
+            return  view('payments.outstandingCart' ,compact(
+                          'amountDue','student_id', 'email', 'app_no',
+                            'inv','deptId','amountPaidBefore')); 
+        }
+    
+      
+
+    }
+
+    public function outstandingPayment(request $request)
+    {
+
+        $studentId = $request->student_id;
+        $student = $request->app_no;
+        $email = $request->email;
+        $inv = $request->inv;
+        // $transactionRef = $request->txn;
+        $deptId=$request->department_id;
+        $amount_due = $request->amount_due;
+        $amount_paid_before = $request->amount_paid_before;
+        $amount_to_pay = $request->amount_to_pay;
+
+
+        // $checkSchedule = Payment_schedule::where('department_id', $deptId)->find($deptId);
+        // $totalAmount = $checkSchedule->amount;
+
+        
+
+        // $sum = ($amount_paid_before + $amount_to_pay);
+        // $amountDue = ($totalAmount - $sum ); 
+
+        // dd($amountDue);
+
+        $transactionRef  = $this->generateTxn();
+
+        $store = Payment::create([
+            'transaction_reference' => $transactionRef,
+            'student_id' => $studentId,
+            'amount' => $amount_to_pay,
+            'invoice' => $inv,
+            // 'amount_due' => $amount_due,
+         
+        ]);
+
+        $url = "https://api.paystack.co/transaction/initialize";
+
+        $fields = [
+          'email' => $email,
+          'amount' =>  $amount_to_pay * 100,
+          'reference' => $transactionRef,
+          'callback_url' => 'http://localhost:8000/outstanding/payment/callback',
+          'metadata' => json_encode([
+            'student_id' => $student,
+            'receipt_number' => $inv,
+            'deptId' => $deptId,
+            'amount_due' => $amount_due,
+            'amount_paid_before' => $amount_paid_before,
+         
+    ])
+    
+         ];
+        // dd($fields);
+
+        $fields_string = http_build_query($fields);
+
+        //open connection
+        $ch = curl_init();
+
+        //set the url, number of POST vars, POST data
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $fields_string);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+        // "Authorization: Bearer sk_test_28f9b65e7898a29933a94de23464bf59d71eb088",
+        "Authorization: Bearer " . config('services.secret_key.key'),
+
+        "Cache-Control: no-cache",
+        ));
+
+        
+         //So that curl_exec returns the contents of the cURL; rather than echoing it
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        //execute post
+        $result = curl_exec($ch);
+
+        //  echo $result;
+        $new = json_decode($result,);
+   
+         $payment_url =$new->data->authorization_url;
+
+         return redirect::to($payment_url); 
+        
+    }
+
+
+
+    public function checkoutstandingPaystackTxn(request $request)
+    {
+      $transactionRef = $request->query('trxref');
+  
+      $check = Payment::where('transaction_reference', $transactionRef)->first();
+      if ($check->exists()) {
+  
+        return $this->verifyoutstandingTxn($transactionRef);
+  
+        //  redirect()->route('payment.verify',compact('txnRef'));
+      } else
+        return redirect()->back()->with('message', 'Payment could not be validated');
+    }
+
+
+
+    public function verifyoutstandingTxn($transactionRef)
+
+    {
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => "https://api.paystack.co/transaction/verify/$transactionRef",
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => "",
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 30,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => "GET",
+          CURLOPT_HTTPHEADER => array(
+            // "Authorization: Bearer sk_test_28f9b65e7898a29933a94de23464bf59d71eb088",
+            "Authorization: Bearer " . config('services.secret_key.key'),
+    
+            "Cache-Control: no-cache",
+          ),
+        ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+    
+        curl_close($curl);
+    
+        if ($err) {
+          echo "cURL Error #:" . $err;
+        } else {
+    
+       
+          $responses = json_decode($response);
+        //   dd($responses);
+          $status = $responses->data->status;
+          $gatewayRes = $responses->data->gateway_response;
+          $signature = $responses->data->authorization->signature;
+          $paymentDate = $responses->data->paid_at;
+          $formatDate= date('Y-m-d', strtotime($paymentDate));
+          $reference = $responses->data->reference;
+          $invoice = $responses->data->metadata->receipt_number;
+          $amount = $responses->data->amount;
+          $deptId =  $responses->data->metadata->deptId;
+          $amount_due = $responses->data->metadata->amount_due;
+          $amount_paid_before = $responses->data->metadata->amount_paid_before;
+          $amountInNaira = ($amount / 100);
+
+          $checkSchedule = Payment_schedule::where('department_id', $deptId)->find($deptId);
+        $totalAmount = $checkSchedule->amount;
+
+        
+
+        $sum = ($amount_paid_before + $amountInNaira);
+        $amountDue = ($totalAmount - $sum ); 
+
+        // dd($amountDue)
+        //   dd($invoice);
+
+          $getId = Payment::where('transaction_reference', $transactionRef)->value('id');
+
+          $storeTransaction = [
+            'amount' => $amountInNaira,
+            'transaction_reference' => $reference,
+            'status' => $status,
+            'gateway_response' => $gatewayRes,
+            'signature' => $signature,
+            'payment_date' => $formatDate,
+            'amount_due' => $amountDue,
+          
+          ];
+
+          $payment = payment::with('students')->where('id', $getId)->update($storeTransaction);
+      
+          $getInvoice = payment::where('invoice',$invoice )->get();
+        //   dd($getInvoice);
+          if ($payment == true) {
+            return redirect()->route('outstanding.receipts', compact('invoice'));
+          } else return redirect()->back()->with('unable to save', 'transaction could not be completed');
+
+
+        }
+
+
+
+    }
+
+    public function genoutReceipts(request $request)
+    {
+      $reference = $request->reference;
+       $invoice = $request->invoice;
+  
+      // dd($invoice);
+      $payment = Payment::with('student')
+        ->where('invoice', $invoice)
+        ->where('status', 'success')
+        ->where('gateway_response', 'successful')->get();
+
+        // dd($payment);
+        $payments = Payment::with('student')
+        ->where('transaction_reference', $reference)
+        ->where('status', 'success')
+        ->where('gateway_response', 'successful')->first();
+        // dd($payments);
+
+  
+      // $getInvoice = payment::where('invoice',$invoice )->get(); 
+        
+      if ($payment ) {
+        //  $student = $payments->student;
+        return view('payments.outstanding-receipts', compact('payment', 'payments'));
+      } 
+      
+      else return view('error');
+    }
+  
+
 
     /**
      * Show the form for creating a new resource.
