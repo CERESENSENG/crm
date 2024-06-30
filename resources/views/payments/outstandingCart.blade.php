@@ -42,6 +42,8 @@
                    <input name="app_no" type="hidden" value="{{ $app_no }}">
                   <input name="email" type="hidden" value="{{ $email}}">  
                   <input name="inv" type="hidden" value="{{$inv}}">
+                  <input name="schedule_id" type="hidden" value="{{$schedule_id}}">
+                  <input name="purpose" type="hidden" value="{{$purpose}}">
                   {{-- <input name="txn" type="hidden" value="{{$txn}}"> --}}
                   <input type="hidden" name="department_id" value="{{ $deptId }}">
                   <input type="hidden" name="amount_due" value="{{ $amountDue }}"> 

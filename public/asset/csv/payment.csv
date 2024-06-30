@@ -1,2 +1,2 @@
-student_id,payment_option,purpose,invoice,gateway,amount,status,gateway_response,payment_date,amount_due
-3,half_payment,school-fees,INV31203B69C3945997FB22,paystack,75000,success,successful,6/30/2024,75000
+student_id,payment_option,purpose,payment_reference,gateway,amount,status,gateway_response,payment_date,amount_due,schedule_id
+1,half_payment,Sch Fee,31203B69C3945997FB22,paystack,75000,success,successful,6/30/2024,75000,7

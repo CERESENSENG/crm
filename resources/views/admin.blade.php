@@ -1,59 +1,17 @@
 <x-layout>
-  <x-slot:title>
-    Dashboard
-  </x-slot>
-  <li>
-    <form method="POST" action="{{ route('logout') }}">
-        @csrf
+    <x-slot:title>
+        Dashboard
+    </x-slot>
 
-        <button type="submit" class="btn waves-effect waves-light btn-danger"
-                style="float:right;">
-            Logout
-        </button>
-    </form>
-</li>
-  <h6 class="display-5">  Welcome to Ceresense CRM</h6>
-  {{-- <div class="table-responsive">
-    <table class="table table-striped table-hover">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">firstname</th>
-                <th scope="col">surname</th>
-                <th scope="col">Email</th>
-                <th scope="col">othername</th>
-                <th scope="col">Action</th>
-            </tr>
-        </thead>
-        <tbody>
+    <div class="row mt-5">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <h6 style="color: #1a2b88;font-weight: 700;"  class="display-5"> Welcome to Ceresense CRM</h6>
+                </div>
+            </div>
+        </div>
 
-
-            @foreach ($students as $index => $student)
-                <tr>
-                    <th scope="row"> {{ $index + 1 }}</th>
-                    <td> {{ $student->firstname }}</td>
-                    <td> {{ $student->surname }}</td>
-                    <td> {{ $student->email }}</td>
-                    <td> {{ $student->othername }}</td>
-                    <td> {{ $student->hostel }}</td>
-                    <td>
-                        <button type="button" class="btn btn-primary">Edit</button>
-                        <button type="button" class="btn btn-danger">Delete</button>
-                    </td>
-                </tr>
-            @endforeach
-
-
-
-
-
-        </tbody>
-    </table>
-
-
-
-</div> --}}
-  
+    </div>
 
 </x-layout>
-

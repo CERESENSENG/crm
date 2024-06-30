@@ -2,13 +2,13 @@
         <!--**********************************
             Nav header start
         ***********************************-->
-        <div class="nav-header">
+        <div style="background-color: white" class="nav-header">
           <div class="brand-logo">
               <a href="index.html">
-                  <b class="logo-abbr"><img src="asset/images/logo.png" alt=""> </b>
-                  <span class="logo-compact"><img src="asset/images/logo-compact.png" alt=""></span>
+                  <b class="logo-abbr"><img src="{{asset('asset/images/logo.png')}}" alt=""> </b>
+                  <span class="logo-compact"><img src="{{asset('asset/images/logo-compact.png')}}" alt=""></span>
                   <span class="brand-title">
-                      <img src="asset/images/logo-text.png" alt="">
+                    <img src="{{asset('asset/images/ceresense_logo.png')}}" alt="">
                   </span>
               </a>
           </div>
@@ -189,7 +189,18 @@
                                       <li>
                                           <a href="page-lock.html"><i class="icon-lock"></i> <span>Lock Screen</span></a>
                                       </li>
-                                      <li><a href="page-login.html"><i class="icon-key"></i> <span>Logout</span></a></li>
+                                      <li>
+                                        <form method="POST" action="{{ route('logout') }}">
+                                            @csrf
+                                            <a href="">
+                                                <button style="background-color:white;padding:0px;color:red" type="submit" class="btn"><i class="icon-key"></i><span>Logout</span></button>
+
+                                            </a>
+                                            {{-- <button type="submit" class="btn waves-effect waves-light btn-danger"></button> --}}
+                                        </form>
+                                        {{-- <a href="page-login.html"><i class="icon-key"></i> <span>Logout</span></a> --}}
+                                    
+                                     </li>
                                   </ul>
                               </div>
                           </div>

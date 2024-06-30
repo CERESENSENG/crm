@@ -106,7 +106,7 @@ class PaymentsController extends Controller
         
        $paymentRows=$this->readCsvToArray($file);
 
-    //   dd($paymentRows);  
+      //  dd($paymentRows);  
     
     $data=[];
     $k=0;
@@ -121,27 +121,28 @@ class PaymentsController extends Controller
         $student_id = $r[0];
         $payment_option = $r[1];
         $purpose = $r[2];
-        $invoice = $r[3];
+        $payment_reference = $r[3];
         $gateway = $r[4];
         $amount = $r[5];
         $status = $r[6];
         $gateway_reponse = $r[7];
         $payment_date = $r[8];
         $amount_due = $r[9];
+        $schedule_id = $r[10];
 
          
         $error_in_row=$error_in_csv=false;
         $error=$error_n_studentId=false;
 
         if( trim( $student_id ) == '' && trim($payment_option) == '' && trim($purpose) == '' &&
-          trim($invoice) == '' && trim($gateway) == '' && trim($amount) == '' && trim($status) == '' &&
-          trim($gateway_reponse) == '' && trim($payment_date) == '' && trim($amount_due) == ''){
+          trim($payment_reference) == '' && trim($gateway) == '' && trim($amount) == '' && trim($status) == '' &&
+          trim($gateway_reponse) == '' && trim($payment_date) == '' && trim($amount_due) == '' &&  trim($schedule_id) == ''){
 
             $error='Error ignored';
 
         } else  if( trim( $student_id ) == '' || trim($payment_option) == '' || trim($purpose) == '' ||
-        trim($invoice) == '' || trim($gateway) == '' || trim($amount) == '' || trim($status) == '' ||
-        trim($gateway_reponse) == '' || trim($payment_date) == '' || trim($amount_due) == ''){
+        trim($payment_reference) == '' || trim($gateway) == '' || trim($amount) == '' || trim($status) == '' ||
+        trim($gateway_reponse) == '' || trim($payment_date) == '' || trim($amount_due) == '' || trim($schedule_id) == ''){
 
             $error_in_csv=true;
             $error_in_row= true;
@@ -150,34 +151,42 @@ class PaymentsController extends Controller
 
       }else{
         $student=$this->checkStudentId($student_id);
+        $invoice = $this->checkInv($student_id, $schedule_id);
+        $transaction_reference=$this->generateTxn();
 
-        if(!$student){
-            $error_in_csv=true;
-            $error_in_row=true;
-            $error.='Invalid student id';
-            $myErr=true;
+        // dd($transaction_reference);
+       
+        if (empty($student)) {
+          $error_in_csv = true;
+          $error_in_row = true;
+          $error_n_studentId = true;
+          $error .= 'Invalid student Id, ';
+          $myErr = true;
+      }
 
-
-        }
+        
         }
 
         $data[$k]['sn']=$k + 1;
         $data[$k]['student_id']=$student_id;
-        $data[$k]['surname']=$student->surname;
-        $data[$k]['firstname']=$student->firstname;
-        $data[$k]['othername']=$student->othername;
+        // $data[$k]['surname']=$student->surname;
+        // $data[$k]['firstname']=$student->firstname;
+        // $data[$k]['othername']=$student->othername;
         $data[$k]['payment_option']=$payment_option;
         $data[$k]['purpose']=$purpose;
-        $data[$k]['invoice']=$invoice;
+        $data[$k]['payment_reference']=$payment_reference;
         $data[$k]['gateway']=$gateway;
-        $data[$k]['amount']=$amount;
+        $data[$k]['amount'] = $amount;
         $data[$k]['status']=$status;
         $data[$k]['gateway_response']=$gateway_reponse;
         $data[$k]['payment_date']=$payment_date;
         $data[$k]['amount_due'] = $amount_due;
-
+        $data[$k]['schedule_id']=$schedule_id;
+        $data[$k]['transaction_reference']=$transaction_reference;
+        $data[$k]['invoice']=$invoice;
+       
         $data[$k]['error']=$error;
-        $data[$k]['error_in_studentId']= $error=$error_n_studentId=false;
+        $data[$k]['error_in_studentId']= $error_n_studentId;
         
         if($error)
             $data[$k]['comment'] = $error;
@@ -191,6 +200,7 @@ class PaymentsController extends Controller
         $result = json_decode(json_encode($data));
     }
     $result = json_decode(json_encode($data));
+    // dd($myErr);
 
     return view('payments.confirm',['confirms' => $result, 'CSV_ERR' => $myErr]);
 
@@ -206,18 +216,26 @@ class PaymentsController extends Controller
 
         foreach($validate['data'] as $rowStd){
             
-            $txn=$this->generateTxn();
+            
             $tudent=Payment::create([
                 'student_id'=>$rowStd['student_id'],
-                'transaction_reference' => $txn,
                 'payment_option'=>$rowStd['payment_option'],
-                'invoice'=>$rowStd['invoice'],
+                'purpose' => $rowStd['purpose'],
+                'payment_reference' => $rowStd['payment_reference'],
                 'gateway'=>$rowStd['gateway'],
                 'amount'=>$rowStd['amount'],
-                'amount_due' => $rowStd['amount_due'],
                 'status'=>$rowStd['status'],
                 'gateway_response'=>$rowStd['gateway_response'],
                 'payment_date'=>$rowStd['payment_date'],
+                'amount_due' => $rowStd['amount_due'],
+                'schedule_id' => $rowStd['schedule_id'],
+                'transaction_reference' => $rowStd['transaction_reference'],
+                'invoice'=>$rowStd['invoice'],
+               
+              
+                
+                
+                
             
             ]);
         }
@@ -275,6 +293,8 @@ class PaymentsController extends Controller
             $amountDue = $std->amount_due;
             $amountPaidBefore = $std->amount;
             $inv = $std->invoice;
+            $schedule_id = $std->schedule_id;
+            $purpose = $std->purpose;
         
 
 
@@ -287,7 +307,10 @@ class PaymentsController extends Controller
               $payment = payment::with('student')->where('invoice', $inv)->get();
             //   dd($invoice); 
 
+            // dd($getId);
+
             $payments = Payment::with('student')
+            ->where('student_id',$getId)
             ->where('status', 'success')
             ->where('gateway_response', 'successful')->first();
 
@@ -301,7 +324,8 @@ class PaymentsController extends Controller
         {
             return  view('payments.outstandingCart' ,compact(
                           'amountDue','student_id', 'email', 'app_no',
-                            'inv','deptId','amountPaidBefore')); 
+                            'inv','deptId','amountPaidBefore',
+                          'schedule_id','purpose')); 
         }
     
       
@@ -320,6 +344,8 @@ class PaymentsController extends Controller
         $amount_due = $request->amount_due;
         $amount_paid_before = $request->amount_paid_before;
         $amount_to_pay = $request->amount_to_pay;
+        $schedule_id = $request->schedule_id;
+        $purpose = $request->purpose;
 
 
         // $checkSchedule = Payment_schedule::where('department_id', $deptId)->find($deptId);
@@ -356,6 +382,8 @@ class PaymentsController extends Controller
             'deptId' => $deptId,
             'amount_due' => $amount_due,
             'amount_paid_before' => $amount_paid_before,
+            'schedule_id' => $schedule_id,
+            'purpose' => $purpose,
          
     ])
     
@@ -456,6 +484,8 @@ class PaymentsController extends Controller
           $deptId =  $responses->data->metadata->deptId;
           $amount_due = $responses->data->metadata->amount_due;
           $amount_paid_before = $responses->data->metadata->amount_paid_before;
+          $schedule_id =  $responses->data->metadata->schedule_id;
+          $purpose =  $responses->data->metadata->purpose;
           $amountInNaira = ($amount / 100);
 
           $checkSchedule = Payment_schedule::where('department_id', $deptId)->find($deptId);
@@ -479,15 +509,17 @@ class PaymentsController extends Controller
             'signature' => $signature,
             'payment_date' => $formatDate,
             'amount_due' => $amountDue,
+            'schedule_id' => $schedule_id,
+            'purpose' => $purpose,
           
           ];
 
           $payment = payment::with('students')->where('id', $getId)->update($storeTransaction);
-      
+          
           $getInvoice = payment::where('invoice',$invoice )->get();
         //   dd($getInvoice);
           if ($payment == true) {
-            return redirect()->route('outstanding.receipts', compact('invoice'));
+            return redirect()->route('outstanding.receipts', compact('invoice','reference'));
           } else return redirect()->back()->with('unable to save', 'transaction could not be completed');
 
 

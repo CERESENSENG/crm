@@ -79,7 +79,7 @@
                 <div class="col-6 text-right">
                     <p><strong>Admission Year:</strong> {{$payments->student->admission_year }}</p>
 
-                     <p><strong>Transaction Ref:</strong> {{ $payments->transaction_reference }}</p> 
+                     {{-- <p><strong>Transaction Ref:</strong> {{ $payments->transaction_reference }}</p>  --}}
 
                     <p><strong>Payment Gateway:</strong> Paystack</p>
 
@@ -96,13 +96,15 @@
                     <tr>
                         <th>#</th>
                         <th>Date</th>
+                        <th>Amount Paid</th>
+                        <th>Status</th>
                         <th>Invoice</th>
-                        <th>Payment Ref</th>
-                        <th>Description</th>
-                        <th>Amount (₦)</th>
+                        <th>Transaction Ref</th>
+                        <th>Purpose</th>
+                        <th>Amount Due (₦)</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody> 
                   @php
                   $totalAmount = 0; // Initialize total amount
                   $index = 1; // Initialize index for row numbering
@@ -110,10 +112,12 @@
                   @foreach ($payment as   $invoice)
                   <tr>
                     <td>{{ $index}}</td>
+                    <td>{{ $invoice->payment_date}}</td>
                     <td>{{ $invoice->amount}}</td>
                     <td>{{ $invoice->status}}</td>
+                    <td>{{ $invoice->invoice}}</td>
                     <td>{{ $invoice->transaction_reference}}</</td>
-                    <td>{{ $invoice->payment_option}}</td>
+                    <td>{{ $invoice->purpose}}</td>
                     <td>{{ $invoice->amount_due }}</td>
                 </tr>
                 @php
@@ -125,7 +129,7 @@
                     
       
                     <tr>
-                        <td colspan="5" class="text-right"><strong>Total Amount</strong></td>
+                        <td colspan="7" class="text-right"><strong>Total Amount</strong></td>
                         <td class="unique-border"><strong>{{'#'. $totalAmount .'.00'}}</strong></td>
                     </tr>
                 </tbody>
@@ -134,7 +138,9 @@
 
         <!-- Signature/Stamp Section -->
         <div class="signature-section">
-            {{-- <p class="total-amount">Total Amount: {{ $payment->amount }}</p> --}}
+            <div class="signature-section">
+                <p class="total-amount">Total Amount: {{'#'. $totalAmount .'.00'}}</p>
+            </div>
         </div>
         <div class="text-md-right">
           <button onclick="javascript:window.print();" class="no-print btn btn-warning btn-icon icon-left"><i class="fas fa-print"></i> Print</button>

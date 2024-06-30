@@ -63,6 +63,12 @@ class Payments_schedule_controller extends Controller
       $schedule = Payment_schedule::where('cohort', $cohort)
         ->where('department_id', $dept_id)
         ->where('year', $year)->value('amount');
+        
+  
+      $purpose = Payment_schedule::where('department_id', $dept_id)->value('purpose');
+      // dd($purpose);
+
+        
 
         // dd($schedule);
 
@@ -76,7 +82,7 @@ class Payments_schedule_controller extends Controller
       $student_id = $student->id;
       $deptId = $student->department_id;
 
-      return view('payments.cart', compact('schedule', 'txn', 'students', 'student_id', 'deptId', 'inv'));
+      return view('payments.cart', compact('schedule', 'txn', 'students', 'student_id', 'deptId', 'inv','purpose'));
     }
 
   }
@@ -93,6 +99,8 @@ class Payments_schedule_controller extends Controller
     $email = $request->email;
     $inv = $request->inv;
     $deptId=$request->department_id;
+    $purpose = $request->purpose;
+    
 
   //  $checkSchedule = Payment_schedule::where('department_id', $deptId)->find($deptId);
   //  $totalAmount = $checkSchedule->amount;
@@ -107,6 +115,8 @@ class Payments_schedule_controller extends Controller
       'amount' => $amount,
       'payment_option' => $paymentOption,
       'invoice' => $inv,
+       'schedule_id' => $deptId,
+       'purpose' => $purpose,
       // 'amount_due' => $amountDue,
     ]);
 

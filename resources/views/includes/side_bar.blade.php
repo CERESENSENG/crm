@@ -10,7 +10,7 @@
                           <i class="icon-speedometer menu-icon"></i><span class="nav-text">Dashboard</span>
                       </a>
                       <ul aria-expanded="false">
-                          <li><a href="{{url('/admin')}}">Home 1</a></li>
+                          <li><a href="{{route('admin')}}">Admin</a></li>
                       </ul>
                   </li>
                   <li class="mega-menu mega-menu-sm">
