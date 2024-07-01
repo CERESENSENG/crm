@@ -73,7 +73,7 @@
                                           @csrf
 
                                           <div class="d-flex align-items-center mb-3 pb-1">
-                                              <img src="assets/img/logo.png" alt="">
+                                              <img src="{{asset('assets/img/logo.png')}}" alt="">
                                           </div>
 
 
@@ -105,6 +105,9 @@
 
                                           </div>
                                           <div class=" mt-4">
+                                              <button class="btn btn-primary" type="submit">
+                                                  {{ __('Log in') }}</button> <br>
+
                                               @if (Route::has('password.request'))
                                                   <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
                                                       href="{{ route('password.request') }}">
@@ -112,8 +115,6 @@
                                                   </a>
                                               @endif
 
-                                              <button class="btn btn-primary" type="submit">
-                                                  {{ __('Log in') }}</button>
 
 
                                           </div>
