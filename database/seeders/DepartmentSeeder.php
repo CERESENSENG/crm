@@ -324,6 +324,7 @@ class DepartmentSeeder extends Seeder
             'name'=>'Canva',
             'department_code'=>'CV',
             'duration'=>'8 weeks',
+            'hod_id' => 1,
           
          ],
          [

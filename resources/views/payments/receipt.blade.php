@@ -99,6 +99,7 @@
                         <th>Invoice</th>
                         <th>Transaction Ref</th>
                         <th>Purpose</th>
+                        <th>Description</th>
                         <th>Amount Paid (₦)</th>
                         <th>Amount Due (₦)</th>
                     </tr>
@@ -110,14 +111,16 @@
                         <td>{{ $payment->invoice}}</td>
                         <td>{{ $payment->transaction_reference}}</</td>
                         <td>{{ $payment->purpose}}</td>
-                        <td>{{ $payment->amount }}</td>
-                        <td>{{ $payment->amount_due }}</td>
+                        <td>{{ $payment->schedule->description }}</td> 
+                        <td> &#8358;{{number_format($payment->amount )}}</td>
+                        <td>&#8358;{{number_format($payment->amount_due ) }}</td>
+                        
 
                     </tr>
                    
                     <tr>
-                        <td colspan="6" class="text-right"><strong>Total Amount</strong></td>
-                        <td class="unique-border"><strong>{{ "#".$payment->amount }}</strong></td>
+                        <td colspan="7" class="text-right"><strong>Total Amount</strong></td>
+                        <td class="unique-border"><strong> &#8358;{{number_format($payment->amount  )}}</strong></td>
                     </tr>
                 </tbody>
             </table>
@@ -125,7 +128,7 @@
 
         <!-- Signature/Stamp Section -->
         <div class="signature-section">
-            <p class="total-amount">Total Amount: {{ "#".$payment->amount }}</p>
+            <p class="total-amount">Total Amount:&#8358;{{number_format($payment->amount )}}</p>
         </div>
         <div class="text-md-right">
           <button onclick="javascript:window.print();" class="no-print btn btn-warning btn-icon icon-left"><i class="fas fa-print"></i> Print</button>

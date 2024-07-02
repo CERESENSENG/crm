@@ -27,7 +27,7 @@
                     </li>
                   </ul>
                 </div>
-                <li class="list-group-item"><a href="{{ route('register.stage-1') }}">Click Here to Apply</a></li>
+                <li class="list-group-item"><a href="{{ route('register.stage-1') }}">Apply Now</a></li>
                 <li class="list-group-item"><a href="{{ route('outstanding.page') }}">Click here to pay outstanding payments</a></li>
                 @if (Route::has('login'))
                 @auth

@@ -104,6 +104,7 @@
         <input name="inv"  type="hidden" value="{{$inv}}"> 
           <input name="purpose"  type="hidden" value="{{$purpose}}"> 
         <input type="hidden"  name="department_id"  value="{{ $deptId }}">
+        <input type="hidden"  name="amount_due"  value="{{ $amount_due }}">
       <div class="mb-3">
         <label for="transaction-reference" class="form-label">Transaction Reference</label>
         <input   name="transaction_reference" value="{{ $txn }}" type="text" id="transaction-reference" class="form-control" readonly>
@@ -111,6 +112,10 @@
       <div class="mb-3">
         <label for="amount" class="form-label">Amount</label>
         <input  name="amount" id="amount" value="{{$schedule }}" type="text" class="form-control" readonly>
+      </div>
+      <div class="mb-3">
+        <label for="convenient_charges" class="form-label">Convenient Charges</label>
+        <input id="convenient_charges" name="convenient_charges" type="text" class="form-control" readonly>
       </div>
       <div class="mb-3">
         <label for="payment-option" class="form-label">Payment Option</label>
@@ -126,34 +131,42 @@
   </div>
 </div>
 </div>
-  
-     <script>
-      let amount=document.getElementById('amount');
-      let option=document.getElementById('payment_option');
-      let schedule=parseFloat("{{ $schedule }}")
-  
-      function choose(){
-        if(option.value=='half_payment'){
-          amount.value=(schedule/2).toFixed(2);
-  
-        }else if(option.value=='full_payment'){
-          amount.value=schedule.toFixed(2);
-        }
-        else{
-          amount.value=schedule.toFixed(2);
-        }
+
+ 
+<script>
+ let amount = document.getElementById('amount');
+    let option = document.getElementById('payment_option');
+    let convenientChargesInput = document.getElementById('convenient_charges');
+    let schedule = parseFloat("{{ $schedule }}");
+
+    function choose() {
+      let selectedAmount = schedule;
+
+      if (option.value == 'half_payment') {
+        selectedAmount = schedule / 2;
+      } else if (option.value == 'full_payment') {
+        selectedAmount = schedule;
       }
-      // choose();
-      option.addEventListener('change', choose);
-  
-  
-  
-  
-  
-  
-  
-  
-    </script> 
+
+      amount.value = selectedAmount.toFixed(2);
+
+      let totalAmount;
+      if (selectedAmount > 2500) {
+        totalAmount = selectedAmount / (1 - (1.5 / 100)) + 100;
+      } else {
+        totalAmount = selectedAmount / (1 - (1.5 / 100)) + 0.03;
+      }
+
+      let convenientCharges = totalAmount - selectedAmount;
+      if (convenientCharges > 2000) {
+        convenientCharges = 2000;
+      }
+
+      convenientChargesInput.value = convenientCharges.toFixed(2);
+    }
+
+    option.addEventListener('change', choose);
+</script> 
   
   
 </x-pages-layout>

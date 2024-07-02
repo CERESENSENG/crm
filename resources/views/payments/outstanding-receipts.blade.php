@@ -68,7 +68,7 @@
         <div class="transaction-info mb-3">
             <div class="row">
                 <div class="col-6">
-                    <p><strong>Billed to:</strong> {{ $payments->student->firstname }} {{ $payments->student->othername }} {{ $payments->student->surname }}</p>
+                    <p><strong>Billed to:</strong> {{ucfirst( $payments->student->firstname) }} {{ucfirst( $payments->student->othername)}} {{ ucfirst($payments->student->surname )}}</p>
 
                     <p><strong>App No:</strong> {{$payments->student->app_no}}</p>
 
@@ -77,7 +77,7 @@
                 </div>
 
                 <div class="col-6 text-right">
-                    <p><strong>Admission Year:</strong> {{$payments->student->admission_year }}</p>
+                    <p><strong>Admission Year:</strong> {{$payments ->student->admission_year }}</p>
 
                      {{-- <p><strong>Transaction Ref:</strong> {{ $payments->transaction_reference }}</p>  --}}
 
@@ -97,10 +97,10 @@
                         <th>#</th>
                         <th>Date</th>
                         <th>Amount Paid</th>
-                        <th>Status</th>
+                        <th>Desceiption</th>
                         <th>Invoice</th>
                         <th>Transaction Ref</th>
-                        <th>Purpose</th>
+                        {{-- <th>Purpose</th> --}}
                         <th>Amount Due (₦)</th>
                     </tr>
                 </thead>
@@ -113,12 +113,12 @@
                   <tr>
                     <td>{{ $index}}</td>
                     <td>{{ $invoice->payment_date}}</td>
-                    <td>{{ $invoice->amount}}</td>
-                    <td>{{ $invoice->status}}</td>
+                    <td>&#8358;{{number_format($invoice->amount)}}</td>
+                    <td>{{ $invoice->schedule->description}}</td>
                     <td>{{ $invoice->invoice}}</td>
                     <td>{{ $invoice->transaction_reference}}</</td>
-                    <td>{{ $invoice->purpose}}</td>
-                    <td>{{ $invoice->amount_due }}</td>
+                    {{-- <td>{{ $invoice->purpose}}</td> --}}
+                    <td>&#8358;{{number_format($invoice->amount_due )}}</td>
                 </tr>
                 @php
                 $totalAmount += $invoice->amount; // Accumulate amount
@@ -129,8 +129,8 @@
                     
       
                     <tr>
-                        <td colspan="7" class="text-right"><strong>Total Amount</strong></td>
-                        <td class="unique-border"><strong>{{'#'. $totalAmount .'.00'}}</strong></td>
+                        <td colspan="6" class="text-right"><strong>Total Amount</strong></td>
+                        <td class="unique-border"><strong>&#8358;{{number_format($totalAmount)}}</strong></td>
                     </tr>
                 </tbody>
             </table>
@@ -139,7 +139,7 @@
         <!-- Signature/Stamp Section -->
         <div class="signature-section">
             <div class="signature-section">
-                <p class="total-amount">Total Amount: {{'#'. $totalAmount .'.00'}}</p>
+                <p class="total-amount">Total Amount:&#8358;{{number_format($totalAmount)}}</p>
             </div>
         </div>
         <div class="text-md-right">

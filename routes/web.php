@@ -78,6 +78,7 @@ Route::get('/payment/receipts/', [Payments_schedule_controller::class, 'genRecei
  //OUTSTANDING PAYMENTS ROUTE
  Route::get('/outstanding/page', [PaymentsController::class , 'outstanding'])->name('outstanding.page');
  Route::post('/outstanding/cart',[PaymentsController::class,  'getExistingPayment'])->name('getexisting.payment');
+ Route::post('confirm/outstanding/cart',[PaymentsController::class,  'genConvinienceFees'])->name('confirm.paymentcart');
  Route::post('/outstanding/initialize',[PaymentsController::class,  'outstandingPayment'])->name('payment.outstandingInit');
  Route::get('outstanding/payment/callback',[PaymentsController::class,'checkoutstandingPaystackTxn'])->name('outstanding.callback');
  Route::get('outstanding/receipts',[PaymentsController::class,'genoutReceipts'])->name('outstanding.receipts');

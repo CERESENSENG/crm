@@ -16,4 +16,9 @@ class Payment extends Model
 
         return $this->belongsTo(student::class);
     }
+
+    public function schedule(){
+
+        return $this->belongsTo(Payment_schedule::class,'schedule_id','id');
+    }
 }
