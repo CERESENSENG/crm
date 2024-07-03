@@ -33,7 +33,7 @@
                               @enderror
                           </span>
                       </div>
-                      <div class="form-group">
+                      {{-- <div class="form-group">
                         <label for="password">Password</label>
                         <input  required name="password" type="password" class="form-control"
                             value="{{ $user->password }} ">
@@ -42,7 +42,7 @@
                                 {{ $message }}
                             @enderror
                         </span>
-                    </div>
+                    </div> --}}
 
                     <input type="hidden" value="{{ $user->id }}}}">
                   </div>

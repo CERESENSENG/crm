@@ -111,14 +111,7 @@ class StudentController extends Controller
         }
 
     }
-    //  public function RegistrationPage2($id){
-    //     $student=Student::findorfail($id);
-    //     $depts=Department::all();
-    //     $data=['students'=>$student,'depts'=>$depts];
-    //     return view('student_form2',$data);
-
-
-    //  }
+    
     public function applicationRegister_Stage2($id) {
         $student = Student::findOrFail($id);
         $depts = Department::all();
@@ -220,21 +213,6 @@ public function showApplicantFullDetails(request $request){
         
 }
 
-// public function loadSearchPage(){
-//     $depts=department::all();
-//     $settings=setting::all();
-
-
-//     $max=intval(date('Y'));
-//     $years=[];
-//     $years[0]['name']=2020;
-//     for ($i=1; $i<=($max-2020); $i++){
-//         $years[$i]['name']=2020 +$i;    
-
-//     }
-//     // dd($years);
-//     return view('student.search', compact('depts','settings','years'));   
-// }
 
 public function searchStudent(Request $request){ 
    
@@ -243,18 +221,8 @@ public function searchStudent(Request $request){
    
     $depts = department::all();
     $cohorts = $this->getCohorts();
-     $years = $this->getYear();            
-
-    // $validate=$request->validate([
-    //     'app_no' => 'nullable|string',
-    //     'department_id' => 'nullable|string',
-    //     'value' => 'nullable|string',
-    //     'admission_year' => 'nullable|string'
-
-
-    // ]);
-
-
+     $years = $this->getYear(); 
+                
     $matric = $request->app_no;
     $dept = $request->department_id;
     $year = $request->admission_year;

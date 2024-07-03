@@ -28,7 +28,7 @@
             @else
             <input name="app_no" class="form-control" id="exampleDataList" placeholder="Type to search...">
             @endisset
-              <input type="submit" class="btn btn-primary" value="submit">
+              <input type="submit" class="btn btn-primary" value="Proceed">
             </form>
           </div>
 
@@ -39,7 +39,7 @@
             </p>
             <form action="#" class="app_number d-flex mt-1" data-aos-delay="300">
               <input type="text" class="form-control" placeholder="Certificate_No">
-              <input type="submit" class="btn btn-primary" value="submit">
+              <input type="submit" class="btn btn-primary" value="Proceed">
             </form>
           </div>
         </div>

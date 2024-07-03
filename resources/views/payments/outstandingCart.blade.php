@@ -11,24 +11,24 @@
                     @csrf
                     <div class="mb-3">
                         <label for="application-number" class="form-label">Application Number</label>
-                        <input name="appNo" value="{{ $app_no }}" class="form-control" type="text"
+                        <input name="appNo" value="{{ $stdApp }}" class="form-control" type="text"
                             id="application-number" placeholder="" aria-label="Disabled input example" disabled>
                     </div>
                     <div class="mb-3">
                         <label for="email-address" class="form-label">Email address</label>
-                        <input name="Email" value="{{ $email }}" class="form-control" type="email"
+                        <input name="email" value="{{ $email }}" class="form-control" type="email"
                             id="email-address" placeholder="" aria-label="Disabled input example" disabled>
                     </div>
                     <div class="mb-3">
                         <label for="amount" class="form-label">Amount Paid Before(&#8358;)
                         </label>
-                        <input name="Amount_paid_before" id="amount" value="{{ $total_amount_paid_before }}"
+                        <input name="Amount_paid" id="amount" value="{{ $amount_paid }}"
                             type="text" class="form-control" disabled>
                     </div>
                     <div class="mb-3">
                         <label for="amount" class="form-label">Amount Due (&#8358;)
                         </label>
-                        <input name="amount_due" id="amount" value="{{ $newAmountDue }}" type="text"
+                        <input name="amount_left" id="amount" value="{{ $amount_left }}" type="text"
                             class="form-control" disabled>
                     </div>
                     <div class="mb-3">
@@ -38,17 +38,18 @@
                         <div id="amount-error" class="text-danger" style="display:none;">Please enter a valid amount in
                             the format 1234567890.99</div>
                     </div>
-                    {{-- Hidden input  --}}
-                    <input name="student_id" type="hidden" value="{{ $student_id }}">
-                    <input name="app_no" type="hidden" value="{{ $app_no }}">
+                    {{-- <input type="hidden" name="department_id" value="{{ $deptId }}">  --}}
+                    {{-- <input name="purpose" type="hidden" value="{{ $purpose }}"> --}}
+                    {{-- <input name="schedule_id" type="hidden" value="{{ $schedule_id }}"> --}}
+                    {{-- <input name="student_id" type="hidden" value="{{ $student_id }}"> --}}
+                    <input name="app_no" type="hidden" value="{{ $stdApp }}">
                     <input name="email" type="hidden" value="{{ $email }}">
                     <input name="inv" type="hidden" value="{{ $inv }}">
-                    <input name="schedule_id" type="hidden" value="{{ $schedule_id }}">
-                    <input name="purpose" type="hidden" value="{{ $purpose }}">
-                    <input type="hidden" name="department_id" value="{{ $deptId }}">
-                    <input type="hidden" name="amount_due" value="{{ $newAmountDue }}">
-                    <input type="hidden" name="amount_paid_before" value="{{ $total_amount_paid_before }}">
-
+                    <input type="hidden" name="amount_paid" value="{{ $amount_paid}}">
+                    <input type="hidden" name="amount_left" value="{{ $amount_left }}">
+                    <input type="hidden" name="amount_due" value="{{ $amount_due }}">
+                    <input name="purpose" type="hidden" value="{{$purpose}}">
+                   
 
                     <button type="submit" class="btn btn-primary">Proceed</button>
                 </form>

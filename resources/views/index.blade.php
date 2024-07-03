@@ -14,6 +14,7 @@
 
           <div class="card card-custom " data-aos="fade-up" data-aos-delay="100">
             <div class="card-body">
+              
 
 
 
@@ -28,7 +29,8 @@
                   </ul>
                 </div>
                 <li class="list-group-item"><a href="{{ route('register.stage-1') }}">Apply Now</a></li>
-                <li class="list-group-item"><a href="{{ route('outstanding.page') }}">Click here to pay outstanding payments</a></li>
+                <li class="list-group-item"><a href="{{ route('outstanding.page') }}">School fees payment</a></li>
+                <li class="list-group-item"><a href="{{ route('home.page') }}">Print admission letter</a></li>
                 @if (Route::has('login'))
                 @auth
                 <li class="list-group-item"><a href="{{ route('admin') }}">Dashboard</a></li>

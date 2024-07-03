@@ -35,6 +35,13 @@
     * Author: BootstrapMade.com
     * License: https://bootstrapmade.com/license/
     ======================================================== -->
+    <style>
+        @media  print {
+            .no-print{
+                display: none !important
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -52,9 +59,9 @@
             </div>
             <div class="col-10 text-center">
                 <h1 class="school-name">Ceresense ICT Institution</h1>
-                <h5 class="school-address">123 Main Street, Ilorin, Nigeria</h5>
-                <h6 class="school-website">Website: <a href="">www.ceresense.edu</a> | Contact: <span
-                        class="school-contact">09123456789</span></h6>
+                <h5 class="school-address">N0 2,Foyeke street,opposite tawheed junction,basin,ilorin,kwara state</h5>
+                <h6 class="school-website">Website: <a href="">www.ceresense.com.ng</a> | Contact: <span
+                        class="school-contact">+234 7063419718, +234 8036436594</span></h6>
             </div>
         </div>
 
@@ -68,11 +75,11 @@
         <div class="transaction-info mb-3">
             <div class="row">
                 <div class="col-6">
-                    <p><strong>Billed to:</strong> {{ $student->firstname }} {{ $student->othername }} {{ $student->surname }}</p>
+                    <p><strong>Billed to:</strong> {{ucfirst(strtolower( $student->firstname) )}} {{ucfirst(strtolower($student->othername ))}} {{ucfirst(strtolower( $student->surname ))}}</p>
 
-                    <p><strong>App No:</strong> {{ $student->app_no}}</p>
+                    <p><strong>App No:</strong> {{ $student->matric_no}}</p>
 
-                    <p><strong>Cohort:</strong> {{ $student->cohort}}</p>
+                    
                     <p><strong>Gateway Response:</strong>  {{ $payment->gateway_response}}</p>
                 </div>
 
@@ -96,30 +103,28 @@
                     <tr>
                         <th>#</th>
                         <th>Date</th>
+                        <th>Description</th>
                         <th>Invoice</th>
                         <th>Transaction Ref</th>
-                        <th>Purpose</th>
-                        <th>Description</th>
-                        <th>Amount Paid (₦)</th>
-                        <th>Amount Due (₦)</th>
+                        <th>Amount Paid</th>
+                        {{-- <th>Amount Due (₦)</th> --}}
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>1</td>
-                        <td>{{ $payment->payment_date}}</td>
-                        <td>{{ $payment->invoice}}</td>
-                        <td>{{ $payment->transaction_reference}}</</td>
-                        <td>{{ $payment->purpose}}</td>
+                        <td>{{ date('d/m/Y',strtotime($payment->payment_date))}}</td>
                         <td>{{ $payment->schedule->description }}</td> 
+                        <td>{{ $payment->invoice}}</td>
+                        <td>{{ $payment->transaction_reference}}</</td> 
                         <td> &#8358;{{number_format($payment->amount )}}</td>
-                        <td>&#8358;{{number_format($payment->amount_due ) }}</td>
+                        {{-- <td>&#8358;{{number_format($payment->amount_due ) }}</td> --}}
                         
 
                     </tr>
                    
                     <tr>
-                        <td colspan="7" class="text-right"><strong>Total Amount</strong></td>
+                        <td colspan="5" class="text-right"><strong>Total Amount</strong></td>
                         <td class="unique-border"><strong> &#8358;{{number_format($payment->amount  )}}</strong></td>
                     </tr>
                 </tbody>
@@ -130,7 +135,7 @@
         <div class="signature-section">
             <p class="total-amount">Total Amount:&#8358;{{number_format($payment->amount )}}</p>
         </div>
-        <div class="text-md-right">
+        <div class="text-md-right no-print">
           <button onclick="javascript:window.print();" class="no-print btn btn-warning btn-icon icon-left"><i class="fas fa-print"></i> Print</button>
          <a href="{{ route('admission.slip',['app_no'=>$student->app_no]) }}">click here to Print Your Admission letter</a>
           

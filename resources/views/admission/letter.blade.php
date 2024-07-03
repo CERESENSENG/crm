@@ -46,9 +46,9 @@
             </div>
             <div class="col-10 text-center">
                 <h1 class="school-name">Ceresense ICT Institution</h1>
-                <h5 class="school-address">123 Main Street, Ilorin, Nigeria</h5>
-                <h6 class="school-website">Website: <a href="">www.ceresense.com</a> | Contact: <span
-                        class="school-contact">09123456789</span></h6>
+                <h5 class="school-address">N0 2,Foyeke street,opposite tawheed junction,basin,ilorin,kwara state</h5>
+                <h6 class="school-website">Website: <a href="">www.ceresense.com.ng</a> | Contact: <span
+                        class="school-contact">+234 7063419718, +234 8036436594</span></h6>
             </div>
         </div>
         <!-- date -->
@@ -60,7 +60,7 @@
         <div class="student-info ">
             <img style="" width="100px" height="100px" src="{{ asset('upload/' . $students->passport) }}"
               alt="">
-            <p class="mb-0 mt-1"><strong>Name:</strong> {{$students->firstname}} {{$students->surname}} {{$students->othername}}</p>
+            <p class="mb-0 mt-1"><strong>Name:</strong> {{ucfirst(strtolower($students->firstname))}} {{ucfirst(strtolower($students->surname))}} {{ucfirst(strtolower($students->othername))}}</p>
             <p><strong>App No:</strong> {{ $students->app_no}}</p>
         </div>
 
@@ -97,8 +97,8 @@
         </div>
 
         <!-- Footer Section -->
-        <div class="text-right mt-2">
-            <p class="signature">_______________ Dr. Jane Smith</p>
+        <div class="mt-5">
+            <p class="signature">_______________ <br>Dr. Jane Smith </p>
             <p>Head of Ceresense ICT Institution</p>
             <p>{{$current_Date}}</p>
         </div>

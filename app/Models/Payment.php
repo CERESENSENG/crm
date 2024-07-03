@@ -21,4 +21,14 @@ class Payment extends Model
 
         return $this->belongsTo(Payment_schedule::class,'schedule_id','id');
     }
+
+
+     static public function getExistingSchoolFeePayment($student_id)
+       {
+
+          return  Payment::where('student_id',$student_id)
+                    ->where('status','success')
+                    ->first();
+       }
 }
+

@@ -35,6 +35,13 @@
     * Author: BootstrapMade.com
     * License: https://bootstrapmade.com/license/
     ======================================================== -->
+    <style>
+        @media  print {
+            .no-print{
+                display: none !important
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -52,9 +59,9 @@
             </div>
             <div class="col-10 text-center">
                 <h1 class="school-name">Ceresense ICT Institution</h1>
-                <h5 class="school-address">123 Main Street, Ilorin, Nigeria</h5>
-                <h6 class="school-website">Website: <a href="">www.ceresense.edu</a> | Contact: <span
-                        class="school-contact">09123456789</span></h6>
+                <h5 class="school-address">N0 2,Foyeke street,opposite tawheed junction,basin,ilorin,kwara state</h5>
+                <h6 class="school-website">Website: <a href="">www.ceresense.com.ng</a> | Contact: <span
+                        class="school-contact">+234 7063419718, +234 8036436594</span></h6>
             </div>
         </div>
 
@@ -70,9 +77,9 @@
                 <div class="col-6">
                     <p><strong>Billed to:</strong> {{ucfirst( $payments->student->firstname) }} {{ucfirst( $payments->student->othername)}} {{ ucfirst($payments->student->surname )}}</p>
 
-                    <p><strong>App No:</strong> {{$payments->student->app_no}}</p>
+                    <p><strong>App No:</strong> {{$payments->student->matric_no}}</p>
 
-                    <p><strong>Cohort:</strong> {{$payments->student->cohort}}</p>
+                    {{-- <p><strong>Cohort:</strong> {{$payments->student->cohort}}</p> --}}
                    <p><strong>Gateway Response:</strong>  {{$payments->gateway_response}}</p>
                 </div>
 
@@ -96,12 +103,13 @@
                     <tr>
                         <th>#</th>
                         <th>Date</th>
-                        <th>Amount Paid</th>
+                        
                         <th>Desceiption</th>
                         <th>Invoice</th>
                         <th>Transaction Ref</th>
+                        <th>Amount </th>
                         {{-- <th>Purpose</th> --}}
-                        <th>Amount Due (₦)</th>
+                        {{-- <th>Amount Due (₦)</th> --}}
                     </tr>
                 </thead>
                 <tbody> 
@@ -112,13 +120,13 @@
                   @foreach ($payment as   $invoice)
                   <tr>
                     <td>{{ $index}}</td>
-                    <td>{{ $invoice->payment_date}}</td>
-                    <td>&#8358;{{number_format($invoice->amount)}}</td>
+                    <td>{{date('d/m/Y',strtotime( $invoice->payment_date))}}</td>
                     <td>{{ $invoice->schedule->description}}</td>
                     <td>{{ $invoice->invoice}}</td>
                     <td>{{ $invoice->transaction_reference}}</</td>
+                    <td>&#8358;{{number_format($invoice->amount)}}</td>
                     {{-- <td>{{ $invoice->purpose}}</td> --}}
-                    <td>&#8358;{{number_format($invoice->amount_due )}}</td>
+                    {{-- <td>&#8358;{{number_format($invoice->amount_due )}}</td> --}}
                 </tr>
                 @php
                 $totalAmount += $invoice->amount; // Accumulate amount
@@ -129,7 +137,7 @@
                     
       
                     <tr>
-                        <td colspan="6" class="text-right"><strong>Total Amount</strong></td>
+                        <td colspan="5" class="text-right"><strong>Total Amount</strong></td>
                         <td class="unique-border"><strong>&#8358;{{number_format($totalAmount)}}</strong></td>
                     </tr>
                 </tbody>
@@ -144,8 +152,8 @@
         </div>
         <div class="text-md-right">
           <button onclick="javascript:window.print();" class="no-print btn btn-warning btn-icon icon-left"><i class="fas fa-print"></i> Print</button>
-         {{-- <a href="{{ route('admission.slip',['app_no'=>$student->app_no]) }}">click here to Print Your Admission letter</a>
-           --}}
+         <a href="{{ route('admission.slip',['app_no'=>$payments->student->app_no]) }}">click here to Print Your Admission letter</a>
+          
         </div>
     </div>
 

@@ -25,6 +25,7 @@ class Payments_schedule_controller extends Controller
   public function getDetails(Request $request)
   {
     $appNo = $request->app_no;
+    
     $status = 1;
     $student = student::where('app_no', $appNo)->first();
     $current_Date = date('F d,Y h:i:s A');
@@ -40,27 +41,26 @@ class Payments_schedule_controller extends Controller
     ->where('status', '=', $status)
     ->first();
 
+    // $stdId = $checkAdmissionStatus->id;
+
+
   if($checkAdmissionStatus===null){
     return  redirect()->back()->with('message', 'You have not been offered admission');
 
   } 
 
-  $getId=student::where('app_no', $appNo)->value('id');
-  // dd($getId);
-    $checkPaymentStatus = payment::where('student_id',$getId)
-    ->where('status', '=', 'success')
+  $stdId = $checkAdmissionStatus->id;
+
+    $checkPaymentStatus = payment::where('student_id',$stdId)
+    ->where('status',  'success')
     ->first();
-    //  dd($checkPaymentStatus);
-
-    ['student' => $checkPaymentStatus];
-
-
+  
     if($checkPaymentStatus){
-      ['app_no'=>$student->app_no,'student' => $checkPaymentStatus];
       
-      // return redirect()->route('admission.slip',['app_no'=>$student->app_no]);
-
-      return redirect()->route('payment.receipts',['app_no'=>$student->app_no,'student' => $checkPaymentStatus] );
+    $invoice = $checkPaymentStatus->invoice;
+    $reference = $checkPaymentStatus->transaction_reference;
+      
+      return redirect()->route('outstanding.receipts',['invoice'=>$invoice,'reference' => $reference] );
 
     }else{
       $dept_id = $student->department_id;
@@ -100,6 +100,7 @@ class Payments_schedule_controller extends Controller
 
   }
 
+  
 
 
   public function SchoolfeePaystackInit(Request $request)
@@ -260,7 +261,7 @@ class Payments_schedule_controller extends Controller
       $gatewayRes = $responses->data->gateway_response;
       $signature = $responses->data->authorization->signature;
       $paymentDate = $responses->data->paid_at;
-      $formatDate= date('Y-m-d', strtotime($paymentDate));
+      // $formatDate= date('d/m/Y', strtotime($paymentDate));
       $reference = $responses->data->reference;
       $amount = $responses->data->amount;
       $deptId = $responses->data->metadata->deptId;
@@ -268,33 +269,33 @@ class Payments_schedule_controller extends Controller
         
       // dd($deptId);
       $amountInNaira = ($amount / 100);
-
-      //  $checkSchedule = Payment_schedule::where('department_id', $deptId)->find($deptId);
-        
-      // $totalAmount = $checkSchedule->amount;
-
-      //  $amountDue = ( $totalAmount - $amountInNaira);
-
-      $getId = Payment::where('transaction_reference', $transactionRef)->value('id');
-
-
-      $storeTransaction = [
-        // 'amount' => $amountInNaira,
-        //  'amount_due' => $amount_due,
-        'transaction_reference' => $reference,
-        'status' => $status,
-        'gateway_response' => $gatewayRes,
-        'signature' => $signature,
-        'payment_date' => $formatDate,
       
-      ];
+      $pay = Payment::where('transaction_reference', $transactionRef)->first();
 
-      $payment = payment::with('students')->where('id', $getId)->update($storeTransaction);
+      $invoice = $pay->invoice;
 
-      if ($payment == true) {
-        return redirect()->route('payment.receipts', ['reference' => $reference]);
-      } else return redirect()->back()->with('unable to save', 'transaction could not be completed');
-    }
+      if($status == 'success'){
+        $storeTransaction = [
+          'transaction_reference' => $reference,
+          'status' => $status,
+          'gateway_response' => $gatewayRes,
+          'signature' => $signature,
+          'payment_date' => $paymentDate,
+        
+        ];
+  
+        $pay->update($storeTransaction);
+
+        return redirect()->route('outstanding.receipts', ['reference' => $reference, 'invoice'=>$invoice]);
+        
+      }
+      else return redirect('home.page')->with('message','payment could no be verified');
+   }
+
+
+
+
+   
   }
   public function genReceipts(request $request)
   {
@@ -310,22 +311,34 @@ class Payments_schedule_controller extends Controller
       ->first();
 
     }
+    if ($payment) {
+      $student = $payment->student;
+      return view('payments.outstanding-receipts', compact('payment','student'));
+      // return view('payments.receipt', compact('payment', 'student',));
+    } else return view('error');
+
 
   
     $reference = $request->reference;
+
     if(isset($reference)){
 
-      $payment = Payment::with('student','schedule')
+      $payments = Payment::with('student','schedule')
       ->where('transaction_reference', $reference)
       ->where('status', 'success')
       ->first();
 
     }
           
-    if ($payment) {
-      $student = $payment->student;
-      return view('payments.receipt', compact('payment', 'student',));
-    } else return view('error');
+    
+    // if($payments){
+    //   $student = $payments->student;
+      
+    //   return view('payments.outstanding-receipts', compact('payments','student'));
+    // }
+
+
+
   }
 
   public function  showSchedule(){

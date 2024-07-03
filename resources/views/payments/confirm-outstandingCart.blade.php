@@ -21,11 +21,11 @@
                 </div>
                 <div class="mb-3">
                   <label for="amount" class="form-label">Amount Paid Before (&#8358;)</label>
-                  <input name="total_amount_paid_before" id="amount" value="{{ $total_amount_paid_before }}" type="text" class="form-control" disabled>
+                  <input name="amount_paid" id="amount" value="{{ $amount_paid }}" type="text" class="form-control" disabled>
               </div>
               <div class="mb-3">
                 <label for="amount" class="form-label">Amount Due (&#8358;)</label>
-                <input name="amount_due" id="amount" value="{{ $amount_due}}" type="text" class="form-control" disabled>
+                <input name="amount_left" id="amount" value="{{ $amount_left}}" type="text" class="form-control" disabled>
             </div>
               <div class="mb-3">
                 <label for="amount" class="form-label">Convinienence Charges (&#8358;)</label>
@@ -38,17 +38,24 @@
                     <div id="amount-error" class="text-danger" style="display:none;">Please enter a valid amount in the format 1234567890.99</div>
                 </div>
                 {{-- Hidden input  --}}
-                 <input name="student_id" type="hidden" value="{{ $studentId}}"> 
+                 
                  <input name="app_no" type="hidden" value="{{ $app_no }}">
                 <input name="email" type="hidden" value="{{ $email}}">  
                 <input name="inv" type="hidden" value="{{$inv}}">
-                <input name="schedule_id" type="hidden" value="{{$schedule_id}}">
                 <input name="purpose" type="hidden" value="{{$purpose}}">
-                <input type="hidden" name="department_id" value="{{ $deptId }}">
-                <input type="hidden" name="amount_due" value="{{ $amount_due}}">
+                <input type="hidden" name="amount_left" value="{{ $amount_left}}">
+                <input type="hidden" name="amount_paid" value="{{ $amount_paid}}">
+                <input type="hidden" name="amount_due" value="{{ $amount_due }}">
+                <input type="hidden" name="actual_amount"   value="{{ $actual_amount }}">
+                <input type="hidden" name="amount_to_paystack" value="{{ $amountToPaystack}}">
+                
+                {{-- <input name="schedule_id" type="hidden" value="{{$schedule_id}}"> --}}
+                {{--  --}}
+                {{-- <input type="hidden" name="department_id" value="{{ $deptId }}"> --}}
+                {{-- <input name="student_id" type="hidden" value="{{ $studentId}}">         
                 <input type="hidden" name="amount_to_pay" value="{{ $amount_to_pay}}">  
                 <input type="hidden" name="amount_to_paystack" value="{{ $amountToPaystack}}">
-                <input type="hidden" name="amount_paid_before" value="{{ $total_amount_paid_before}}"> 
+                <input type="hidden" name="amount_paid_before" value="{{ $total_amount_paid_before}}">  --}}
                 
 
                 <button type="submit" class="btn btn-primary">Proceed</button>

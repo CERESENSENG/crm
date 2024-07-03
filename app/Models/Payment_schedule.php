@@ -16,5 +16,17 @@ class Payment_schedule extends Model
 
      protected  $guarded = [];
 
+
+
+     static function getScheduleByDept($dept_id, $purpose)
+       {
+
+       return   Payment_schedule::where('department_id',$dept_id)
+                            ->where('purpose',$purpose)
+                             ->first();
+                           
+
+       }
+
    
 }
