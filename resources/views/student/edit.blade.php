@@ -45,7 +45,7 @@
                         @enderror
                     </span>
                 </div>
-                <div class="form-group">
+                {{-- <div class="form-group">
                     <label for="password">Password</label>
                     <input required name="password" type="password" class="form-control">
                     <span class="text-danger">
@@ -53,7 +53,7 @@
                             {{ $message }}
                         @enderror
                     </span>
-                </div>
+                </div> --}}
                 <div class="form-group">
                     <label for="next_of_kin">Next of Kin</label>
                     <input required name="next_of_kin" type="text" class="form-control" value="{{$student->next_of_kin }}">
@@ -63,7 +63,7 @@
                         @enderror
                     </span>
                 </div>
-                <div class="form-group">
+                {{-- <div class="form-group">
                     <label for="email">Email address</label>
                     <input required name='email' type="email" class="form-control" value="{{ $student->email }}">
                     <span class="text-danger">
@@ -71,7 +71,7 @@
                             {{ $message }}
                         @enderror
                     </span>
-                </div>
+                </div> --}}
                 <div class="form-group">
                     <label for="sponsors">Sponsors</label>
                     <input required name="sponsors" type="text" class="form-control" value="{{ $student->sponsors }}">

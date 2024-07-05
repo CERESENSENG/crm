@@ -44,14 +44,16 @@ class PaymentsController extends Controller
   public function filterPayments(request $request)
 
   {
+    $options = $this->paymentMethod();
+    $statuses = $this->status();
 
     $invoice = $request->invoice;
     $status = $request->status;
     $paymentOption = $request->payment_option;
     // dd($status);
 
-    $from =  date('Y-m-d',strtotime($request->from)).' 00:00:00';
-    $to = date('Y-m-d',strtotime($request->to)).' 23:59:59';
+    $from =  date('Y-m-d', strtotime($request->from)) . ' 00:00:00';
+    $to = date('Y-m-d', strtotime($request->to)) . ' 23:59:59';
 
 
     $null = (trim($invoice) == '' &&  trim($status) == '' &&  trim($paymentOption) == '' && trim($from) == '' &&  trim($to) == '');
@@ -62,11 +64,13 @@ class PaymentsController extends Controller
       $students  =  Payment::whereinvoice($invoice)
         ->get();
     } else if ($from && $to) {
-      $students = Payment::where('payment_date','>=', $from)
-                          ->where('payment_date','<=', $to)
-                           ->where('status','success')
-                          ->get(); 
-    } else  
+      $students = Payment::where('payment_date', '>=', $from)
+        ->where('payment_date', '<=', $to)
+        ->where('status', 'success')
+        ->get();
+    } else {
+      // dd($paymentOption);
+    
 
       $students  =  Payment::when($paymentOption, function ($query) use ($paymentOption) {
           return $query->where('payment_option', $paymentOption);
@@ -76,11 +80,13 @@ class PaymentsController extends Controller
 
        ->get();
 
+      }
 
-     $studentList = $students;
 
-    $options = $this->paymentMethod();
-    $statuses = $this->status();
+
+    $studentList = $students;
+
+    
 
     return view('payments.search', compact('studentList', 'options', 'statuses'));
   }
@@ -134,12 +140,12 @@ class PaymentsController extends Controller
       $error_in_row = $error_in_csv = false;
       $error = $error_n_matric = false;
 
-    
+
 
       if (
         trim($matric_no) == '' && trim($payment_option) == '' && trim($purpose) == '' &&
-        trim($payment_reference) == '' && trim($amount) == '' 
-         && trim($schedule_id) == '' 
+        trim($payment_reference) == '' && trim($amount) == ''
+        && trim($schedule_id) == ''
       ) {
 
         $error = 'Error ignored';
@@ -152,69 +158,64 @@ class PaymentsController extends Controller
         $error_in_row = true;
         $error = 'One of required field(s) omiited .';
         $myErr = true;
-        $matric_no='';$student_id=''; $payment_option = ''; $purpose =''; $payment_reference ='';
-        $gateway = ''; $amount = ''; $status = ''; $gateway_reponse = ''; $amount_due = ''; $schedule_id ='';
-        $transaction_reference = ''; $invoice = ''; $student_name = '';
-  
-
-
+        $matric_no = '';
+        $student_id = '';
+        $payment_option = '';
+        $purpose = '';
+        $payment_reference = '';
+        $gateway = '';
+        $amount = '';
+        $status = '';
+        $gateway_reponse = '';
+        $amount_due = '';
+        $schedule_id = '';
+        $transaction_reference = '';
+        $invoice = '';
+        $student_name = '';
       } else {
-        
+
         $student = $this->checkMatricno($matric_no);
-        if($student)
-         {
-          $dept =$student->department_id;
+        if ($student) {
+          $dept = $student->department_id;
           $student_id = $student->id;
           $matric_no = $student->matric_no;
-           $student_name = $student->surname. ' '. $student->firstname;
-  
-          $schedule= $this->getSchedule($schedule_id);
-          if($schedule){
-             if($schedule->department_id !=  $student->department_id )
-               {
-                $error_in_csv = true;
-                $error_in_row = true;
-                $error .= ($error)? 'and  wrong payment schedule ID is not match student`s dept. ':' wrong payment schedule ID is not match student`s dept. ';
-                $myErr = TRUE;
+          $student_name = $student->surname . ' ' . $student->firstname;
 
-               }
-                $schfee =  Payment::getExistingSchoolFeePayment($student_id);
-                if($schfee)
-                 $amount_due = $schfee->amount_due;
-                  else
-                  $amount_due = $schedule->amount; 
-  
-          }else{
-             
+          $schedule = $this->getSchedule($schedule_id);
+          if ($schedule) {
+            if ($schedule->department_id !=  $student->department_id) {
+              $error_in_csv = true;
+              $error_in_row = true;
+              $error .= ($error) ? 'and  wrong payment schedule ID is not match student`s dept. ' : ' wrong payment schedule ID is not match student`s dept. ';
+              $myErr = TRUE;
+            }
+            $schfee =  Payment::getExistingSchoolFeePayment($student_id);
+            if ($schfee)
+              $amount_due = $schfee->amount_due;
+            else
+              $amount_due = $schedule->amount;
+          } else {
+
             $error_in_csv = true;
             $error_in_row = true;
-            $error .= ($error)? 'and Invalid Schedule Id. ':'Invalid Schedule Id. ';
+            $error .= ($error) ? 'and Invalid Schedule Id. ' : 'Invalid Schedule Id. ';
             $myErr = TRUE;
-
           }
-
-         }else {
+        } else {
 
           $error_in_csv = true;
           $error_in_row = true;
-          $error_n_matric= true;
+          $error_n_matric = true;
           $error .= 'Invalid matric_no, ';
           $myErr = TRUE;
-           $amount_due = 0;
-           $student_name = '';
-           $matric_no = '';
+          $amount_due = 0;
+          $student_name = '';
+          $matric_no = '';
+        }
 
 
-         }
-        
-        
         $invoice = $this->checkInv($schedule_id);
         $transaction_reference = $this->generateTxn();
-
-      
-
-    
-        
       }
 
 
@@ -246,7 +247,7 @@ class PaymentsController extends Controller
       $k++;
 
 
-     // $result = json_decode(json_encode($data));
+      // $result = json_decode(json_encode($data));
     }
 
     //  return $data;
@@ -267,20 +268,20 @@ class PaymentsController extends Controller
     );
 
 
-      $user_name = $request->user()->name;
+    $user_name = $request->user()->name;
 
     foreach ($validate['data'] as $rowStd) {
 
 
       $tudent = Payment::create([
-        'student_id' =>$rowStd['student_id'],
+        'student_id' => $rowStd['student_id'],
         'payment_option' => $rowStd['payment_option'],
         'purpose' => $rowStd['purpose'],
         'payment_reference' => $rowStd['payment_reference'],
         'gateway' => 'csv',
         'amount' => $rowStd['amount'],
         'status' => 'success',
-        'gateway_response' => 'Payment uploaded by '.$user_name.' via csv',
+        'gateway_response' => 'Payment uploaded by ' . $user_name . ' via csv',
         'amount_due' => $rowStd['amount_due'],
         'schedule_id' => $rowStd['schedule_id'],
         'transaction_reference' => $rowStd['transaction_reference'],
@@ -304,37 +305,37 @@ class PaymentsController extends Controller
   {
     $appNo = $request->app_no;
 
-    $std =student::where('matric_no',$appNo)->first();
+    $std = student::where('matric_no', $appNo)->first();
 
-    if(!$std){
+    if (!$std) {
 
-      return redirect('/outstanding/page')->with('message','No record found');
+      return redirect('/outstanding/page')->with('message', 'No record found');
     }
 
     $pays = payment::where('student_id', $std->id)
-    ->where('status', 'success')
-    ->get();
+      ->where('status', 'success')
+      ->get();
 
-    if ($pays->isEmpty()){
+    if ($pays->isEmpty()) {
 
       $sch = Payment_schedule::where('department_id', $std->department_id)
-      ->where('purpose', 'sch_fee')
-      ->first();
+        ->where('purpose', 'sch_fee')
+        ->first();
 
       $amount_due = $amount_left = $sch->amount;
       $amount_paid = 0;
       $purpose = $sch->purpose;
       $stdApp = $std->app_no;
-      $email =  $std->email; 
-       $inv  =  $this->generateInvoice(); 
+      $email =  $std->email;
+      $inv  =  $this->generateInvoice();
       //dd(3);
 
-    }else{
+    } else {
       $k = 0;
       $paid = 0;
 
-      foreach($pays as $pay){
-        if ($k == 0){
+      foreach ($pays as $pay) {
+        if ($k == 0) {
           $amount_due = $pay['amount_due'];
           $invoice = $pay['invoice'];
           $reference = $pay['transaction_reference'];
@@ -343,78 +344,76 @@ class PaymentsController extends Controller
         $paid += $pay['amount'];
       }
       // dd($paid);
-    
-      if($amount_due == $paid){
-           
-        return redirect()->route('outstanding.receipts',['invoice'=>$invoice,'reference' => $reference] );
-      }
 
-      else if ($paid < $amount_due){
+      if ($amount_due == $paid) {
+
+        return redirect()->route('outstanding.receipts', ['invoice' => $invoice, 'reference' => $reference]);
+      } else if ($paid < $amount_due) {
         $status = 'success';
         $cart =  Payment::with('student')->where('status', $status)->first();
-      $stdApp = $cart->student->app_no;
-      $email =  $cart->student->email; 
-      $amount_paid = $paid;
-       $inv  = $invoice; 
-       
+        $stdApp = $cart->student->app_no;
+        $email =  $cart->student->email;
+        $amount_paid = $paid;
+        $inv  = $invoice;
+
         $amount_left = $amount_due - $amount_paid;
 
         // return view('payments.outstandingCart',compact('stdApp',
         // 'email','amount_due','amount_paid','amount_left','inv','purpose'));
       }
-
-
-
     }
 
-    
-    return view('payments.outstandingCart',compact('stdApp',
-    'email','amount_due','amount_paid','amount_left','inv','purpose'));
 
+    return view('payments.outstandingCart', compact(
+      'stdApp',
+      'email',
+      'amount_due',
+      'amount_paid',
+      'amount_left',
+      'inv',
+      'purpose'
+    ));
   }
 
-  public function genConvinienceFees(Request $request){
+  public function genConvinienceFees(Request $request)
+  {
     $purpose = $request->purpose;
     $app_no = $request->app_no;
     $email = $request->email;
     $inv = $request->inv;
     $amount_paid = $request->amount_paid;
-    $amount_left =$request->amount_left;
-    $amount_due =$request->amount_due;
+    $amount_left = $request->amount_left;
+    $amount_due = $request->amount_due;
     $amount_to_pay = $request->amount_to_pay;
 
-   
-  
-      if($amount_to_pay < 2500){
 
-        $amount = $amount_to_pay/(1-(1.5/100)) +0.03;
 
-       
+    if ($amount_to_pay < 2500) {
 
-      } else if($amount_to_pay >2500){
+      $amount = $amount_to_pay / (1 - (1.5 / 100)) + 0.03;
+    } else if ($amount_to_pay > 2500) {
 
-        $amount = $amount_to_pay/(1-(1.5/100)) +100;
-  
-      }
+      $amount = $amount_to_pay / (1 - (1.5 / 100)) + 100;
+    }
 
-      $convinience= $amount - $amount_to_pay;
+    $convinience = $amount - $amount_to_pay;
 
-        $convinienceFees =  ceil($convinience);
+    $convinienceFees =  ceil($convinience);
 
-      
-      if($convinienceFees > 2000){
 
-        $Charges = 2000;
-  
-        $convinienceFees = $Charges;
-       }
-  
-      $amountPaid=  $amount_to_pay + $convinienceFees;
-  
-      $amountToPaystack = $amountPaid;
-      $actual_amount = $amount_to_pay;
+    if ($convinienceFees > 2000) {
 
-      return view('payments.confirm-outstandingCart',compact(
+      $Charges = 2000;
+
+      $convinienceFees = $Charges;
+    }
+
+    $amountPaid =  $amount_to_pay + $convinienceFees;
+
+    $amountToPaystack = $amountPaid;
+    $actual_amount = $amount_to_pay;
+
+    return view('payments.confirm-outstandingCart', compact(
       'amountToPaystack',
       'convinienceFees',
       'app_no',
@@ -422,9 +421,10 @@ class PaymentsController extends Controller
       'inv',
       'amount_left',
       'amount_paid',
-      'amount_due', 'actual_amount',
+      'amount_due',
+      'actual_amount',
       'purpose'
-      ) );
+    ));
   }
 
 
@@ -433,58 +433,74 @@ class PaymentsController extends Controller
   public function outstandingPayment(request $request)
   {
 
-    
+
     $student = $request->app_no;
     $email = $request->email;
     $inv = $request->inv;
-    $amount_left =$request->amount_left;
+    $amount_left = $request->amount_left;
     $amount_paid = $request->amount_paid;
-    $amount_due =$request->amount_due;
+    $amount_due = $request->amount_due;
     $purpose = $request->purpose;
     $amount_to_paystack = ceil((int)$request->amount_to_paystack);
     $actual_amount = $request->actual_amount;
 
+    //  dd($amount_left);
+
     $transactionRef  = $this->generateTxn();
-$getIds = Payment::where('invoice',$inv)->first();
- if($getIds)
-   {
-    $schedule_id = $getIds->schedule_id;
-    $student_id = $getIds->student_id;
+    $getIds = Payment::where('invoice', $inv)->first();
+    if ($getIds) {
+      $schedule_id = $getIds->schedule_id;
+      $student_id = $getIds->student_id;
+    } else {
 
-   }else {
+      $std =  $this->checkMatricno($request->app_no);
+      $sch = Payment_schedule::getScheduleByDept($std->department_id, $purpose);
+      $schedule_id = $sch->id;
+      $student_id = $std->id;
+    }
+    //  dd($actual_amount);
 
-     $std =  $this->checkMatricno($request->app_no);
-      $sch = Payment_schedule::getScheduleByDept($std->department_id,$purpose);
-     $schedule_id = $sch->id;
-     $student_id = $std->id;
+    if ($actual_amount > $amount_left) {
 
-
-
-   }
-  
+      $amountToDb = $amount_left;
+    } else if ($actual_amount <= $amount_left) {
+      $amountToDb = $actual_amount;
+    }
 
     $store = Payment::create([
       'transaction_reference' => $transactionRef,
-       'amount' => $actual_amount,
-       'invoice' => $inv,
-       'amount_due' => $amount_due, 
-       'purpose' => $purpose,
-       'schedule_id' => $schedule_id,
-       'student_id' => $student_id,
+      'amount' => $amountToDb,
+      'invoice' => $inv,
+      'amount_due' => $amount_due,
+      'purpose' => $purpose,
+      'schedule_id' => $schedule_id,
+      'student_id' => $student_id,
 
     ]);
+
+    //  dd($student_id);
+    if ($amount_to_paystack > $amount_left) {
+
+      $realamount = $amount_left;
+
+      $amountProcessed =  $this->convinientfees($realamount);
+    } else if ($amount_to_paystack <= $amount_left) {
+
+      $amountProcessed = $amount_to_paystack;
+    }
+
 
     $url = "https://api.paystack.co/transaction/initialize";
 
     $fields = [
       'email' => $email,
-      'amount' =>  $amount_to_paystack * 100,
+      'amount' =>  $amountProcessed * 100,
       'reference' => $transactionRef,
       'callback_url' => 'http://localhost:8000/outstanding/payment/callback',
       'metadata' => json_encode([
-    
+
         'receipt_number' => $inv,
-       
+
 
       ])
 
@@ -572,7 +588,7 @@ $getIds = Payment::where('invoice',$inv)->first();
 
 
       $responses = json_decode($response);
-     
+
       $status = $responses->data->status;
       $gatewayRes = $responses->data->gateway_response;
       $signature = $responses->data->authorization->signature;
@@ -581,33 +597,30 @@ $getIds = Payment::where('invoice',$inv)->first();
       $invoice = $responses->data->metadata->receipt_number;
       $amount = $responses->data->amount;
       $amountInNaira = ($amount / 100);
-    
+
 
       $pay = Payment::where('transaction_reference', $transactionRef)->first();
       $invoice = $pay->invoice;
-   
 
-      if($status == 'success'){
+
+      if ($status == 'success') {
 
         $storeTransaction = [
+          // 'amount' =>$amountInNaira,
           'transaction_reference' => $reference,
           'status' => $status,
           'gateway_response' => $gatewayRes,
           'signature' => $signature,
           'payment_date' => $paymentDate,
-        
+
         ];
 
         $pay->update($storeTransaction);
 
-        return redirect()->route('outstanding.receipts', ['reference' => $transactionRef, 'invoice'=>$invoice]);
-
-      }  else return redirect('/outstanding/page')->with('message','payment could no be verified');
-
-     
+        return redirect()->route('outstanding.receipts', ['reference' => $transactionRef, 'invoice' => $invoice]);
+      } else return redirect('/outstanding/page')->with('message', 'payment could no be verified');
+    }
   }
-
-}
 
   public function genoutReceipts(request $request)
   {
@@ -618,7 +631,7 @@ $getIds = Payment::where('invoice',$inv)->first();
     $payment = Payment::with('student', 'schedule')
       ->where('invoice', $invoice)
       ->where('status', 'success')
-      ->get();  
+      ->get();
 
     // return $payment;
 
@@ -627,13 +640,12 @@ $getIds = Payment::where('invoice',$inv)->first();
       ->where('transaction_reference', $reference)
       ->where('status', 'success')
       ->first();
-   
+
 
     if ($payment) {
       //  $student = $payments->student;
       return view('payments.outstanding-receipts', compact('payment', 'payments'));
-    } else return redirect('/outstanding/page')->with('message','payment could no be verified');
-
+    } else return redirect('/outstanding/page')->with('message', 'payment could no be verified');
   }
 
 

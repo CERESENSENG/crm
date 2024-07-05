@@ -146,6 +146,40 @@ public function getYear()
 
   }
 
+  public function convinientfees($realamount)
+  {  
+    if($realamount < 2500){
+
+      $amount = $realamount/(1-(1.5/100)) +0.03;
+
+     
+
+    } else if($realamount >2500){
+
+      $amount = $realamount/(1-(1.5/100)) +100;
+
+    }
+
+    $convinience= $amount - $realamount;
+
+      $convinienceFees =  ceil($convinience);
+
+    
+    if($convinienceFees > 2000){
+
+      $Charges = 2000;
+
+      $convinienceFees = $Charges;
+     }
+
+    $total=  $realamount + $convinienceFees;
+
+    return $total;
+
+
+
+  }
+
 
 
 }

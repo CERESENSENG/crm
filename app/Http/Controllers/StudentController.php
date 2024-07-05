@@ -285,14 +285,14 @@ class StudentController extends Controller
             'firstname' => 'required|string',
             'othername' => 'required|string',
             'phone' => 'required|string',
-            'password' => 'required|string',
-            'email' => 'required|email|unique:students',
+            // 'password' => 'required|string',
+            // 'email' => 'required|email|unique:students',
             'next_of_kin' => 'required|string',
             'sponsors' => 'required|string',
             'sponsor_phone' => 'required|string',
 
         ]);
-        $validate['password'] = Hash::make($request->input('password'));
+        // $validate['password'] = Hash::make($request->input('password'));
 
         $student = student::findorfail($id);
 
@@ -313,7 +313,7 @@ class StudentController extends Controller
         $validate = $request->validate([
             'next_of_kin_phone' => 'required|string',
             'address' => 'required|string',
-            'department_id' => 'required|integer|exists:departments,id',
+            // 'department_id' => 'required|integer|exists:departments,id',
             'class_method' => 'required|in:online,physical',
             'skill_monetization' => 'required|in:yes,no',
             'payment_method' => 'required|in:one-time,installments',
@@ -464,6 +464,7 @@ class StudentController extends Controller
                     $error_in_csv = true;
                     $error_in_row = true;
                     $error_n_matric = true;
+                    $myErr = true;
                     $error .= ($error) ? 'and matric no already exists ' : 'matric no already exists';
                 }
             }

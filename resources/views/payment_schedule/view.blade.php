@@ -39,6 +39,7 @@
                                   <th>Cohort</th>
                                   <th>Year</th>
                                   <th>Department Name</th>
+                                  <th>Schedule Id</th>
                                   <th>Amount</th>
                                   <th>Action</th>
                               </tr>
@@ -52,6 +53,7 @@
                               <td>{{ $payment->cohort }} </td>
                               <td>{{ $payment->year }}</td>
                               <td>{{ $payment->department->name }} </td>
+                              <td>{{ $payment->id }}</td>
                               <td>{{ $payment->amount}}</td>
                               <td>
                                  <div style="display: flex ;">
