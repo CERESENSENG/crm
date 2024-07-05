@@ -42,11 +42,14 @@ class PaymentsController extends Controller
   }
 
   public function filterPayments(request $request)
+
   {
 
     $invoice = $request->invoice;
     $status = $request->status;
     $paymentOption = $request->payment_option;
+    // dd($status);
+
     $from =  date('Y-m-d',strtotime($request->from)).' 00:00:00';
     $to = date('Y-m-d',strtotime($request->to)).' 23:59:59';
 
@@ -59,25 +62,23 @@ class PaymentsController extends Controller
       $students  =  Payment::whereinvoice($invoice)
         ->get();
     } else if ($from && $to) {
-     // $students = Payment::whereBetween('created_at', [$from, $to])->get();
       $students = Payment::where('payment_date','>=', $from)
                           ->where('payment_date','<=', $to)
                            ->where('status','success')
-                          ->get();
-      
-    } else
+                          ->get(); 
+    } else  
+
       $students  =  Payment::when($paymentOption, function ($query) use ($paymentOption) {
           return $query->where('payment_option', $paymentOption);
         })->when($status, function ($query) use ($status) {
           return $query->where('status', $status);
         })
 
-        ->get();
+       ->get();
 
 
-    $studentList = $students;
+     $studentList = $students;
 
-    //dd($studentList);
     $options = $this->paymentMethod();
     $statuses = $this->status();
 
@@ -212,21 +213,7 @@ class PaymentsController extends Controller
 
       
 
-        // if (empty($student)) {
-        //   $error_in_csv = true;
-        //   $error_in_row = true;
-        //   $error_n_matric= true;
-        //   $error .= 'Invalid matric_no, ';
-        //   $myErr = TRUE;
-        // }
-        // if(empty($schedule)){
-        //   $error_in_csv = true;
-        //   $error_in_row = true;
-        //   $error .= ($error)? 'and Invalid Schedule Id. ':'Invalid Schedule Id. ';
-        //   $myErr = TRUE;
-        // }
-      
-
+    
         
       }
 

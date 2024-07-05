@@ -137,6 +137,15 @@ public function getYear()
 
   }
 
+  public function checkCertificate($certificate_id){
+
+    $chkexistCert = Student::where('certificate_no', $certificate_id)->first();
+  
+    // dd($certificate);
+    return $chkexistCert;
+
+  }
+
 
 
 }

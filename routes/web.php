@@ -39,6 +39,10 @@ Route::get('/homePage', function(){
 
 Route::get('/home',[AdmissionController::class, 'getAppnoToHome'])->name('appNo.home');
 
+//CERTIFICATE ROUTE
+
+Route::post('/certificate',[StudentController::class, 'verifyCert'])->name('verify.certificate');
+
 
 
 
@@ -155,9 +159,16 @@ Route::put('/student/continue/{id}',[StudentController::class, 'updateStage'])->
 
 
 
+ //Certification Route
+
+ Route::get('/certificate', [StudentController::class,  'certificatepage'])->name('page.certificate');
+ Route::post('/certificate/upload', [StudentController::class, 'certificateUpload'])->name('upload.certificate');
+ Route::put('/certificate/store', [StudentController::class, 'certificateStore'])->name('certificate.storecsv');
 
 
 
+
+ 
 //lARAVEL BREEZE AUTHENTICATION ROUTES
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

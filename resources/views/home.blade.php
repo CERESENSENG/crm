@@ -37,8 +37,9 @@
           <div class=" col-md-8 col-lg-6" data-aos="fade-up" data-aos-delay="200">
             <p style="margin: 0;"  data-aos-delay="100">Enter Certificate Number 
             </p>
-            <form action="#" class="app_number d-flex mt-1" data-aos-delay="300">
-              <input type="text" class="form-control" placeholder="Certificate_No">
+            <form action="{{ route('verify.certificate') }}" method="POST" class="app_number d-flex mt-1" data-aos-delay="300">
+              @csrf
+              <input name="certificate_no" type="text" class="form-control" placeholder="Certificate_No">
               <input type="submit" class="btn btn-primary" value="Proceed">
             </form>
           </div>
