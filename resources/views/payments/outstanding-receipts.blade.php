@@ -41,6 +41,12 @@
                 display: none !important
             }
         }
+
+        @media  print {
+            .receipt-watermark-logo{
+               display: none
+            }
+        }
     </style>
 </head>
 
@@ -152,7 +158,7 @@
         </div>
         <div class="text-md-right">
           <button onclick="javascript:window.print();" class="no-print btn btn-warning btn-icon icon-left"><i class="fas fa-print"></i> Print</button>
-         <a href="{{ route('admission.slip',['app_no'=>$payments->student->app_no]) }}">click here to Print Your Admission letter</a>
+         <a class="no-print" href="{{ route('admission.slip',['app_no'=>$payments->student->app_no]) }}">click here to Print Your Admission letter</a>
           
         </div>
     </div>
