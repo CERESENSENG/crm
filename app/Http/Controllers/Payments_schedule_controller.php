@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 
 use Illuminate\Http\Request;
-use App\Models\student;
-use App\Models\department;
+use App\Models\Student;
+use App\Models\Department;
 use App\Models\Payment_schedule;
 use App\Models\Payment;
 use App\Models\Setting;

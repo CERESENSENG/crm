@@ -14,7 +14,7 @@ class DepartmentController extends Controller
 
     public function getDepartment($dept){
 
-        $depts=department::find($dept);
+        $depts=Department::find($dept);
         return $depts;
      
         // if ($depts){

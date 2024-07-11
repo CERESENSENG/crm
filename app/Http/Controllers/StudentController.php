@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\student;
-use App\Models\department;
+use App\Models\Student;
+use App\Models\Department;
 use App\Models\Setting;
 use Illuminate\Support\Facades\Log;
 
@@ -164,7 +164,7 @@ class StudentController extends Controller
     public function applicationMessage($id)
     {
         // $student = Student::findorfail($id);
-        $student = student::with('department')->findorfail($id);
+        $student = Student::with('department')->findorfail($id);
         $data = ['student' => $student];
         $surname = $student->surname;
         $firstname = $student->firstname;
@@ -195,7 +195,7 @@ class StudentController extends Controller
     {
 
         $app_no = $request->input('app_no');
-        $student = student::with('department')->where('app_no', $app_no)->firstorfail();
+        $student = Student::with('department')->where('app_no', $app_no)->firstorfail();
         return view('application.slip', compact('student'));
     }
 
@@ -203,7 +203,7 @@ class StudentController extends Controller
     public function showApplicantFullDetails(request $request)
     {
         $appNo = $request->input('app_no');
-        $student = student::with('department')->where('app_no', $appNo)->firstorfail();
+        $student = Student::with('department')->where('app_no', $appNo)->firstorfail();
         return view('application.applicant_details', compact('student'));
     }
 
@@ -214,7 +214,7 @@ class StudentController extends Controller
 
         //  dd(3);
 
-        $depts = department::all();
+        $depts = Department::all();
         $cohorts = $this->getCohorts();
         $years = $this->getYear();
 
@@ -259,7 +259,7 @@ class StudentController extends Controller
     public function view()
     {
         $status = 1;
-        $students = student::with('department')->where('status', $status)->get();
+        $students = Student::with('department')->where('status', $status)->get();
 
         return view('student.view', compact('students'));
     }
@@ -269,7 +269,7 @@ class StudentController extends Controller
     public function edit(request $request)
     {
         $id = $request->id;
-        $student = student::with('department')->where('id', $id)->first();
+        $student = Student::with('department')->where('id', $id)->first();
 
 
         return view('student.edit', compact('student'));
@@ -294,7 +294,7 @@ class StudentController extends Controller
         ]);
         // $validate['password'] = Hash::make($request->input('password'));
 
-        $student = student::findorfail($id);
+        $student = Student::findorfail($id);
 
         $student->update($validate);
 
@@ -303,8 +303,8 @@ class StudentController extends Controller
 
     public function editStage(Request $request, $id)
     {
-        $student = student::where('id', $id)->first();
-        $depts = department::all();
+        $student = Student::where('id', $id)->first();
+        $depts = Department::all();
 
         return view('student.edit2', compact('student', 'depts'));
     }
@@ -366,7 +366,7 @@ class StudentController extends Controller
     public function checkAppno($appNo)
     {
         //  dd($appNo);
-        $students = student::where('app_no', $appNo)->doesntExist();
+        $students = Student::where('app_no', $appNo)->doesntExist();
         // dd($students);
         if ($students == true) {
             return  $appNo;
@@ -697,7 +697,7 @@ class StudentController extends Controller
 
      $certificate = $request->certificate_no;
 
-     $student = student::where('certificate_no', $certificate)->first();
+     $student = Student::where('certificate_no', $certificate)->first();
 
      if(!$student){
         return redirect()->back()->with('message', 'No record Found');
