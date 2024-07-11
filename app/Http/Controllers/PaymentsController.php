@@ -10,7 +10,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
 class PaymentsController extends Controller
-{
+{ 
+
+
   /**
    * Display a listing of the resource.
    */
@@ -46,14 +48,13 @@ class PaymentsController extends Controller
   {
     $options = $this->paymentMethod();
     $statuses = $this->status();
-
     $invoice = $request->invoice;
     $status = $request->status;
     $paymentOption = $request->payment_option;
     // dd($status);
 
-    $from =  date('Y-m-d', strtotime($request->from)) . ' 00:00:00';
-    $to = date('Y-m-d', strtotime($request->to)) . ' 23:59:59';
+    $from =$request->from ? date('Y-m-d', strtotime($request->from)) . ' 00:00:00' : null;
+    $to = $request->to ? date('Y-m-d', strtotime($request->to)) . ' 23:59:59' : null;
 
 
     $null = (trim($invoice) == '' &&  trim($status) == '' &&  trim($paymentOption) == '' && trim($from) == '' &&  trim($to) == '');
@@ -63,15 +64,15 @@ class PaymentsController extends Controller
     else if ($invoice) {
       $students  =  Payment::whereinvoice($invoice)
         ->get();
-    } else if ($from && $to) {
+     }
+    else if ($from && $to) {
       $students = Payment::where('payment_date', '>=', $from)
         ->where('payment_date', '<=', $to)
         ->where('status', 'success')
         ->get();
-    } else {
-      // dd($paymentOption);
-    
-
+    }
+     else { 
+    //  dd($paymentOption);
       $students  =  Payment::when($paymentOption, function ($query) use ($paymentOption) {
           return $query->where('payment_option', $paymentOption);
         })->when($status, function ($query) use ($status) {
@@ -80,6 +81,9 @@ class PaymentsController extends Controller
 
        ->get();
 
+            // dd($students);
+          
+     
       }
 
 

@@ -44,15 +44,6 @@ Route::get('/home',[AdmissionController::class, 'getAppnoToHome'])->name('appNo.
 Route::post('/certificate',[StudentController::class, 'verifyCert'])->name('verify.certificate');
 
 
-
-
-// Route::get('/test', function () {
-//     return view('test');
-// });
-
-// Route::get('/show',[StudentController::class,'index'])->name('student_reg');
-
-
 // COMMENT: You need to read more about d best practice for name conventional for route and other methods. I will send d link.
 // All these uris haave been changed.
 Route::get('/application/register/stage-1', [StudentController::class, 'applicationRegister_Stage1'])->name('register.stage-1');

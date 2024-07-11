@@ -219,7 +219,6 @@ class Payments_schedule_controller extends Controller
 
       return $this->verifyPaystackTxn($transactionRef);
 
-      //  redirect()->route('payment.verify',compact('txnRef'));
     } else
       return redirect()->back()->with('message', 'Payment could not be validated');
   }
