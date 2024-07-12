@@ -8,7 +8,7 @@ use Illuminate\Routing\Controller as BaseController;
 
 use App\Models\Payment;
 use App\Models\Payment_schedule;
-use App\Models\student;
+use App\Models\Student;
 
 class Controller extends BaseController
 {
@@ -66,7 +66,7 @@ public function getYear()
         return $arr;
     }
   public function deptID(){
-    $id=[47,48,49,50,51,52,53,54];
+    $id=[81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,99,100];
     return $id;
   }
 
@@ -81,7 +81,7 @@ public function getYear()
   }
   public function checkInv($schedule_id){
     $schFee = 'sch_fee';
-    $payments = payment::where('schedule_id',$schedule_id)
+    $payments = Payment::where('schedule_id',$schedule_id)
              ->where('purpose', $schFee)
              ->first();
 

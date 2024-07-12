@@ -20,6 +20,6 @@ class Student extends Model
 
     public function payment(){
 
-        return $this->hasMany(payment::class,);
+        return $this->hasMany(Payment::class,);
     }
 }

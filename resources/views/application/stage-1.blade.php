@@ -49,7 +49,7 @@
                                 </span>
                             </div>
                             <div class="form-group mt-2">
-                                <label  class="visually-hidden" for="inputPassword2">Password</label>
+                                <label  class="" for="inputPassword2">Password</label>
                                 <input required name="password" type="password"  id="inputPassword2" class="form-control mt-2">
                                 <span class="text-danger">
                                     @error('password')

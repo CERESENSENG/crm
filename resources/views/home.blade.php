@@ -2,7 +2,7 @@
 
   <section id="hero" class="hero section">
 
-    <img src="{{asset('assets/img/hero-bg.jpg')}}" class="" alt="" data-aos="fade-in">
+    <img src="{{asset('assets/img/background-image.jpg')}}" class="" alt="" data-aos="fade-in">
 
     <div class="container">
       <h2 data-aos="fade-up" data-aos-delay="100">Learn Innovative<br>I.T Solutions</h2>
@@ -35,11 +35,11 @@
         </div>
         <div class="row">
           <div class=" col-md-8 col-lg-6" data-aos="fade-up" data-aos-delay="200">
-            <p style="margin: 0;"  data-aos-delay="100">Enter Certificate Number 
+            <p style="margin: 0;"  data-aos-delay="100">Verify Certificate  
             </p>
             <form action="{{ route('verify.certificate') }}" method="POST" class="app_number d-flex mt-1" data-aos-delay="300">
               @csrf
-              <input name="certificate_no" type="text" class="form-control" placeholder="Certificate_No">
+              <input name="certificate_no" type="text" class="form-control" placeholder="Enter Certificate No">
               <input type="submit" class="btn btn-primary" value="Proceed">
             </form>
           </div>

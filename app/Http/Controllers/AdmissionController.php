@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\admissionMailNotification;
-use App\Models\student;
-use App\Models\department;
+use App\Mail\AdmissionMailNotification;
+use App\Models\Student;
+use App\Models\Department;
 use App\Models\Payment;
 use App\Mail\ApplicationMailNotification;
 use Illuminate\Support\Facades\Mail;
@@ -50,7 +50,7 @@ class AdmissionController extends Controller
      */
     public function approveStudent($id)
     {
-        $students = student::findorfail($id);
+        $students = Student::findorfail($id);
         $status = 1;
         $approve_date = date('F d,Y h:i:s A');
         $students->update(['status' => $status, 'approved_at' => $approve_date]);
@@ -58,13 +58,13 @@ class AdmissionController extends Controller
         $firstname = $students->firstname;
         $course = $students->department->name;
         $appno = $students->app_no;
-         Mail::to($students->email)->send(new admissionMailNotification($surname, $firstname, $course, $appno,));
+         Mail::to($students->email)->send(new AdmissionMailNotification($surname, $firstname, $course, $appno,));
         return redirect()->back()->with('message', 'Applicant Approved Successfully');
     }
 
     public function rejectStudent($id)
     {
-        $students = student::findorfail($id);
+        $students = Student::findorfail($id);
         $status = -1;
         $reject_date = date('F d,Y h:i:s A');
         $students->update(['status' => $status, 'rejected_at' => $reject_date]);
@@ -77,8 +77,8 @@ class AdmissionController extends Controller
         
         $pendingStudents= Student::with('department')->where('status', '0')->get();
         // dd($pendingStudents);
-        $approveStudents = student::with('department')->where('status', 1)->get();
-        $rejectedStudents = student::with('department')->where('status', -1)->get();
+        $approveStudents = Student::with('department')->where('status', 1)->get();
+        $rejectedStudents = Student::with('department')->where('status', -1)->get();
          return view('admission.admission', compact('pendingStudents','approveStudents','rejectedStudents'));
     }
   
@@ -89,12 +89,12 @@ class AdmissionController extends Controller
         $status = 1;
         $current_Date = date('F d,Y h:i:s A');
 
-          $getId=student::where('app_no', $request)->value('id');
-        $checkPaymentStatus = payment::where('student_id',$getId)
+          $getId=Student::where('app_no', $request)->value('id');
+        $checkPaymentStatus = Payment::where('student_id',$getId)
         ->where('status', '=', 'success')
         ->first();
         // dd($checkPaymentStatus);
-          $students = student::with('department')->where('app_no', '=', $request)->where('status', '=', $status)->first();
+          $students = Student::with('department')->where('app_no', '=', $request)->where('status', '=', $status)->first();
         //  if ($students == null) {
         //     return  redirect()->back()->with('message', 'Invalid Application Details');
         // } else

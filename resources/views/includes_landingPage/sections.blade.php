@@ -156,7 +156,7 @@
             <div class="course-content">
               <div class="d-flex justify-content-between align-items-center mb-3">
                 <p class="category">Graphic Design</p>
-                <p class="price">$169</p>
+                {{-- <p class="price">$169</p> --}}
               </div>
 
               <h3><a href="course-details.html">Graphic Design</a></h3>
@@ -174,7 +174,7 @@
             <div class="course-content">
               <div class="d-flex justify-content-between align-items-center mb-3">
                 <p class="category">Web Development</p>
-                <p class="price">$200</p>
+                {{-- <p class="price">$200</p> --}}
               </div>
 
               <h3><a href="course-details.html">Full Stack Development</a></h3>
@@ -192,7 +192,7 @@
             <div class="course-content">
               <div class="d-flex justify-content-between align-items-center mb-3">
                 <p class="category">Data Science</p>
-                <p class="price">$250</p>
+                {{-- <p class="price">$250</p> --}}
               </div>
 
               <h3><a href="course-details.html">Data Analysis with Python</a></h3>
@@ -209,7 +209,7 @@
             <div class="course-content">
               <div class="d-flex justify-content-between align-items-center mb-3">
                 <p class="category">Cybersecurity</p>
-                <p class="price">$220</p>
+                {{-- <p class="price">$220</p> --}}
               </div>
 
               <h3><a href="course-details.html">Cybersecurity Fundamentals</a></h3>
@@ -226,7 +226,7 @@
             <div class="course-content">
               <div class="d-flex justify-content-between align-items-center mb-3">
                 <p class="category">AI & Machine Learning</p>
-                <p class="price">$300</p>
+                {{-- <p class="price">$300</p> --}}
               </div>
 
               <h3><a href="course-details.html">Machine Learning with Python</a></h3>
@@ -243,7 +243,7 @@
             <div class="course-content">
               <div class="d-flex justify-content-between align-items-center mb-3">
                 <p class="category">Cloud Computing</p>
-                <p class="price">$280</p>
+                {{-- <p class="price">$280</p> --}}
               </div>
 
               <h3><a href="course-details.html">Cloud Infrastructure</a></h3>

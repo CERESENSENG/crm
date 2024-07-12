@@ -4,13 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Models\student;
+use App\Models\Student;
+use App\Models\Payment_schedule;
 use App\Models\Department;
 use App\Models\User;
 
 
 class DepartmentController extends Controller
 {
+
+   public function availablePrograms(){
+    $depts = Payment_schedule::with('department')->get();
+    return view('application.programs',compact('depts'));
+   }
+
 
     public function getDepartment($dept){
 

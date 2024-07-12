@@ -2,7 +2,7 @@
 
   <section id="hero" class="hero section">
 
-    <img src="assets/img/hero-bg.jpg" class="" alt="" data-aos="fade-in">
+    <img src="{{asset('assets/img/background-image.jpg')}}" class="" alt="" data-aos="fade-in">
 
     <div class="container">
       <h2 data-aos="fade-up" data-aos-delay="100">Learn Innovative<br>I.T Solutions</h2>
@@ -14,22 +14,18 @@
 
           <div class="card card-custom " data-aos="fade-up" data-aos-delay="100">
             <div class="card-body">
-              
-
-
-
               <ul class="list-group list-group-flush">
                 <li class="list-group-item"><a data-bs-toggle="collapse" href="#collapseExample" role="button"
                     aria-expanded="false" aria-controls="collapseExample">Program Overview</a></li>
                 <div class="collapse" id="collapseExample">
                   <ul>
-                    <li class="list-group-item" style="border: none;"><a href="#apply">Registration Steps</a></li>
-                    <li class="list-group-item" style="border: none;"><a href="#student-login">Avaliable Program</a>
+                    <li class="list-group-item" style="border: none;"><a href="{{ route('registration.steps') }}">Registration Steps</a></li>
+                    <li class="list-group-item" style="border: none;"><a href="{{ route('avail.programs') }}">Avaliable Program</a>
                     </li>
                   </ul>
                 </div>
                 <li class="list-group-item"><a href="{{ route('register.stage-1') }}">Apply Now</a></li>
-                <li class="list-group-item"><a href="{{ route('outstanding.page') }}">School fees payment</a></li>
+                <li class="list-group-item"><a href="{{ route('outstanding.page') }}">Returning Students Payments</a></li>
                 <li class="list-group-item"><a href="{{ route('home.page') }}">Print admission letter</a></li>
                 @if (Route::has('login'))
                 @auth

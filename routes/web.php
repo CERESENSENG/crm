@@ -7,9 +7,10 @@ use App\Http\Controllers\PaymentsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UserController;
+use App\Models\Department;
 use App\Models\Payment;
 use App\Models\Payment_schedule;
-use App\Models\student;
+use App\Models\Student;
 use Illuminate\Support\Facades\Route;
 
 
@@ -30,14 +31,15 @@ use Illuminate\Support\Facades\Route;
 
   // COMMENT:  You need to change the content of welcome page to Home page, where it will display links to diiff pages: registration page, payment page, admin page etc.ec.
 
-Route::get('/', function () {
-    return view('index');
-});
-Route::get('/homePage', function(){
-  return view('home');
-  })->name('home.page');
+Route::get('/', function () {return view('index');})->name('index');
+Route::get('/homePage', function(){return view('home');})->name('home.page');
+
+Route::get('/registration/steps', function(){return view('application.registration'); })->name('registration.steps');
+Route::get('/about', function(){ return view('about');})->name('about.page');
+
 
 Route::get('/home',[AdmissionController::class, 'getAppnoToHome'])->name('appNo.home');
+Route::get('/available/programs',[DepartmentController::class, 'availablePrograms'])->name('avail.programs');
 
 //CERTIFICATE ROUTE
 

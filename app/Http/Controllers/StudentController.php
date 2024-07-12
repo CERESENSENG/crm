@@ -98,7 +98,7 @@ class StudentController extends Controller
         $appNum = 'APP/' . $year . '/' . $str;
 
 
-        $cohort = setting::where('item', 'cohort')->value('value');
+        $cohort = Setting::where('item', 'cohort')->value('value');
         $student =  Student::create($validate);
         $student->update(['app_no' => $appNum, 'admission_year' => $year, 'matric_no' => $appNum, 'cohort' => $cohort]);
 
@@ -366,13 +366,10 @@ class StudentController extends Controller
     public function checkAppno($appNo)
     {
         //  dd($appNo);
-        $students = Student::where('app_no', $appNo)->doesntExist();
+        $students = Student::where('app_no', $appNo)->first();
         // dd($students);
-        if ($students == true) {
-            return  $appNo;
-        } else {
-            return  false;
-        }
+        return $students;
+     
     }
 
 
@@ -393,6 +390,7 @@ class StudentController extends Controller
         $myErr = false;
         $error_in_row = $error_in_csv = false;
         $error = $error_n_appNo = false;
+        
 
         foreach ($studentRows as $r) {
             $surname = ucfirst(strtolower($r[0]));
@@ -451,24 +449,47 @@ class StudentController extends Controller
                 $dpmt = new DepartmentController();
                 $dept = $dpmt->getDepartment($department_id);
 
-                $appNo = $this->checkAppno($appNo);
+               if($dept){
 
+                $deptName = $dept->name;
+                $deptId = $dept->id;
 
-                if (!$dept) {
+               }else{
+                $error_in_csv = true;
+                 $error_in_row = true;
+                 $error .= 'Invalid department id';
+                 $myErr = true;
+                 $deptName = '';
+                 $deptId = $department_id;
+
+               }
+
+            
+                // if (!$dept) {
+                //     $error_in_csv = true;
+                //     $error_in_row = true;
+                //     $error .= 'Invalid department id';
+                //     $myErr = true;
+                // }
+                 $chkappNo = $this->checkAppno($appNo);
+
+                if ($chkappNo) {
                     $error_in_csv = true;
                     $error_in_row = true;
-                    $error .= 'Invalid department id';
+                    $error_n_appNo = true;
                     $myErr = true;
-                }
-                if (empty($appNo)) {
-                    $error_in_csv = true;
-                    $error_in_row = true;
-                    $error_n_matric = true;
-                    $myErr = true;
-                    $error .= ($error) ? 'and matric no already exists ' : 'matric no already exists';
+                    $chkappNo = '';
+                    $error .= ($error) ? '  and matric no already exists ' : 'matric no already exists';
+                }else{
+                    $error_in_csv = false;
+                    $error_in_row = false;
+                    $error_n_appNo = false;
+                    $myErr = false;
+                    $appNo =$appNo;
+
                 }
             }
-
+         
             $data[$k]['sn'] = $k + 1;
             $data[$k]['surname'] = $surname;
             $data[$k]['firstname'] = $firstname;
@@ -478,8 +499,10 @@ class StudentController extends Controller
             $data[$k]['admission_year'] = $admission_year;
             $data[$k]['cohort'] = $cohort;
             $data[$k]['status'] = $status;
-            $data[$k]['deptName'] = $dept->name;
-            $data[$k]['deptId'] = $dept->id;
+            $data[$k]['deptName'] = $deptName;
+            $data[$k]['deptId'] = $deptId;
+            // $data[$k]['deptName'] = $dept->name;
+            // $data[$k]['deptId'] = $dept->id;
             $data[$k]['classMethod'] = $classMethod;
             $data[$k]['next_of_kin'] = $next_of_kin;
             $data[$k]['next_of_kin_phone'] = $next_of_kin_phone;
@@ -493,10 +516,10 @@ class StudentController extends Controller
             $data[$k]['hostel'] = $hostel;
             $data[$k]['skillMonetization'] = $skillMonetization;
             $data[$k]['paymentMethod'] = $paymentMethod;
-
-
+            
             $data[$k]['error'] = $error;
-            $data[$k]['error_in_matric'] = $error_n_appNo;
+            $data[$k]['error_in_appNo'] = $error_n_appNo;
+          
             if ($error)
                 $data[$k]['comment'] = $error;
             elseif ($error_in_row)

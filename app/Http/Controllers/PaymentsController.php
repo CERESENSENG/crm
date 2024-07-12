@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\student;
+use App\Models\Student;
 use App\Models\Payment;
 use App\Models\Payment_schedule;
 
@@ -214,6 +214,7 @@ class PaymentsController extends Controller
           $myErr = TRUE;
           $amount_due = 0;
           $student_name = '';
+          $student_id = '';
           $matric_no = '';
         }
 
@@ -309,14 +310,14 @@ class PaymentsController extends Controller
   {
     $appNo = $request->app_no;
 
-    $std = student::where('matric_no', $appNo)->first();
+    $std = Student::where('matric_no', $appNo)->first();
 
     if (!$std) {
 
       return redirect('/outstanding/page')->with('message', 'No record found');
     }
 
-    $pays = payment::where('student_id', $std->id)
+    $pays = Payment::where('student_id', $std->id)
       ->where('status', 'success')
       ->get();
 
@@ -539,7 +540,7 @@ class PaymentsController extends Controller
 
     $payment_url = $new->data->authorization_url;
 
-    return redirect::to($payment_url);
+    return Redirect::to($payment_url);
   }
 
 

@@ -27,7 +27,7 @@ class Payments_schedule_controller extends Controller
     $appNo = $request->app_no;
     
     $status = 1;
-    $student = student::where('app_no', $appNo)->first();
+    $student = Student::where('app_no', $appNo)->first();
     $current_Date = date('F d,Y h:i:s A');
     
 
@@ -37,7 +37,7 @@ class Payments_schedule_controller extends Controller
 
     }
 
-    $checkAdmissionStatus = student::where('app_no', '=', $appNo)
+    $checkAdmissionStatus = Student::where('app_no', '=', $appNo)
     ->where('status', '=', $status)
     ->first();
 
@@ -51,7 +51,7 @@ class Payments_schedule_controller extends Controller
 
   $stdId = $checkAdmissionStatus->id;
 
-    $checkPaymentStatus = payment::where('student_id',$stdId)
+    $checkPaymentStatus = Payment::where('student_id',$stdId)
     ->where('status',  'success')
     ->first();
   
@@ -302,9 +302,9 @@ class Payments_schedule_controller extends Controller
 
     if(isset($appNo)){
         
-     $stdId = student::where('app_no',$appNo)->value('id');
+     $stdId = Student::where('app_no',$appNo)->value('id');
        
-      $payment = payment::with('student', 'schedule')
+      $payment = Payment::with('student', 'schedule')
       ->where('student_id', $stdId)
       ->where('status', 'success')
       ->first();

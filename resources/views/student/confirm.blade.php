@@ -29,8 +29,8 @@
                                     <td>{{ $confirm->surname }}</td>
                                     <td>{{ $confirm->firstname }}</td>
                                     <td>{{ $confirm->othername }}</td>
-                                    <td>{!! $confirm->error_in_matric ? '<span class="text-danger">' . $confirm->appNo . '</span>' : $confirm->matricNo !!}</td>
-                                    <td>{!! $confirm->deptName ?? '<span class="text-danger">***</span>' !!}</td>
+                                    <td>{!! $confirm->error_in_appNo ? '<span class="text-danger">' . $confirm->matricNo . '</span>' : $confirm->matricNo !!}</td>
+                                    <td>{!! $confirm->deptName === '' ? '<span class="text-danger">***</span>':$confirm->deptName !!}</td>
                                     <td>{{ $confirm->cohort }}</td>
                                     <td>{{ $confirm->admission_year }}</td>
                                     <td>{!! $confirm->error
