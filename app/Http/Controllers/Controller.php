@@ -69,6 +69,12 @@ public function getYear()
     $id=[81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,99,100];
     return $id;
   }
+  
+  public function purpose(){
+    $purposes = ['sch_fee','others'];
+    return $purposes;
+
+  }
 
   public function generateTxn(){
     $bytes = openssl_random_pseudo_bytes(16);
@@ -114,16 +120,7 @@ public function getYear()
 
     $student = student::where('matric_no', $matric_no)->first();
      return $student;
-    // if ($student){
-
-    //   return [
-    //     'department_id' => $student->department_id,
-    //      'student_id' => $student->id,
-    //     'matric_no' => $student->matric_no,
-    // ];
-    // }else {
-    //   return false;
-    // }
+   
 
 
   }
@@ -140,8 +137,6 @@ public function getYear()
   public function checkCertificate($certificate_id){
 
     $chkexistCert = Student::where('certificate_no', $certificate_id)->first();
-  
-    // dd($certificate);
     return $chkexistCert;
 
   }

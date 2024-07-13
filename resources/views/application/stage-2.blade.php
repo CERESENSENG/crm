@@ -37,8 +37,7 @@
                                 <select id="department_id" name="department_id" class="form-control  mt-2">
                                     <option value=''>Select a dept</option>
                                     @foreach ($depts as $dept)
-                                        <option value="{{ $dept->id }}"
-                                            {{ old('department_id') == $dept->id ? 'selected' : '' }}>
+                                        <option value="{{ $dept->id }}"{{ old('department_id') == $dept->id ? 'selected' : '' }}>
                                             {{ $dept->name }}
                                         </option>
                                     @endforeach
@@ -157,7 +156,7 @@
                             <div class="form-group mt-3">
                                 <label for="terms" class="d-block">
                                     <input type="checkbox" id="terms" name="terms"> You  agree with our
-                                    <a href="#">Terms and Conditions</a>
+                                    <a href="{{ route('registration.steps') }}">Terms and Conditions</a>
                                 </label>
                                 <span class="text-danger">
                                     @error('terms')

@@ -56,7 +56,8 @@ class DepartmentController extends Controller
            'name' => 'required|string',
            'department_code' => 'required|string',
            'duration' => 'required|string',
-           'hod_id' => 'required'
+           'hod_id' => 'required',
+           'frequency' => 'required|string',
 
         ]);
 
@@ -94,6 +95,7 @@ class DepartmentController extends Controller
         'name'=>'required|string',
         'department_code'=>'required|string',
         'duration'=>'required|string',
+        'frequency' => 'required|string',
 
     ]);
 

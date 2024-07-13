@@ -45,8 +45,8 @@
                                         @foreach ($pendingStudents as $index => $student)
                                             <tr>
                                                 <td scope="row"> {{ $index + 1 }}</td>
-                                                <td> {{ $student->firstname }} {{ $student->surname }}
-                                                    {{ $student->othername }}</td>
+                                                <td> {{ucfirst(strtolower($student->firstname ))}} {{ ucfirst(strtolower( $student->surname)) }}
+                                                    {{ucfirst(strtolower( $student->othername ))}}</td>
                                                 <td><a
                                                         href="{{ route('applicant.FullDetails') }}? app_no={{ urlencode($student->app_no) }}">{{ $student->app_no }}</a>
                                                 </td>
@@ -110,8 +110,8 @@
                                         @foreach ($approveStudents as $index => $student)
                                             <tr>
                                                 <td scope="row"> {{ $index + 1 }}</td>
-                                                <td> {{ $student->firstname }} {{ $student->surname }}
-                                                    {{ $student->othername }}</td>
+                                                <td> {{ucfirst(strtolower($student->firstname)) }} {{ucfirst(strtolower( $student->surname)) }}
+                                                    {{ucfirst(strtolower( $student->othername)) }}</td>
                                                 <td><a
                                                         href="{{ route('applicant.FullDetails') }}? app_no={{ urlencode($student->app_no) }}">{{ $student->app_no }}</a>
                                                 </td>
@@ -140,8 +140,8 @@
                                         @foreach ($rejectedStudents as $index => $student)
                                             <tr>
                                                 <td scope="row"> {{ $index + 1 }}</td>
-                                                <td> {{ $student->firstname }} {{ $student->surname }}
-                                                    {{ $student->othername }}</td>
+                                                <td> {{ ucfirst(strtolower($student->firstname)) }} {{ ucfirst(strtolower($student->surname)) }}
+                                                    {{ ucfirst(strtolower($student->othername)) }}</td>
                                                 <td><a
                                                         href="{{ route('applicant.FullDetails') }}? app_no={{ urlencode($student->app_no) }}">{{ $student->app_no }}</a>
                                                 </td>

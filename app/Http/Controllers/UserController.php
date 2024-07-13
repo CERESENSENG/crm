@@ -42,6 +42,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+       
          $validate = $request->validate([
             'name' => 'required|string',
             'email' => 'required|email|unique:users',
@@ -49,10 +50,13 @@ class UserController extends Controller
 
         ]);
 
+
         $userId = $request->id;
 
         $user=User::find($userId);
-        $user->update();
+        
+
+        $user->update($validate);
 
         return redirect()->back()->with('status','User Updated Successfully');
 

@@ -9,7 +9,7 @@
             <nav class="breadcrumbs">
               <div class="container">
                 <ol>
-                  <li><a href="{{ route('home.page') }}">Home</a></li>
+                  <li><a href="{{ route('index') }}">Home</a></li>
                   <li  class="current"><a href="{{ route('about.page') }}">About Us</a><br></li>
                 </ol>
               </div>

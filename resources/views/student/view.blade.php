@@ -2,6 +2,15 @@
     <x-slot:title>
         Edit Students
     </x-slot>
+    
+        @if (session('success'))
+        <div class="alert alert-success">
+          {{ session('success') }}
+  
+        </div>
+        @endif 
+
+
     <div class="row mt-5">
         <div class="col-lg-12">
             <div class="card">

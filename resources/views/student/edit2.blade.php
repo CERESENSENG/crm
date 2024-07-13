@@ -3,7 +3,7 @@
     Edit page 2
   </x-slot:title>
   <div class="container">
-    <div class="card mt-2">
+    <div class="card mt-2 mb-2">
       @if (session('message'))
       <div class="alert alert-success">
         {{ session('message') }}
@@ -162,7 +162,7 @@
                     <div class="form-group mt-3">
                         <label for="terms" class="d-block">
                             <input type="checkbox" id="terms" name="terms"> You  agree with our
-                            <a href="#">Terms and Conditions</a>
+                            <a href="{{ route('registration.steps') }}">Terms and Conditions</a>
                         </label>
                         <span class="text-danger">
                             @error('terms')

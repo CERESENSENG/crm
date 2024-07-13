@@ -54,7 +54,7 @@
                               <td>{{ $payment->year }}</td>
                               <td>{{ $payment->department->name }} </td>
                               <td>{{ $payment->id }}</td>
-                              <td>{{ $payment->amount}}</td>
+                              <td>&#8358;{{number_format($payment->amount)}}</td>
                               <td>
                                  <div style="display: flex ;">
                                     <a class="" href="#" data-toggle="modal" data-target="#basicModalSchedule{{$payment->id}}"> <i class='fas fa-edit' style='font-size:20px'></i></a>
@@ -71,14 +71,15 @@
 
                           </tbody>
                           <tfoot>
-                              {{-- <tr>
-                                  <th>Name</th>
-                                  <th>Position</th>
-                                  <th>Office</th>
-                                  <th>Age</th>
-                                  <th>Start date</th>
-                                  <th>Salary</th>
-                              </tr> --}}
+                              <tr>
+                                  <th>#</th>
+                                  <th>Cohort</th>
+                                  <th>Year</th>
+                                  <th>Department Name</th>
+                                  <th>Schedule ID</th>
+                                  <th>Amount</th>
+                                  <th>Action</th>
+                              </tr> 
                           </tfoot>
                       </table>
                   </div>

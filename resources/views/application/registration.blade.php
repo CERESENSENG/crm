@@ -26,7 +26,7 @@
         </h6>
 
     </div>
-    <a href="{{ route('register.stage-1') }}"><button  class="btn btn-primary">Apply Now</button></a>
+    <a href="{{ route('avail.programs') }}"><button  class="btn btn-primary">Available Programs</button></a>
     
 
 

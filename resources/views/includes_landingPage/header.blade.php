@@ -9,9 +9,9 @@
 
     <nav id="navmenu" class="navmenu">
       <ul>
-        <li><a href="{{ route('home.page') }}" class="active">Home<br></a></li>
+        <li><a href="{{ route('index') }}" class="active">Home<br></a></li>
         <li><a href="{{ route('about.page') }}">About Us</a></li>
-         <li><a href="https://www.ceresense.com.ng/">Ceresense.com</a></li>
+         {{-- <li><a href="https://www.ceresense.com.ng/">Ceresense.com</a></li> --}}
         {{-- <li><a href="trainers.html">Trainers</a></li>
         <li><a href="contact.html">Contact</a></li>
         <li><a href="form.html">Defult Forms</a></li>  --}}

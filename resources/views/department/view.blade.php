@@ -37,10 +37,10 @@
                               <thead>
                                   <tr>
                                       <th>#</th>
-                                      <th>Department</th>
-                                      <th>Department Code</th>
+                                      <th>Programs</th>
                                       <th>Duration</th>
                                       <th>HOD</th>
+                                      <th>Frequency</th>
                                       <th>Action</th>
                                   </tr>
                               </thead>
@@ -51,9 +51,10 @@
                                 <tr>
                                   <td scope="row"> {{ $index + 1 }}</td>
                                   <td>{{ $dept->name }} </td>
-                                  <td>{{ $dept->department_code }}</td>
                                   <td>{{ $dept->duration }} </td>
                                   <td>{{ $dept->hod->name }}</td>
+                                  <td>{{ $dept->frequency }} </td>
+                                  
                                   <td>
                                     <div style="display: flex ;">
                                         <a class="" href="#" data-toggle="modal" data-target="#basicModal{{$dept->id}}"> <i class='fas fa-edit' style='font-size:20px'></i></a>
@@ -71,12 +72,12 @@
                               </tbody>
                               <tfoot>
                                   <tr>
-                                      <th>Name</th>
-                                      <th>Position</th>
-                                      <th>Office</th>
-                                      <th>Age</th>
-                                      <th>Start date</th>
-                                      <th>Salary</th>
+                                      <th>#</th>
+                                      <th>Programs</th>
+                                      <th>Duration</th>
+                                      <th>HOD</th>
+                                      <th>Frequency</th>
+                                      <th>Action </th>
                                   </tr>
                               </tfoot>
                           </table>

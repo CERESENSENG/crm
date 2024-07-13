@@ -14,7 +14,7 @@
                   <div class="modal-body">
                   
                       <div class="form-group">
-                          <label for="department_name">Name</label>
+                          <label for="name">Name</label>
                           <input  required name="name" type="text" class="form-control"
                               value="{{ $user->name }}">
                           <span class="text-danger">
@@ -24,7 +24,7 @@
                           </span>
                       </div>
                       <div class="form-group">
-                          <label for="Department_code">Email</label>
+                          <label for="email">Email</label>
                           <input  required name="email" type="email" class="form-control"
                               value="{{ $user->email }} ">
                           <span class="text-danger">
@@ -49,7 +49,7 @@
 
                   <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                      <button type="submit" class="btn btn-primary">Create</button>
+                      <button type="submit" class="btn btn-primary">Update</button>
                   </div>
               </div>
           </div>

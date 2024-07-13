@@ -28,16 +28,14 @@
                           </thead>
                           <tbody>
                             @foreach ($payments as $index => $payment )
-
-                            
                             <tr>
                               <td scope="row"> {{ $index + 1 }}</td>
                               <td> {{ $payment->student->firstname }} {{ $payment->student->surname }} </td>
                               <td>{{ $payment->student->app_no }}</td>
                               <td>{{$payment->invoice}}</td>
                               <td>{{ $payment->transaction_reference }} </td>
-                              <td>{{ $payment->amount }} </td>
-                              <td>{{ $payment->amount_due }} </td>
+                              <td> &#8358;{{number_format($payment->amount) }} </td>
+                              <td>&#8358;{{number_format($payment->amount_due) }} </td>
                               <td>{{ $payment->status }} </td>
                             </tr>
                             @endforeach

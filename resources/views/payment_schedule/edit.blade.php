@@ -17,7 +17,7 @@
                             <select style="width:95%" required id="cohort" name="cohort" class="form-control">
                                 <option  id="cohort" value=''>Choose cohort</option>
                                 @foreach ($cohorts as $cohort)
-                                    <option value=" {{ $cohort }}">{{ $cohort }}</option>
+                                    <option value=" {{ $cohort }}"{{ old('cohort',$payment->cohort) == $cohort ? 'selected' : '' }}>{{ $cohort }}</option>
                                 @endforeach
                             </select>
                             <span class="text-danger">
@@ -27,12 +27,12 @@
                             </span>
 
                         </div>
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label>Department ID</label>
                             <select style="width:95%" required id="department-id" name="department_id" class="form-control">
                                 <option id="department_id" value=''>Choose Department Id</option>
                                 @foreach ($depts as $dept)
-                                    <option value="{{ $dept }} ">{{ $dept }}</option>
+                                    <option value="{{ $dept }}"{{ old('dept',$payment->department_id) == $dept ? 'selected' : ' ' }}>{{ $dept }}</option>
                                 @endforeach
                             </select>
                             <span class="text-danger">
@@ -41,13 +41,13 @@
                                 @enderror
                             </span>
 
-                        </div>
+                        </div> --}}
                         <div class="form-group">
                             <label>Year</label>
                             <select style="width:95%" required id="year" name="year" class="form-control">
                                 <option id="year" value=''>Select A Year</option>
                                 @foreach ($years as $year)
-                                    <option value="{{ $year['name'] }}">{{ $year['name'] }}</option>
+                                    <option value="{{ $year['name'] }}"{{old('year',$payment->year) == $year['name'] ? 'selected' : ''  }}>{{ $year['name'] }}</option>
                                 @endforeach
                             </select>
                             <span class="text-danger">
@@ -73,6 +73,16 @@
                                 value="{{ $payment->purpose }} ">
                             <span class="text-danger">
                                 @error('purpose')
+                                    {{ $message }}
+                                @enderror
+                            </span>
+                        </div>
+                        <div class="form-group">
+                            <label for="duration">Description</label>
+                            <input style="width:95%" required name="description" type="text" class="form-control"
+                                value="{{ $payment->description }} ">
+                            <span class="text-danger">
+                                @error('description')
                                     {{ $message }}
                                 @enderror
                             </span>

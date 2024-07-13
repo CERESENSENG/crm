@@ -85,8 +85,8 @@
                                             <td>{{ $student->student->app_no }}</td>
                                             <td>{{ $student->invoice }}</td>
                                             <td>{{ $student->transaction_reference }} </td>
-                                            <td>{{ $student->amount }} </td>
-                                            <td>{{ $student->amount_due }} </td>
+                                            <td>&#8358;{{number_format($student->amount) }} </td>
+                                            <td>&#8358;{{number_format($student->amount_due) }} </td>
                                             <td>{{ $student->status }} </td>
                                         </tr>
                                     @endforeach

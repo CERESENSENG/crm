@@ -43,6 +43,16 @@
                                 @enderror
                             </span>
                         </div>
+                        <div class="form-group">
+                            <label for="duration">Frequency</label>
+                            <input style="width: 95%" required name="frequency" type="text" class="form-control"
+                                value="{{ $dept->frequency }}">
+                            <span class="text-danger">
+                                @error('frequency')
+                                    {{ $message }}
+                                @enderror
+                            </span>
+                        </div>
 
                     </div>
 

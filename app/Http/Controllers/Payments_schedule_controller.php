@@ -220,7 +220,8 @@ class Payments_schedule_controller extends Controller
       return $this->verifyPaystackTxn($transactionRef);
 
     } else
-      return redirect()->back()->with('message', 'Payment could not be validated');
+    return redirect('home.page')->with('message','payment could no be validated');
+      // return redirect()->back()->with('message', 'Payment could not be validated');
   }
 
   public function verifyPaystackTxn($transactionRef)
@@ -343,12 +344,14 @@ class Payments_schedule_controller extends Controller
   public function  showSchedule(){
     
     $payments = Payment_schedule::with('department')->get();
+   
     $years = $this->getYear();
     $cohorts = $this->getCohorts();
     $depts = $this->deptId();
+    $purposes = $this->purpose();
    
      
-    return view('payment_schedule.view',compact('payments','years','cohorts','depts'));
+    return view('payment_schedule.view',compact('payments','years','cohorts','depts','purposes'));
 
   }
 
@@ -360,6 +363,7 @@ class Payments_schedule_controller extends Controller
        'department_id' => 'required|string',
       'year' => 'required|string',
       'amount' => 'required|string',
+      'description' => 'required|string',
       'purpose' => 'required|string',
 
    ]);
@@ -372,20 +376,23 @@ class Payments_schedule_controller extends Controller
 
   }
 
-  public function updateSchedule(Request $request ,$id)
+  public function updateSchedule(request $request ,$id)
   { 
     $id=$request->id; 
-    // dd($request->cohort);
-    $validate= $request->validate([
+    $validate = $request->validate([
       'cohort' => 'required|string',
-       'department_id' => 'required|string',
       'year' => 'required|string',
-      'amount' => 'required|string',
+       'amount' => 'required|string',
+       'description' => 'required|string',
       'purpose' => 'required|string',
-
-   ]);
+    ]);
+  
+   
+ 
 
    $schedule=Payment_schedule::find($id);
+
+
 
    $schedule->update($validate);
 

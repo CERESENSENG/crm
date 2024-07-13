@@ -607,6 +607,7 @@ class StudentController extends Controller
         $myErr = false;
         $error_in_row = $error_in_csv = false;
         $error = $error_n_matric = false;
+        $error_n_certificate = false;
 
         $check = [];
         foreach ($certificateRows as $r) {
@@ -618,6 +619,7 @@ class StudentController extends Controller
 
             $error_in_row = $error_in_csv = false;
             $error = $error_n_matric = false;
+            $error = $error_n_certificate = false;
 
             if (trim($matric_no) == ''  && trim($certificate_id) == '') {
 
@@ -632,14 +634,19 @@ class StudentController extends Controller
 
                 $student = $this->checkMatricno($matric_no);
                 $certificate = $this->checkCertificate($certificate_id);
-               $existingCert = $certificate->certificate_no;
-
+               
                 if ($certificate) {
+                    $existingCert = $certificate->certificate_no;
                     $error_in_csv = true;
                     $error_in_row = true;
                     $error .= ($error) ? 'certificate Id already exist ' : 'certificate Id already exist';
                     $myErr = True;
-                    $certificate_id =   $existingCert;
+                    $error_n_certificate = true;
+                    $certificate_id = $existingCert;
+                } else{
+
+                    $certificate_id =$certificate_id;
+                  
                 }
 
                 if (!$student) {
@@ -652,13 +659,14 @@ class StudentController extends Controller
                     $student_id = '';
                 } else {
 
-                    $student_name = $student->firstname . '' . $student->surname;
+                    $student_name = $student->firstname . ' ' . $student->surname;
                     $student_id = $student->id;
                 }
 
                 if (in_array($certificate_id, $check)) {
                     $error_in_csv = true;
                     $error_in_row = true;
+                    $error_n_certificate = true;
                     $error .= ($error) ? 'duplicate certificate Id  ' : 'duplicate certificate Id';
                     $myErr = true;
                 }
@@ -673,6 +681,7 @@ class StudentController extends Controller
             $data[$k]['certificate_id'] = $certificate_id;
             $data[$k]['error'] = $error;
             $data[$k]['error_in_matric'] = $error_n_matric;
+            $data[$k]['error_in_certificate'] = $error_n_certificate;
 
             if ($error)
                 $data[$k]['comment'] = $error;

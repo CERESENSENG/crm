@@ -48,7 +48,7 @@
                         <select required id="hod_id" name="hod_id" class="form-control  mt-2">
                             <option value=''>Choose HOD</option>
                             @foreach ($hods as $hod)
-                                <option value="{{ $hod }}">
+                                <option value="{{ $hod }}"{{ old('hod') == $hod ? 'selected' : ' '}}>
                                     {{ $hod }}
                                 </option>
                             @endforeach
@@ -61,6 +61,17 @@
                          </select>
                           
                       </div>
+                      <div class="form-group">
+                        <label for="duration">Frequency</label>
+                        <input  required name="frequency" type="text" class="form-control"
+                            value="{{ old('frequency') }} ">
+                        <span class="text-danger">
+                            @error('frequency')
+                                {{ $message }}
+                            @enderror
+                        </span>
+                    </div>
+                     
                      
 
                   </div>

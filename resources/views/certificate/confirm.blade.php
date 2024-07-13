@@ -25,10 +25,9 @@
                           @foreach ($confirms as $index => $confirm)
                               <tr>
                                   <td>{{ $index + 1 }}</td>
-                                  <td>{{ $confirm->student_name}}</td>
+                                  <td>{{strtoupper($confirm->student_name)}}</td>
                                   <td>{!! ($confirm->error_in_matric)?  '<span class="text-danger" >'. $confirm->matric_no .'</span>' : $confirm->matric_no !!} </td>
-                                   <td>{{ $confirm->certificate_id}}</td>  
-                                   {{-- <td>{!! ($confirm->certificate_id)??'<span class="text-danger">***</span>'  !!} </td>  --}}
+                                  <td>{!!($confirm->error_in_certificate) ? '<span class="text-danger" >'. $confirm->certificate_id .'</span>' : $confirm->certificate_id !!}</td>  
                                   <td>{!! $confirm->error ? '<span class="text-danger">' . $confirm->comment . '</span>' : '<span class="text-success">' . $confirm->comment . '</span>' !!}</td>
                               
                               <!-- Hidden inputs -->

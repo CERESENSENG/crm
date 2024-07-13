@@ -17,7 +17,7 @@
                                 <th>Payment Reference</th>
                                 <th>Amount</th>
                                 <th>Amount-due</th>
-                                <th>Status</th>
+                                {{-- <th>Status</th> --}}
                                 <th>Student Matric</th>
                                 <th>Comment(s)</th>
                             </tr>
@@ -27,9 +27,9 @@
                                     {{-- <td>{{ $confirm->surname }} {{ $confirm->firstname }}</td> --}}
                                     <td>{{ $confirm->invoice }}</td>
                                      <td>{{ $confirm->payment_reference}}</td>  
-                                    <td>{{ $confirm->amount }}</td>
-                                    <td>{{ $confirm->amount_due }}</td>
-                                    <td>{{ $confirm->status }}</td>
+                                    <td>&#8358;{{number_format($confirm->amount) }}</td>
+                                    <td>&#8358;{{number_format($confirm->amount_due) }}</td>
+                                    {{-- <td>{{ $confirm->status }}</td> --}}
                                     <td>{!! ($confirm->error_in_matric)?  '<span class="text-danger" >'. $confirm->matric_no .'</span>' : $confirm->matric_no !!} </td>
                                     {{-- <td  > {!! ($confirm->schedule)??  '<span class="text-danger">***</span>'  !!} </td> --}}
                                     <td>{!! $confirm->error ? '<span class="text-danger">' . $confirm->comment . '</span>' : '<span class="text-success">' . $confirm->comment . '</span>' !!}</td>
