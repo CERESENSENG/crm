@@ -32,6 +32,7 @@
                             <th scope="col">#</th>
                             <th scope="col">Name</th>
                             <th scope="col">Email</th>
+                            <th scope="col">Phone</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -43,6 +44,7 @@
                                 <td scope="row"> {{ $index + 1 }}</td>
                                 <td> {{ $user->name }}</td>
                                 <td> {{ $user->email }}</td>
+                                <td> {{ $user->phone }}</td>
                                 <td>
                                   <div style="display: flex;">
                                     <a class="" href="#" data-toggle="modal" data-target="#basicModalEditUser{{$user->id}}"> <i class='fas fa-edit' style='font-size:20px'></i></a>

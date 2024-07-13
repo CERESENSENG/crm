@@ -26,7 +26,7 @@
         </h6>
 
     </div>
-    <a href="{{ route('avail.programs') }}"><button  class="btn btn-primary">Available Programs</button></a>
+    <a href="{{ route('avail.programs') }}"><button  class="btn btn-primary no-print">Available Programs</button></a>
     
 
 

@@ -80,23 +80,23 @@ tfoot tr {
   Label the data
   */
   td:nth-of-type(1):before {
-    content: "Name";
+    content: "#";
   }
 
   td:nth-of-type(2):before {
-    content: "Position";
+    content: "Program Name";
   }
 
   td:nth-of-type(3):before {
-    content: "Office";
+    content: "Duration";
   }
 
   td:nth-of-type(4):before {
-    content: "Age";
+    content: "Price";
   }
 
   td:nth-of-type(5):before {
-    content: "Start date";
+    content: "Frequency";
   }
 
   td:nth-of-type(6):before {

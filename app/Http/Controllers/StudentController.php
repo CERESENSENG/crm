@@ -449,29 +449,7 @@ class StudentController extends Controller
                 $dpmt = new DepartmentController();
                 $dept = $dpmt->getDepartment($department_id);
 
-               if($dept){
-
-                $deptName = $dept->name;
-                $deptId = $dept->id;
-
-               }else{
-                $error_in_csv = true;
-                 $error_in_row = true;
-                 $error .= 'Invalid department id';
-                 $myErr = true;
-                 $deptName = '';
-                 $deptId = $department_id;
-
-               }
-
-            
-                // if (!$dept) {
-                //     $error_in_csv = true;
-                //     $error_in_row = true;
-                //     $error .= 'Invalid department id';
-                //     $myErr = true;
-                // }
-                 $chkappNo = $this->checkAppno($appNo);
+                $chkappNo = $this->checkAppno($appNo);
 
                 if ($chkappNo) {
                     $error_in_csv = true;
@@ -479,7 +457,7 @@ class StudentController extends Controller
                     $error_n_appNo = true;
                     $myErr = true;
                     $chkappNo = '';
-                    $error .= ($error) ? '  and matric no already exists ' : 'matric no already exists';
+                    $error .= ($error) ? ' matric no already exists' : 'matric no already exists';
                 }else{
                     $error_in_csv = false;
                     $error_in_row = false;
@@ -488,7 +466,45 @@ class StudentController extends Controller
                     $appNo =$appNo;
 
                 }
+
+               if($dept){
+
+                $deptName = $dept->name;
+                $deptId = $dept->id;
+
+               }else{
+                $error_in_csv = true;
+                 $error_in_row = true;
+                 $error .=  ($error) ? ' and Invalid department id' : ' Invalid department id';
+                 $myErr = true;
+                 $deptName = '';
+                 $deptId = $department_id;
+
+               }
+   
+                //  $chkappNo = $this->checkAppno($appNo);
+
+                // if ($chkappNo) {
+                //     $error_in_csv = true;
+                //     $error_in_row = true;
+                //     $error_n_appNo = true;
+                //     $myErr = true;
+                //     $chkappNo = '';
+                //     $error .= ($error) ? '  and matric no already exists ' : 'matric no already exists';
+                // }else{
+                //     $error_in_csv = false;
+                //     $error_in_row = false;
+                //     $error_n_appNo = false;
+                //     $myErr = false;
+                //     $appNo =$appNo;
+
+                // }
+
+             
             }
+
+            
+            // dd($myErr);
          
             $data[$k]['sn'] = $k + 1;
             $data[$k]['surname'] = $surname;
@@ -535,9 +551,7 @@ class StudentController extends Controller
 
         $result =  json_decode(json_encode($data));
 
-        // dd($result);
-        // $storedeptId=department::find($department_id);
-        // dd ($storedeptId->id);
+    //    dd($myErr);
 
         return view('student.confirm', ['confirms' => $result, 'CSV_ERR' => $myErr]);
     }

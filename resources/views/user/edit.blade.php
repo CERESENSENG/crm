@@ -33,6 +33,16 @@
                               @enderror
                           </span>
                       </div>
+                      <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input  required name="phone" type="text" class="form-control"
+                            value="{{ $user->phone }} ">
+                        <span class="text-danger">
+                            @error('phone')
+                                {{ $message }}
+                            @enderror
+                        </span>
+                    </div
                       {{-- <div class="form-group">
                         <label for="password">Password</label>
                         <input  required name="password" type="password" class="form-control"

@@ -22,16 +22,19 @@ class UserController extends Controller
      */
     public function create(request $request)
     {
-        $validate = $request->validate([
+    
+         $validate = $request->validate([
             'name' => 'required|string',
             'email' => 'required|email|unique:users',
-            'password' => 'required|string'
-
-        ]);
+            'password' => 'required|string',
+            'phone' => 'required|string',
+         ]);
+      
         $validate['password'] = Hash::make($request->input('password'));
-
+    
         $users=User::create($validate);
-
+        // dd($users);
+    
         return redirect()->back()->with('message','User Added Successfully');
 
 
@@ -46,6 +49,7 @@ class UserController extends Controller
          $validate = $request->validate([
             'name' => 'required|string',
             'email' => 'required|email|unique:users',
+            'phone' => 'required|string',
             // 'password' => 'required|string'
 
         ]);

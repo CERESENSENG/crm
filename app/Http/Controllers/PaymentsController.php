@@ -186,16 +186,19 @@ class PaymentsController extends Controller
           $student_name = $student->surname . ' ' . $student->firstname;
 
           $schedule = $this->getSchedule($schedule_id);
+          // dd($schedule);
           if ($schedule) {
             if ($schedule->department_id !=  $student->department_id) {
               $error_in_csv = true;
               $error_in_row = true;
               $error .= ($error) ? 'and  wrong payment schedule ID is not match student`s dept. ' : ' wrong payment schedule ID is not match student`s dept. ';
               $myErr = TRUE;
+              // $amount_due = 0;
             }
             $schfee =  Payment::getExistingSchoolFeePayment($student_id);
             if ($schfee)
               $amount_due = $schfee->amount_due;
+          
             else
               $amount_due = $schedule->amount;
           } else {
@@ -204,6 +207,7 @@ class PaymentsController extends Controller
             $error_in_row = true;
             $error .= ($error) ? 'and Invalid Schedule Id. ' : 'Invalid Schedule Id. ';
             $myErr = TRUE;
+            $amount_due = 0;
           }
         } else {
 

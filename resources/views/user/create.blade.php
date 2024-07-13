@@ -13,7 +13,7 @@
                   <div class="modal-body">
                   
                       <div class="form-group">
-                          <label for="department_name">Name</label>
+                          <label for="name">Name</label>
                           <input  required name="name" type="text" class="form-control"
                               value="{{ old('name') }}">
                           <span class="text-danger">
@@ -23,7 +23,7 @@
                           </span>
                       </div>
                       <div class="form-group">
-                          <label for="Department_code">Email</label>
+                          <label for="email">Email</label>
                           <input  required name="email" type="email" class="form-control"
                               value="{{ old('email') }} ">
                           <span class="text-danger">
@@ -32,6 +32,16 @@
                               @enderror
                           </span>
                       </div>
+                      <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input  required name="phone" type="text" class="form-control"
+                            value="{{ old('phone') }} ">
+                        <span class="text-danger">
+                            @error('phone')
+                                {{ $message }}
+                            @enderror
+                        </span>
+                    </div>
                       <div class="form-group">
                         <label for="password">Password</label>
                         <input  required name="password" type="password" class="form-control"
