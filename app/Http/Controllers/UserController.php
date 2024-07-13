@@ -22,6 +22,7 @@ class UserController extends Controller
      */
     public function create(request $request)
     {
+        
     
          $validate = $request->validate([
             'name' => 'required|string',
@@ -44,7 +45,7 @@ class UserController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
+    { 
        
          $validate = $request->validate([
             'name' => 'required|string',
@@ -58,11 +59,10 @@ class UserController extends Controller
         $userId = $request->id;
 
         $user=User::find($userId);
-        
+    
+       $user->update($validate);
 
-        $user->update($validate);
-
-        return redirect()->back()->with('status','User Updated Successfully');
+        return redirect()->back()->with('message','User Updated Successfully');
 
 
     }

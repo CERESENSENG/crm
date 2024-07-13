@@ -42,7 +42,7 @@
                                 {{ $message }}
                             @enderror
                         </span>
-                    </div
+                    </div>
                       {{-- <div class="form-group">
                         <label for="password">Password</label>
                         <input  required name="password" type="password" class="form-control"
