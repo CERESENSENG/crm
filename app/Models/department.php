@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use  Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Student;
+use App\Models\User;
 
 
 
@@ -19,7 +21,7 @@ class Department extends Model
     }
 
     public function hod(){
-        return $this->hasOne(User::class, 'id', 'hod_id',);
+        return $this->hasOne(User::class, 'id', 'hod_id');
     }
 
     
