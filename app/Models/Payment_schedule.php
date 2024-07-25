@@ -9,8 +9,8 @@ use App\Models\Department;
 
 class Payment_schedule extends Model
 {
-    use HasFactory;
-    use SoftDeletes;
+    use HasFactory,SoftDeletes;
+    
     public function department(){
         return $this->hasOne(Department::class, 'id','department_id' );
     }
