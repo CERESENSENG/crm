@@ -24,5 +24,12 @@ class Department extends Model
         return $this->hasOne(User::class, 'id', 'hod_id');
     }
 
+
+
+
+
+ // toDO  
+
+
     
 }

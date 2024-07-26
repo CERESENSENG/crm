@@ -24,4 +24,10 @@ class Student extends Model
 
         return $this->hasMany(Payment::class,);
     }
+
+
+
+
+
+    //  todo
 }
