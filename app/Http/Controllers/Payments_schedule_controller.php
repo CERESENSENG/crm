@@ -165,7 +165,7 @@ class Payments_schedule_controller extends Controller
       'email' => $email,
       'amount' => $amountToPaystack * 100,
       'reference' => $transactionRef,
-      'callback_url' => 'http://localhost:8000/payment/callback',
+      'callback_url' =>  env('APP_URL').'/payment/callback',
       'metadata' => json_encode([
                    'deptId' => $deptId,
                   //  'amount_due' => $amount_due,

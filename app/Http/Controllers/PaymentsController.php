@@ -505,7 +505,7 @@ class PaymentsController extends Controller
       'email' => $email,
       'amount' =>  $amountProcessed * 100,
       'reference' => $transactionRef,
-      'callback_url' => 'http://localhost:8000/outstanding/payment/callback',
+      'callback_url' => env('APP_URL').'/outstanding/payment/callback',
       'metadata' => json_encode([
 
         'receipt_number' => $inv,
