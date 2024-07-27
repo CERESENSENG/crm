@@ -41,7 +41,7 @@ class ApplicationMailNotification extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            from:new Address(env('MAIL_FOM_ADDRESS')),
+            from:new Address(env('MAIL_FROM_ADDRESS')),
             subject: 'Application :: Ceresense',
         );
     }
