@@ -23,7 +23,7 @@ class AdmissionMailNotification extends Mailable
 
     {
          $this->surname=$surname;
-         $this->firstname=$surname;
+         $this->firstname=$firstname;
          $this->course=$course;
          $this->appno=$appno;
     }
