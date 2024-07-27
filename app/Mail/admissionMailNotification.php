@@ -9,7 +9,7 @@ use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class admissionMailNotification extends Mailable
+class AdmissionMailNotification extends Mailable
 {
     use Queueable, SerializesModels;
      public $surname;
