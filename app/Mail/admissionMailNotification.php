@@ -34,8 +34,8 @@ class admissionMailNotification extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            from:new Address('example@example.com'),
-            subject: 'Admission Mail Notification',
+            from:new Address(env('MAIL_FOM_ADDRESS')),
+            subject: 'Admission Notification',
         );
     }
 
