@@ -6,7 +6,7 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
-              <h4 class="card-title">User Table</h4>
+              <h4 class="card-title">User Mgt</h4>
               @if (session('message'))
               <div class="alert alert-success">
                 {{ session('message') }}

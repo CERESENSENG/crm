@@ -23,7 +23,7 @@
                               @enderror
                           </span>
                       </div>
-                      <div class="form-group">
+                      {{-- <div class="form-group">
                           <label for="email">Email</label>
                           <input  required name="email" type="email" class="form-control"
                               value="{{ $user->email }} ">
@@ -32,7 +32,7 @@
                                   {{ $message }}
                               @enderror
                           </span>
-                      </div>
+                      </div> --}}
                       <div class="form-group">
                         <label for="phone">Phone Number</label>
                         <input  required name="phone" type="text" class="form-control"

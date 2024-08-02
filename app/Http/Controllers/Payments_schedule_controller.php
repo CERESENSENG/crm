@@ -11,6 +11,7 @@ use App\Models\Payment;
 use App\Models\Setting;
 use DateTime;
 use Illuminate\Support\Facades\Redirect;
+use League\CommonMark\Reference\Reference;
 
 class Payments_schedule_controller extends Controller
 {
@@ -115,7 +116,7 @@ class Payments_schedule_controller extends Controller
     $deptId=$request->department_id;
     $purpose = $request->purpose;
     $amount_due = $request->amount_due;
-    //  dd($amount);
+    // dd($transactionRef);
 
     if($amount < 2500){
 
@@ -158,6 +159,8 @@ class Payments_schedule_controller extends Controller
     
     ]);
 
+    
+
 
     $url = "https://api.paystack.co/transaction/initialize";
 
@@ -165,18 +168,19 @@ class Payments_schedule_controller extends Controller
       'email' => $email,
       'amount' => $amountToPaystack * 100,
       'reference' => $transactionRef,
-      'callback_url' =>  env('APP_URL').'/payment/callback',
+      'callback_url' =>  env('APP_URL'). '/payment/callback/',
       'metadata' => json_encode([
                    'deptId' => $deptId,
-                  //  'amount_due' => $amount_due,
+                  
 
       ])
 
     ];
-    //  dd($val);
-
+    
 
     $fields_string = http_build_query($fields);
+
+    //return $fields_string;
 
     //open connection
     $ch = curl_init();
@@ -199,10 +203,12 @@ class Payments_schedule_controller extends Controller
 
     //execute post
     $result = curl_exec($ch);
-    //  echo $result;
+    // echo $result;
     $new = json_decode($result, true);
-    //  var_dump($new);
+      //var_dump($new);
     $payment_url = $new['data']['authorization_url'];
+
+    //return $new;
 
     return redirect::to($payment_url);
 
@@ -210,23 +216,23 @@ class Payments_schedule_controller extends Controller
     
   }
 
-  public function checkSchFeePaystackTxn(request $request)
+  public function checkSchFeePaystackTxn(request $request,)
   {
     $transactionRef = $request->query('trxref');
-
     $check = Payment::where('transaction_reference', $transactionRef)->first();
-    if ($check->exists()) {
+
+    if ($check->exists()) { 
 
       return $this->verifyPaystackTxn($transactionRef);
 
     } else
-    return redirect('home.page')->with('message','payment could no be validated');
-      // return redirect()->back()->with('message', 'Payment could not be validated');
+    return redirect()->route('home.page')->with('message','payment could no be validated');
+      
   }
 
   public function verifyPaystackTxn($transactionRef)
   {
-
+      
 
     $curl = curl_init();
 
@@ -247,50 +253,55 @@ class Payments_schedule_controller extends Controller
     ));
 
     $response = curl_exec($curl);
+
     $err = curl_error($curl);
 
     curl_close($curl);
 
-    if ($err) {
+    $responses = json_decode($response);
+    //return $responses;
+
+    if ($err) { 
+
       echo "cURL Error #:" . $err;
-    } else {
 
-      // dd($response);
-      $responses = json_decode($response);
-      $status = $responses->data->status;
-      $gatewayRes = $responses->data->gateway_response;
-      $signature = $responses->data->authorization->signature;
-      $paymentDate = $responses->data->paid_at;
-      // $formatDate= date('d/m/Y', strtotime($paymentDate));
-      $reference = $responses->data->reference;
-      $amount = $responses->data->amount;
-      $deptId = $responses->data->metadata->deptId;
-      // $amount_due = $responses->data->metadata->amount_due;
-        
-      // dd($deptId);
-      $amountInNaira = ($amount / 100);
-      
-      $pay = Payment::where('transaction_reference', $transactionRef)->first();
-
-      $invoice = $pay->invoice;
-
-      if($status == 'success'){
-        $storeTransaction = [
-          'transaction_reference' => $reference,
-          'status' => $status,
-          'gateway_response' => $gatewayRes,
-          'signature' => $signature,
-          'payment_date' => $paymentDate,
-        
-        ];
+    } else  if( property_exists($responses->data, 'status')){
+        $status = $responses->data->status;
+        $gatewayRes = $responses->data->gateway_response;
+        $signature = $responses->data->authorization->signature;
+        $paymentDate = $responses->data->paid_at;
+        $reference = $responses->data->reference;
+        $amount = $responses->data->amount;
+        $deptId = $responses->data->metadata->deptId;
+       
+        $amountInNaira = ($amount / 100);
   
-        $pay->update($storeTransaction);
+        $pay = Payment::where('transaction_reference', $transactionRef)->first();
+  
+        $invoice = $pay->invoice;
+  
+        if($status == 'success'){
+          $storeTransaction = [
+            'transaction_reference' => $reference,
+            'status' => $status,
+            'gateway_response' => $gatewayRes,
+            'signature' => $signature,
+            'payment_date' => $paymentDate,
+          
+          ];
+    
+          $pay->update($storeTransaction);
+  
+          return redirect()->route('outstanding.receipts', ['reference' => $reference, 'invoice'=>$invoice]);
+          
+        } else return redirect()->route('home.page')->with('message','Something went wrong');
 
-        return redirect()->route('outstanding.receipts', ['reference' => $reference, 'invoice'=>$invoice]);
-        
-      }
-      else return redirect('home.page')->with('message','payment could no be verified');
-   }
+      }else  return redirect()->route('home.page')->with('message','Something went wrong with!!');
+
+      
+
+     
+   
 
 
 

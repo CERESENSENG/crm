@@ -24,11 +24,11 @@ class PaymentsController extends Controller
       ->get();
     return view('payments.view', compact('payments'));
   }
-  public function paymentMethod()
-  {
-    $arr = ['half_payment', 'full_payment'];
-    return $arr;
-  }
+  // public function paymentMethod()
+  // {
+  //   $arr = ['half_payment', 'full_payment'];
+  //   return $arr;
+  // }
   public function status()
   {
     $arr = ['success', 'fail', 'pending'];
@@ -38,7 +38,7 @@ class PaymentsController extends Controller
   public function search()
 
   {
-    $options = $this->paymentMethod();
+    //$options = $this->paymentMethod();
     $statuses = $this->status();
     return view('payments.search', compact('options', 'statuses'));
   }
@@ -46,7 +46,7 @@ class PaymentsController extends Controller
   public function filterPayments(request $request)
 
   {
-    $options = $this->paymentMethod();
+   // $options = $this->paymentMethod();
     $statuses = $this->status();
     $invoice = $request->invoice;
     $status = $request->status;
@@ -73,7 +73,7 @@ class PaymentsController extends Controller
     }
      else { 
     //  dd($paymentOption);
-      $students  =  Payment::when($paymentOption, function ($query) use ($paymentOption) {
+       $students  =  Payment::when($paymentOption, function ($query) use ($paymentOption) {
           return $query->where('payment_option', $paymentOption);
         })->when($status, function ($query) use ($status) {
           return $query->where('status', $status);
@@ -81,18 +81,18 @@ class PaymentsController extends Controller
 
        ->get();
 
-            // dd($students);
+      //       // dd($students);
           
      
-      }
-
+       }
+              
 
 
     $studentList = $students;
 
     
 
-    return view('payments.search', compact('studentList', 'options', 'statuses'));
+    return view('payments.search', compact('studentList',  'statuses'));
   }
 
   public function uploadPage()
@@ -152,12 +152,28 @@ class PaymentsController extends Controller
         && trim($schedule_id) == ''
       ) {
 
-        $error = 'Error ignored';
+        $error = 'One of the CSV column is empty ';
+        $matric_no = '';
+        $student_id = '';
+        $payment_option = '';
+        $purpose = '';
+        $payment_reference = '';
+        $gateway = '';
+        $amount =  0;
+        $status = '';
+        $gateway_reponse = '';
+        $amount_due = '';
+        $schedule_id = '';
+        $transaction_reference = '';
+        $invoice = '';
+        $student_name = '';
+
       } else  if (
         trim($matric_no) == '' || trim($payment_option) == '' || trim($purpose) == '' ||
         trim($payment_reference) == ''  || trim($amount) == '' || trim($schedule_id) == ''
-      ) {
-
+      )
+       {
+        
         $error_in_csv = true;
         $error_in_row = true;
         $error = 'One of required field(s) omiited .';
@@ -168,7 +184,7 @@ class PaymentsController extends Controller
         $purpose = '';
         $payment_reference = '';
         $gateway = '';
-        $amount = '';
+        $amount =  0;
         $status = '';
         $gateway_reponse = '';
         $amount_due = '';
@@ -176,7 +192,7 @@ class PaymentsController extends Controller
         $transaction_reference = '';
         $invoice = '';
         $student_name = '';
-      } else {
+      } 
 
         $student = $this->checkMatricno($matric_no);
         if ($student) {
@@ -191,8 +207,8 @@ class PaymentsController extends Controller
             if ($schedule->department_id !=  $student->department_id) {
               $error_in_csv = true;
               $error_in_row = true;
-              $error .= ($error) ? 'and  wrong payment schedule ID is not match student`s dept. ' : ' wrong payment schedule ID is not match student`s dept. ';
-              $myErr = TRUE;
+              $error .= ($error) ? 'and  wrong payment!! schedule ID is not a match with student`s dept. ' : ' wrong payment!! schedule ID is not  a match with student`s dept. ';
+              $myErr = TRUE;  
               // $amount_due = 0;
             }
             $schfee =  Payment::getExistingSchoolFeePayment($student_id);
@@ -225,7 +241,7 @@ class PaymentsController extends Controller
 
         $invoice = $this->checkInv($schedule_id);
         $transaction_reference = $this->generateTxn();
-      }
+      
 
 
       $data[$k]['sn'] = $k + 1;
@@ -314,8 +330,10 @@ class PaymentsController extends Controller
   {
     $appNo = $request->app_no;
 
-    $std = Student::where('matric_no', $appNo)->first();
+    //return $appNo;
 
+    $std = Student::where('matric_no', $appNo)->first();
+      
     if (!$std) {
 
       return redirect('/outstanding/page')->with('message', 'No record found');
@@ -324,6 +342,8 @@ class PaymentsController extends Controller
     $pays = Payment::where('student_id', $std->id)
       ->where('status', 'success')
       ->get();
+
+      //return $pays;
 
     if ($pays->isEmpty()) {
 
@@ -336,6 +356,7 @@ class PaymentsController extends Controller
       $purpose = $sch->purpose;
       $stdApp = $std->app_no;
       $email =  $std->email;
+
       $inv  =  $this->generateInvoice();
       //dd(3);
 
@@ -355,11 +376,13 @@ class PaymentsController extends Controller
       // dd($paid);
 
       if ($amount_due == $paid) {
-
-        return redirect()->route('outstanding.receipts', ['invoice' => $invoice, 'reference' => $reference]);
+          return redirect()->route('outstanding.receipts', ['invoice' => $invoice, 'reference' => $reference]);
       } else if ($paid < $amount_due) {
+        $stdId = $std -> id;
         $status = 'success';
-        $cart =  Payment::with('student')->where('status', $status)->first();
+        $cart =  Payment::with('student')->where('status', $status)
+                                          ->where('student_id',$stdId)
+                                          ->first();
         $stdApp = $cart->student->app_no;
         $email =  $cart->student->email;
         $amount_paid = $paid;
@@ -505,9 +528,9 @@ class PaymentsController extends Controller
       'email' => $email,
       'amount' =>  $amountProcessed * 100,
       'reference' => $transactionRef,
-      'callback_url' => env('APP_URL').'/outstanding/payment/callback',
+     // 'callback_url' => env('APP_URL').url('outstanding/payment/callback'),
+     'callback_url' => env('APP_URL') . '/outstanding/payment/callback',
       'metadata' => json_encode([
-
         'receipt_number' => $inv,
 
 
@@ -550,7 +573,8 @@ class PaymentsController extends Controller
 
 
   public function checkoutstandingPaystackTxn(request $request)
-  {
+  {  
+
     $transactionRef = $request->query('trxref');
 
     $check = Payment::where('transaction_reference', $transactionRef)->first();
@@ -560,7 +584,7 @@ class PaymentsController extends Controller
 
       //  redirect()->route('payment.verify',compact('txnRef'));
     } else
-      return redirect('/outstanding/page')->with('message', 'Payment could not be validated');
+      return redirect()->route('outstanding.page') ->with('message', 'Payment could not be validated');
   }
 
 
@@ -591,12 +615,12 @@ class PaymentsController extends Controller
 
     curl_close($curl);
 
+    $responses = json_decode($response);
+
     if ($err) {
       echo "cURL Error #:" . $err;
-    } else {
 
-
-      $responses = json_decode($response);
+    } else if(property_exists($responses->data, 'status')){
 
       $status = $responses->data->status;
       $gatewayRes = $responses->data->gateway_response;
@@ -610,7 +634,6 @@ class PaymentsController extends Controller
 
       $pay = Payment::where('transaction_reference', $transactionRef)->first();
       $invoice = $pay->invoice;
-
 
       if ($status == 'success') {
 
@@ -627,8 +650,18 @@ class PaymentsController extends Controller
         $pay->update($storeTransaction);
 
         return redirect()->route('outstanding.receipts', ['reference' => $transactionRef, 'invoice' => $invoice]);
-      } else return redirect('/outstanding/page')->with('message', 'payment could no be verified');
+
+      } 
+      else return redirect()->route('outstanding.page')->with('message', 'payment could no be verified');
+
+    } else {
+      return redirect()->route('outstanding.page')->with('message','Something went wrong!!');
     }
+
+   
+
+      
+    
   }
 
   public function genoutReceipts(request $request)

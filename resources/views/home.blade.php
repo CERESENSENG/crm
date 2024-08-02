@@ -26,7 +26,7 @@
             
             <input name="app_no" value = "{{ $appNo }}" class="form-control" id="exampleDataList" placeholder="Type to search...">
             @else
-            <input name="app_no" class="form-control" id="exampleDataList" placeholder="Type to search...">
+            <input  required   name="app_no" class="form-control" id="exampleDataList" placeholder="Type to search...">
             @endisset
               <input type="submit" class="btn btn-primary" value="Proceed">
             </form>
@@ -39,7 +39,7 @@
             </p>
             <form action="{{ route('verify.certificate') }}" method="POST" class="app_number d-flex mt-1" data-aos-delay="300">
               @csrf
-              <input name="certificate_no" type="text" class="form-control" placeholder="Enter Certificate No">
+              <input required name="certificate_no" type="text" class="form-control" placeholder="Enter Certificate No">
               <input type="submit" class="btn btn-primary" value="Proceed">
             </form>
           </div>

@@ -10,7 +10,7 @@
           <div class="card">
             <i class='fa-dolid fa-pen-to-square' style='font-size:36px'></i>
               <div class="card-body">
-                  <h4 class="card-title">Payments Table</h4>
+                  <h4 class="card-title">Payments</h4>
                            
                   <div class="table-responsive">
                       <table class="table table-striped table-bordered zero-configuration">

@@ -75,10 +75,17 @@ class AdmissionController extends Controller
     {
 
         
-        $pendingStudents= Student::with('department')->where('status', '0')->get();
+        $pendingStudents= Student::with('department')
+        ->where('status', '0')
+        ->where('department_id', '!=','null ')
+        ->get();
         // dd($pendingStudents);
-        $approveStudents = Student::with('department')->where('status', 1)->get();
-        $rejectedStudents = Student::with('department')->where('status', -1)->get();
+        $approveStudents = Student::with('department')
+        ->where('department_id', '!=','null ')
+        ->where('status', 1)->get();
+        $rejectedStudents = Student::with('department')
+        ->where('department_id', '!=','null ')
+        ->where('status', -1)->get();
          return view('admission.admission', compact('pendingStudents','approveStudents','rejectedStudents'));
     }
   

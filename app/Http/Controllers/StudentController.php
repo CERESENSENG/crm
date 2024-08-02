@@ -99,6 +99,7 @@ class StudentController extends Controller
 
 
         $cohort = Setting::where('item', 'cohort')->value('value');
+
         $student =  Student::create($validate);
         $student->update(['app_no' => $appNum, 'admission_year' => $year, 'matric_no' => $appNum, 'cohort' => $cohort]);
 
@@ -349,7 +350,7 @@ class StudentController extends Controller
         $student = Student::findorfail($id);
         $student->update($validate);
 
-        return redirect()->back()->with('message', 'Record updated Successfully');
+        return redirect()->route('student.view')->with('success', 'Record updated Successfully');
     }
 
     /**
@@ -389,108 +390,93 @@ class StudentController extends Controller
         $k = 0;
         $myErr = false;
         $error_in_row = $error_in_csv = false;
-        $error = $error_n_appNo = false;
-        
+        $error = $error_n_email = false;
 
+       // $error = $error_n_appNo = false;
+       $check = [];
+        
+       
         foreach ($studentRows as $r) {
             $surname = ucfirst(strtolower($r[0]));
             $firstname = ucfirst(strtolower($r[1]));
             $othername = ucfirst(strtolower($r[2]));
-            $appNo = $r[3];
-            $matricNo = $r[4];
-            $admission_year = $r[5];
-            $cohort = $r[6];
-            $status = $r[7];
-            $department_id = $r[8];
-            $classMethod = $r[9];
-            $next_of_kin = $r[10];
-            $next_of_kin_phone = $r[11];
-            $email = $r[12];
-            $phone = $r[13];
-            $sponsors = $r[14];
-            $address = $r[15];
-            $terms = $r[16];
-            $sponsorsPhone = $r[17];
-            $wifi = $r[18];
-            $hostel = $r[19];
-            $skillMonetization = $r[20];
-            $paymentMethod = $r[21];
+           // $appNo = $r[3];
+           // $matricNo = $r[4];
+            $admission_year = $r[3];
+            $cohort = $r[4];
+            $status = $r[5];
+            $department_id = $r[6];
+            $classMethod = $r[7];
+            $next_of_kin = $r[8];
+            $next_of_kin_phone = $r[9];
+            $email = $r[10];
+            $phone = $r[11];
+            $sponsors = $r[12];
+            $address = $r[13];
+            $terms = $r[14];
+            $sponsorsPhone = $r[15];
+            $wifi = $r[16];
+            $hostel = $r[17];
+            $skillMonetization = $r[18];
+            $paymentMethod = $r[19];
 
 
             $error_in_row = $error_in_csv = false;
             $error = $error_n_appNo = false;
+            $error = $error_n_email = false;
+          
 
             if (
                 trim($surname) == '' && trim($firstname) == '' && trim($othername) == ''
-                && trim($appNo) == '' && trim($matricNo) == '' && trim($admission_year) == ''
+               // && trim($appNo) == '' && trim($matricNo) == '' 
+                && trim($admission_year) == ''
                 && trim($cohort) == '' && trim($status) == '' && trim($department_id) == ''
                 && trim($classMethod) == '' && trim($next_of_kin) == '' && trim($next_of_kin_phone) == ''
                 && trim($email) == '' &&  trim($phone) == '' && trim($sponsors) == '' && trim($address) == ''
                 && trim($terms) == '' && trim($sponsorsPhone) == '' && trim($wifi) == '' && trim($hostel) == ''
                 && trim($skillMonetization) == '' && trim($paymentMethod) == ''
             ) {
+ 
+                $error = 'one of the CSV column is empty';
+    
+                
 
-                $error = 'Error ignored';
             } else if (
-                trim($surname) == '' || trim($firstname) == '' || trim($othername) == ''
-                && trim($appNo) == '' || trim($matricNo) == '' || trim($admission_year) == ''
-                && trim($cohort) == '' || trim($status) == '' || trim($department_id) == ''
-                && trim($classMethod) == '' || trim($next_of_kin) == '' || trim($next_of_kin_phone) == ''
-                && trim($email) == '' ||  trim($phone) == '' || trim($sponsors) == '' || trim($address) == ''
-                && trim($terms) == '' || trim($sponsorsPhone) == '' || trim($wifi) == '' || trim($hostel) == ''
-                && trim($skillMonetization) == '' || trim($paymentMethod) == ''
-            ) {
+                trim($surname) == '' || trim($firstname) == '' || trim($othername) == '' ||
+                
+                // trim($appNo) == '' || trim($matricNo) == '' ||
+                  trim($admission_year) == '' ||
+                 trim($cohort) == '' || trim($status) == '' || trim($department_id) == '' ||
+                 trim($classMethod) == '' || trim($next_of_kin) == '' || trim($next_of_kin_phone) == ''
+             || trim($email) == '' ||  trim($phone) == '' || trim($sponsors) == '' || trim($address) == ''
+                || trim($terms) == '' || trim($sponsorsPhone) == '' || trim($wifi) == '' || trim($hostel) == ''
+            || trim($skillMonetization) == '' || trim($paymentMethod) == ''
+            ) 
+            {
 
                 $error_in_csv = true;
                 $error_in_row = true;
                 $error = 'One of required field(s) omiited .';
                 $myErr = true;
-            } else {
+
+                // return $error;
+            } 
                 $dpmt = new DepartmentController();
+
                 $dept = $dpmt->getDepartment($department_id);
 
+                // dd($dept);
+                $appNo = Student::genAppNo();
+
                 $chkappNo = $this->checkAppno($appNo);
-
-                if ($chkappNo) {
-                    $error_in_csv = true;
-                    $error_in_row = true;
-                    $error_n_appNo = true;
-                    $myErr = true;
-                    $chkappNo = '';
-                    $error .= ($error) ? ' matric no already exists' : 'matric no already exists';
-                }else{
-                    $error_in_csv = false;
-                    $error_in_row = false;
-                    $error_n_appNo = false;
-                    $myErr = false;
-                    $appNo =$appNo;
-
-                }
-
-               if($dept){
-
-                $deptName = $dept->name;
-                $deptId = $dept->id;
-
-               }else{
-                $error_in_csv = true;
-                 $error_in_row = true;
-                 $error .=  ($error) ? ' and Invalid department id' : ' Invalid department id';
-                 $myErr = true;
-                 $deptName = '';
-                 $deptId = $department_id;
-
-               }
-   
-                //  $chkappNo = $this->checkAppno($appNo);
-
+            
                 // if ($chkappNo) {
                 //     $error_in_csv = true;
                 //     $error_in_row = true;
                 //     $error_n_appNo = true;
                 //     $myErr = true;
                 //     $chkappNo = '';
-                //     $error .= ($error) ? '  and matric no already exists ' : 'matric no already exists';
+                //     $error .= ($error) ? ' matric no already exists' : 'matric no already exists';
                 // }else{
                 //     $error_in_csv = false;
                 //     $error_in_row = false;
@@ -500,25 +486,53 @@ class StudentController extends Controller
 
                 // }
 
-             
-            }
-
+               if($dept){
+  
+                $deptName = $dept->name;
+                $deptId = $dept->id;
             
-            // dd($myErr);
-         
+
+               }else{
+                $error_in_csv = true;
+                 $error_in_row = true;
+                 $error .=  ($error) ? ' and Invalid department id' : ' Invalid department id  ';
+                 $myErr = true;
+                 $deptName = '';
+                 $deptId = $department_id;
+
+               }
+
+               $chkEmail = Student::checkEmail($email);
+
+               if($chkEmail){
+
+                $error_in_csv = true;
+                $error_in_row = true;
+                $error .=  ($error) ? 'Email address already exists' : ' Email address already exists';
+                $myErr = true;
+
+               }
+
+               if (in_array($email, $check)) {
+                $error_in_csv = true;
+                $error_in_row = true;
+                $error_n_email = true;
+                $error .= ($error) ? 'duplicate email address  ' : 'duplicate email address';
+                $myErr = true;
+            }
+   
+    
             $data[$k]['sn'] = $k + 1;
             $data[$k]['surname'] = $surname;
             $data[$k]['firstname'] = $firstname;
             $data[$k]['othername'] = $othername;
             $data[$k]['appNo'] = $appNo;
-            $data[$k]['matricNo'] = $matricNo;
+            $data[$k]['matricNo'] = $appNo;
             $data[$k]['admission_year'] = $admission_year;
             $data[$k]['cohort'] = $cohort;
             $data[$k]['status'] = $status;
-            $data[$k]['deptName'] = $deptName;
+             $data[$k]['deptName'] = $deptName;
             $data[$k]['deptId'] = $deptId;
-            // $data[$k]['deptName'] = $dept->name;
-            // $data[$k]['deptId'] = $dept->id;
             $data[$k]['classMethod'] = $classMethod;
             $data[$k]['next_of_kin'] = $next_of_kin;
             $data[$k]['next_of_kin_phone'] = $next_of_kin_phone;
@@ -542,6 +556,8 @@ class StudentController extends Controller
                 $data[$k]['comment'] = $error;
             else
                 $data[$k]['comment'] = 'ok';
+
+            array_push($check, $email);
 
             $k++;
 
@@ -597,11 +613,73 @@ class StudentController extends Controller
         return redirect()->route('student.enroll')->with('success', 'Data stored successfully!');
     }
 
-    public function certificatepage()
+    public function certificateUploadPage()
     {
 
         return view('certificate.upload');
     }
+
+    public function showCertificate(){
+
+      $students = Student::with('department')->where('department_id', '!=', 'null')->get();
+    
+      return view('certificate.view',compact('students',));
+    }
+
+    public function editCertificate(Request $request ,$student_id){
+
+         $validate = $request->validate([
+            'certificate_no' =>'required|string'
+         ]);
+
+      $std = Student::find($student_id);
+      $update = $std->update($validate);
+
+      if ($update){
+
+        return redirect()->back()->with('success', 'Student certificate updated successfully');
+      }else {
+        return redirect()->back()->with('error','Error encountered');
+      }
+
+    }
+
+    public function searchCertificate(request $request){
+
+        $matric_no = $request->matric_no;
+        $year = $request->year;
+        $certificate_no = $request->certificate_no;
+
+        $null = (trim($matric_no) == '' && trim($year) == '' && trim($certificate_no) == '');
+
+        if (empty($request->all()) || $null ){
+             $students = [];
+        } else if ($matric_no){
+
+         $students = Student::with('department')
+                             ->where('department_id', '!=', 'null')
+                             ->where('matric_no',$matric_no)->get(); 
+        } else{
+
+            $students  =  Student::with('department')->where('department_id', '!=', 'null')
+                                                    ->when($year, function ($query) use ($year) {
+                                                      return $query->where('admission_year', $year);
+              })->when($certificate_no, function ($query) use ($certificate_no) {
+                return $query->where('certificate_no', $certificate_no);
+              })
+      
+             ->get();
+        }  
+
+    
+
+        $studentCert = $students;
+
+        return view('certificate.search',compact('studentCert'));
+
+
+    }
+
 
     public function certificateUpload(request $request)
     {
@@ -629,22 +707,20 @@ class StudentController extends Controller
             $matric_no = $r[0];
             $certificate_id = $r[1];
 
-
-
             $error_in_row = $error_in_csv = false;
             $error = $error_n_matric = false;
             $error = $error_n_certificate = false;
 
             if (trim($matric_no) == ''  && trim($certificate_id) == '') {
 
-                $error = 'Error ignored';
-            } else if (trim($matric_no) == '' || trim($certificate_id) == ' ') {
+                $error = 'One of the CSV column is empty!!';
+            } else if (trim($matric_no) == '' || trim($certificate_id) == '') {
 
                 $error_in_csv = true;
                 $error_in_row = true;
                 $error = 'One of required field(s) omiited .';
                 $myErr = true;
-            } else {
+            } 
 
                 $student = $this->checkMatricno($matric_no);
                 $certificate = $this->checkCertificate($certificate_id);
@@ -686,7 +762,7 @@ class StudentController extends Controller
                 }
 
               
-            }
+            
 
             $data[$k]['sn'] = $k + 1;
             $data[$k]['student_name'] = $student_name;

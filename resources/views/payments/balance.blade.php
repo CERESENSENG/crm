@@ -26,7 +26,7 @@
                     <label for="exampleDataList" class="form-label">Enter application Number To complete your
                         payment</label>
 
-                    <input name="app_no" class="form-control" id="exampleDataList" placeholder="Type to search...">
+                    <input required name="app_no" class="form-control" id="exampleDataList" placeholder="Type to search...">
 
                     <button type="submit" class="btn btn-primary mt-2">Submit</button>
                 </form>

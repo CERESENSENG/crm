@@ -68,8 +68,8 @@ Route::get('/payment', [Payments_schedule_controller::class, 'index'])->name('in
 Route::post('/payment/details', [Payments_schedule_controller::class, 'getDetails'])->name('payment.details');
 Route::post('/payment/init',[Payments_schedule_controller::class,'SchoolfeePaystackInit'])->name('payment.init');
 Route::get('/payment/callback',[Payments_schedule_controller::class,'checkSchFeePaystackTxn'])->name('payment.callback');
-Route::get('/payment/back/{transactionRef}',[Payments_schedule_controller::class,'verifyPaystackTxn'])->name('payment.verify');
-Route::get('/payment/receipts/', [Payments_schedule_controller::class, 'genReceipts'])->name('payment.receipts');
+Route::get('/payment/back',[Payments_schedule_controller::class,'verifyPaystackTxn'])->name('payment.verify');
+Route::get('/payment/receipts', [Payments_schedule_controller::class, 'genReceipts'])->name('payment.receipts');
 
 
  //OUTSTANDING PAYMENTS ROUTE
@@ -154,9 +154,12 @@ Route::put('/student/continue/{id}',[StudentController::class, 'updateStage'])->
 
  //Certification Route
 
- Route::get('/certificate', [StudentController::class,  'certificatepage'])->name('page.certificate');
+ Route::get('/certificate/page', [StudentController::class,  'certificateUploadPage'])->name('page.certificate');
  Route::post('/certificate/upload', [StudentController::class, 'certificateUpload'])->name('upload.certificate');
  Route::put('/certificate/store', [StudentController::class, 'certificateStore'])->name('certificate.storecsv');
+ Route::get('/certificate',[StudentController::class, 'showCertificate'])->name('viewall.certificate');
+ Route::put('/certificate/edit/{student_id}',[StudentController::class, 'editCertificate'])->name('edit.certificate');
+ Route::get('/certificate/search',[StudentController::class , 'searchCertificate'])->name('search.certificate');
 
 
 

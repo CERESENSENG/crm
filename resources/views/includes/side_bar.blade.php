@@ -39,7 +39,7 @@
                     <ul aria-expanded="false">
                         <li><a href="{{ route('view.payment') }}">View</a></li>
                         <li><a href="{{ route('search.payment') }}">Search</a></li>
-                        <li><a href="{{ route('upload.page') }}">Upload Payments</a></li>
+                        <li><a href="{{ route('upload.page') }}">Upload</a></li>
                         
                     </ul>
                 </li> 
@@ -74,6 +74,8 @@
                           <i class="icon-menu menu-icon"></i><span class="nav-text">Certification</span>
                       </a>
                       <ul aria-expanded="false">
+                        <li><a href="{{ route('viewall.certificate')}}">View</a></li>
+                        <li><a href="{{ route('search.certificate') }}">Search</a></li>
                           <li><a href="{{ route('page.certificate') }}" aria-expanded="false">Upload</a></li>
                       </ul>
                   </li>

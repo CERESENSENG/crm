@@ -20,7 +20,7 @@
                                         <input name="invoice" type="text" class="form-control">
                                     </div>
 
-                                    <div class="col">
+                                    {{-- <div class="col">
                                         <label>Payment Option</label><select style="width:95%" id="payment_option"
                                             name="payment_option" class="form-control">
                                             <option id="payment_option" value=''>Select Payment Option</option>
@@ -29,7 +29,7 @@
                                             @endforeach
                                         </select>
 
-                                    </div>
+                                    </div> --}}
                                     <div class="col">
                                         <label>Status</label>
                                         <select id="status" name="status" class="form-control">

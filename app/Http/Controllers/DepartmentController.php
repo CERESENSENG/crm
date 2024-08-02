@@ -22,15 +22,9 @@ class DepartmentController extends Controller
     public function getDepartment($dept){
 
         $depts=Department::find($dept);
+
         return $depts;
      
-        // if ($depts){
-        //     return $depts;
-        // }else{
-        //     return false;
-        // }
-
-
     }
     /**
      * Display a listing of the resource.
