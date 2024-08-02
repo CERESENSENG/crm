@@ -8,7 +8,7 @@
 
   <title>{{$title}}</title>
   <!-- Favicon icon -->
-  <link rel="icon" type="image/png" sizes="16x16" href="{{asset('asset/images/favicon.png')}}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{{asset('assets/img/favicon.png')}}">
   <!-- Pignose Calender -->
   <link href="{{asset('asset/plugins/pg-calendar/css/pignose.calendar.min.css')}}" rel="stylesheet">
   <!-- Chartist -->
