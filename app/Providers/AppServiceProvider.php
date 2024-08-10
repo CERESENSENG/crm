@@ -12,6 +12,7 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         //
+
     }
 
     /**
@@ -20,5 +21,12 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         //
+
+        $this->app->singleton('settings', function(){
+            $settings =  \App\Models\Setting::all();
+                foreach( $settings as $setting )
+             $data[$setting->items] = $setting->values;
+         return $data;
+     });
     }
 }

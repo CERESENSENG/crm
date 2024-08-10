@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('surname');
             $table->string('firstname');
             $table->string('othername')->nullable();
-            $table->string('app_no')->nullable();;
+            $table->string('app_no')->nullable();
             $table->string('matric_no')->nullable();;
             $table->string('admission_year')->nullable();
             $table->string('cohort')->nullable();

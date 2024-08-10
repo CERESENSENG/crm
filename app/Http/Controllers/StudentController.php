@@ -98,7 +98,8 @@ class StudentController extends Controller
         $appNum = 'APP/' . $year . '/' . $str;
 
 
-        $cohort = Setting::where('item', 'cohort')->value('value');
+       // $cohort = Setting::where('item', 'cohort')->value('value');
+        $cohort  =  app('settings')['cohort'];
 
         $student =  Student::create($validate);
         $student->update(['app_no' => $appNum, 'admission_year' => $year, 'matric_no' => $appNum, 'cohort' => $cohort]);
