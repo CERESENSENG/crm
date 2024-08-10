@@ -24,8 +24,8 @@ return new class extends Migration
             $table->string('approved_at')->nullable();
             $table->string('rejected_at')->nullable();
             $table->string('password')->nullable();
-            $table->unsignedBigInteger('department_id')->nullable();
-            $table->foreign('department_id')->references('id')->on('departments');
+            $table->unsignedBigInteger('department_id')->default(0);
+           // $table->foreign('department_id')->references('id')->on('departments');
             $table->enum('class_method',['online','physical']);
             $table->string('next_of_kin');
             $table->string('next_of_kin_phone')->nullable();

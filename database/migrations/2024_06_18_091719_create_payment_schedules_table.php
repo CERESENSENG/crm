@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('cohort');
             $table->string('year');
-             $table->foreignId('department_id')->constrained();
+            $table->unsignedBigInteger('department_id');
+            // $table->foreignId('department_id')->constrained();
             $table->decimal('amount',10,2);
             $table->string('purpose')->nullable();
             $table->timestamps();
