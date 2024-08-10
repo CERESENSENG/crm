@@ -25,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton('settings', function(){
             $settings =  \App\Models\Setting::all();
                 foreach( $settings as $setting )
-             $data[$setting->items] = $setting->values;
+             $data[$setting->item] = $setting->value;
          return $data;
      });
     }
