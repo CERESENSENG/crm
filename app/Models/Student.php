@@ -25,7 +25,7 @@ class Student extends Model
         return $this->hasMany(Payment::class);
     }
 
-    static public function genAppNo(){
+    static public function genAppNo($year){
 
 
         
@@ -36,11 +36,12 @@ class Student extends Model
         $str =  str_shuffle($num . $uniq);
         //  str_shuffle($str);
 
-        $year = date('Y'); // Get the current year
-
-      return  $appNum = 'APP/' . $year . '/' . $str;
+      return   'APP/' . $year . '/' . $str;
 
     }
+
+
+   
 
     static public function checkEmail($email){
 

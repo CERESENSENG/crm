@@ -89,13 +89,15 @@ class StudentController extends Controller
 
         // COMMENT: more code added to make it more unique
         // $num = rand(10000, 99999); // Generate a random 5-digit number
-        $uniq = substr(hexdec(uniqid()), -4);
-        $num =   strval(rand(1000, 9999));   // Generate a random 4-digit number
-        $str =  str_shuffle($num . $uniq);
+        // $uniq = substr(hexdec(uniqid()), -4);
+        // $num =   strval(rand(1000, 9999));   // Generate a random 4-digit number
+        // $str =  str_shuffle($num . $uniq);
         //  str_shuffle($str);
 
         $year = date('Y'); // Get the current year
-        $appNum = 'APP/' . $year . '/' . $str;
+        // $appNum = 'APP/' . $year . '/' . $str;
+
+        $appNum = Student::genAppNo($year);
 
 
        // $cohort = Setting::where('item', 'cohort')->value('value');
@@ -467,7 +469,7 @@ class StudentController extends Controller
                 $dept = $dpmt->getDepartment($department_id);
 
                 // dd($dept);
-                $appNo = Student::genAppNo();
+                $appNo = Student::genAppNo($admission_year);
 
                 $chkappNo = $this->checkAppno($appNo);
             
