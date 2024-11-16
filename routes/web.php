@@ -12,6 +12,7 @@ use App\Models\Payment;
 use App\Models\Payment_schedule;
 use App\Models\Student;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PromoController;
 
 
 /*
@@ -26,8 +27,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-// COMMENT:  No department default data in the table , You need to create depart seeder
 
+
+
+
+
+
+
+
+
+Route::get('/promo-page', [PromoController::class, 'index'])->name('promo.index');
+
+// COMMENT:  No department default data in the table , You need to create depart seeder
 
   // COMMENT:  You need to change the content of welcome page to Home page, where it will display links to diiff pages: registration page, payment page, admin page etc.ec.
 
@@ -36,7 +47,6 @@ Route::get('/homePage', function(){return view('home');})->name('home.page');
 
 Route::get('/registration/steps', function(){return view('application.registration'); })->name('registration.steps');
 Route::get('/about', function(){ return view('about');})->name('about.page');
-
 
 Route::get('/home',[AdmissionController::class, 'getAppnoToHome'])->name('appNo.home');
 Route::get('/available/programs',[DepartmentController::class, 'availablePrograms'])->name('avail.programs');
@@ -63,7 +73,7 @@ Route::post('admission/approve/{id}',[AdmissionController::class, 'approveStuden
 Route::post('admission/reject/{id}',[AdmissionController::class, 'rejectStudent'])->name('reject');
 Route::get('/admission/slip',[AdmissionController::class, 'admissionSlip'])->name('admission.slip');
 
-    
+
 Route::get('/payment', [Payments_schedule_controller::class, 'index'])->name('index.show');
 Route::post('/payment/details', [Payments_schedule_controller::class, 'getDetails'])->name('payment.details');
 Route::post('/payment/init',[Payments_schedule_controller::class,'SchoolfeePaystackInit'])->name('payment.init');
@@ -79,7 +89,8 @@ Route::get('/payment/receipts', [Payments_schedule_controller::class, 'genReceip
  Route::post('/outstanding/initialize',[PaymentsController::class,  'outstandingPayment'])->name('payment.outstandingInit');
  Route::get('outstanding/payment/callback',[PaymentsController::class,'checkoutstandingPaystackTxn'])->name('outstanding.callback');
  Route::get('outstanding/receipts',[PaymentsController::class,'genoutReceipts'])->name('outstanding.receipts');
- 
+
+
 
 
 
@@ -94,7 +105,7 @@ Route::get('/payment/receipts', [Payments_schedule_controller::class, 'genReceip
 
 
 
-    
+
 // COMMENT: How many dashboard so you want to ahave ?  there is home after login
 // Route::get('/admin', function () {
 //     return view('index');
@@ -106,9 +117,9 @@ Route::get('/payment/receipts', [Payments_schedule_controller::class, 'genReceip
 
  //Route::get('/admin', [StudentController::class, 'index'])->middleware(['auth', 'verified'])->name('admin');
 Route::middleware(['auth', 'verified'])->group(function () {
-  
-  
-Route::get('/dashboard',[StudentController::class, 'index'])->name('admin');  
+
+
+Route::get('/dashboard',[StudentController::class, 'index'])->name('admin');
 
 Route::get('/student/search',[StudentController::class, 'searchStudent'])->name('student.search');
 Route::get('/student/view',[StudentController::class,'view'])->name('student.view');
@@ -116,9 +127,9 @@ Route::get('/student',[StudentController::class, 'edit'])->name('student.edit');
 Route::put('/student/{id}',[StudentController::class, 'update'])->name('edit.stage-1.store');
 Route::get('/student/continue/{id}',[StudentController::class, 'editStage'])->name('student.edit2');
 Route::put('/student/continue/{id}',[StudentController::class, 'updateStage'])->name('edit.stage-2.store');
-  
+
   //Route::match(['get','post'], 'filter/students',[StudentController::class,'searchStudent'])->name('student.search');
- 
+
   Route::get('/student/enrollment',[StudentController::class, 'enroll'])->name('student.enroll');
   Route::Post('/student/upload/Page',[StudentController::class, 'upload'])->name('student.upload');
   Route::Post('/student/store',[StudentController::class, 'studentEnroll'])->name('student.storecsv');
@@ -163,8 +174,6 @@ Route::put('/student/continue/{id}',[StudentController::class, 'updateStage'])->
 
 
 
-
- 
 //lARAVEL BREEZE AUTHENTICATION ROUTES
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -173,5 +182,6 @@ Route::put('/student/continue/{id}',[StudentController::class, 'updateStage'])->
 
 
 
+
+
 require __DIR__.'/auth.php';
- 

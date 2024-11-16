@@ -19,7 +19,7 @@ class DepartmentSeeder extends Seeder
            'duration'=>'10 weeks',
            'hod_id' => 1,
            'frequency'=>'Twice a week'
-         
+
         ],
         [
             'name'=>'Mobile App Development',
@@ -27,7 +27,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'12 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week'
-          
+
         ],
          [
             'name'=>'User Interface/User Experience',
@@ -35,7 +35,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'8 weeks',
             'hod_id' => 1,
             'frequency'=>'Twice a week'
-          
+
          ],
          [
             'name'=>'3D Modelling',
@@ -43,7 +43,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'8 weeks',
             'hod_id' => 1,
             'frequency'=>'Four class weekly'
-          
+
          ],
          [
             'name'=>'3D Animation',
@@ -51,7 +51,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'14 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week'
-          
+
          ],
          [
             'name'=>'Digital Marketing',
@@ -59,7 +59,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'8 weeks',
             'hod_id' => 1,
             'frequency'=>'Twice a week'
-          
+
          ],
          [
             'name'=>'Website Development',
@@ -67,7 +67,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'12 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week'
-          
+
          ],
          [
             'name'=>'Cyber Security',
@@ -75,7 +75,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'16 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-          
+
          ],
          [
             'name'=>'Motion Graphics',
@@ -83,7 +83,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'10 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-          
+
          ],
          [
             'name'=>'Blockchain Technology',
@@ -91,7 +91,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'14 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-          
+
          ],
          [
             'name'=>'Sage',
@@ -99,7 +99,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'3 days',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-          
+
          ],
          [
             'name'=>'Networking',
@@ -107,7 +107,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'8 weeks',
             'hod_id' => 1,
             'frequency'=>'Twice a week',
-          
+
          ],
          [
             'name'=>'Artificial Intelligence',
@@ -115,7 +115,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'16 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-          
+
          ],
          [
             'name'=>'Forex Trading',
@@ -123,7 +123,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'10 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-          
+
          ],
          [
             'name'=>'Advance Backend Programming',
@@ -131,7 +131,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'8 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-          
+
          ],
          [
             'name'=>'Advance Front-end Programming',
@@ -139,8 +139,8 @@ class DepartmentSeeder extends Seeder
             'duration'=>'8 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-            
-          
+
+
          ],
          [
             'name'=>'Cloud Computing',
@@ -148,7 +148,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'12 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-          
+
          ],
          [
             'name'=>'Data Science/Analytics',
@@ -156,7 +156,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'12 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-          
+
          ],
          [
             'name'=>'Master Microsoft Excel',
@@ -164,7 +164,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'4 weeks',
             'hod_id' => 1,
             'frequency'=>'Twice a week',
-          
+
          ],
          [
             'name'=>'Copywriting',
@@ -172,7 +172,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'4 weeks',
             'hod_id' => 1,
             'frequency'=>'Twice a week',
-          
+
          ],
          [
             'name'=>'Software Engineering',
@@ -180,7 +180,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'7 month',
             'hod_id' => 1,
             'frequency'=>'Four class weekly',
-          
+
          ],
          [
             'name'=>'R-Programmig',
@@ -188,7 +188,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'8 weeks',
             'hod_id' => 1,
             'frequency'=>'Twice a week',
-          
+
          ],
          [
             'name'=>'Data Visualization Using Microsoft Power BI',
@@ -196,7 +196,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'6 weeks',
             'hod_id' => 1,
             'frequency'=>'Twice a week',
-          
+
          ],
          [
             'name'=>'Wordpress Web Design',
@@ -211,7 +211,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'10 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-          
+
          ],
          [
             'name'=>' AutoCad',
@@ -219,7 +219,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'8 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-          
+
          ],
          [
             'name'=>'Interior Designing',
@@ -227,7 +227,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'8 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-          
+
          ],
          [
             'name'=>'IT Auditing',
@@ -235,7 +235,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'12 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-          
+
          ],
          [
             'name'=>'Master Python',
@@ -243,7 +243,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'4 months',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-          
+
          ],
          [
             'name'=>'Master Javascript',
@@ -251,7 +251,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'4 months',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-          
+
          ],
          [
             'name'=>'Data Processing',
@@ -259,7 +259,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'2 months',
             'hod_id' => 1,
             'frequency'=>'Twice a week',
-          
+
          ],
          [
             'name'=>'Master React',
@@ -267,7 +267,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'3 months',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-          
+
          ],
          [
             'name'=>'Master Jquery',
@@ -275,7 +275,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'10 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-          
+
          ],
          [
             'name'=>'Master Ajax',
@@ -283,7 +283,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'12 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-          
+
          ],
          [
             'name'=>'Master Php',
@@ -291,8 +291,8 @@ class DepartmentSeeder extends Seeder
             'duration'=>'16 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-            
-          
+
+
          ],
          [
             'name'=>'Master C++',
@@ -300,7 +300,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'15 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-          
+
          ],
          [
             'name'=>'Master C#',
@@ -308,7 +308,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'15 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-          
+
          ],
          [
             'name'=>'Master Node.Js',
@@ -316,7 +316,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'10 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-          
+
          ],
          [
             'name'=>'Master Boostrap',
@@ -324,7 +324,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'4 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-          
+
          ],
          [
             'name'=>'Master CSS',
@@ -332,7 +332,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'10 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-          
+
          ],
          [
             'name'=>'Skill Monetizatiom',
@@ -340,7 +340,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'3 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-          
+
          ],
          [
             'name'=>'Technical Writing',
@@ -348,7 +348,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'4 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-          
+
          ],
          [
             'name'=>'Video Editing',
@@ -356,7 +356,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'8 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-          
+
          ],
          [
             'name'=>'LINUX',
@@ -364,7 +364,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'12 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-          
+
          ],
          [
             'name'=>'Canva',
@@ -372,7 +372,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'8 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-          
+
          ],
          [
             'name'=>'Cryptocurrency Trading',
@@ -380,7 +380,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'10 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-          
+
          ],
          [
             'name'=>'Agile Methodology',
@@ -388,7 +388,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'16 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-          
+
          ],
          [
             'name'=>'Scrum',
@@ -396,7 +396,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'10 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-          
+
          ],
          [
             'name'=>'Kanban',
@@ -404,7 +404,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'16 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-          
+
          ],
          [
             'name'=>'JIRA',
@@ -412,7 +412,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'16 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-          
+
          ],
          [
             'name'=>'Microsoft Project',
@@ -420,7 +420,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'10 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-          
+
          ],
          [
             'name'=>'Trello',
@@ -428,7 +428,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'10 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-          
+
          ],
          [
             'name'=>'Asana',
@@ -436,7 +436,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'10 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-          
+
          ],
          [
             'name'=>'Version Control (e.g, Git)',
@@ -444,7 +444,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'6 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-          
+
          ],
          [
             'name'=>'Communication Tools',
@@ -452,7 +452,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'8 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-          
+
          ],
          [
             'name'=>'Time Management Skills',
@@ -460,7 +460,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'8 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-          
+
          ],
          [
             'name'=>'Linux Administration',
@@ -468,7 +468,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'14 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-          
+
          ],
          [
             'name'=>'Window Server Administration',
@@ -476,7 +476,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'16 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-          
+
          ],
          [
             'name'=>'MacOS Proficiency',
@@ -484,7 +484,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'14 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-          
+
          ],
          [
             'name'=>'Shell Scripting',
@@ -492,7 +492,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'12 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-          
+
          ],
          [
             'name'=>'Virtualization (e.g, firmware)',
@@ -500,7 +500,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'14 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-          
+
          ],
          [
             'name'=>'Containerization',
@@ -508,7 +508,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'14 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-          
+
          ],
          [
             'name'=>'System Monitoring',
@@ -516,7 +516,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'16 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-          
+
          ],
          [
             'name'=>'Patch Management',
@@ -524,7 +524,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'10 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-          
+
          ],
          [
             'name'=>'Active Directory',
@@ -532,7 +532,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'6 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-          
+
          ],
          [
             'name'=>'File System Management',
@@ -540,7 +540,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'10 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-          
+
          ],
          [
             'name'=>'Hardware Diagonistics',
@@ -548,7 +548,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'10 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-          
+
          ],
          [
             'name'=>'Software Installation/Configuration',
@@ -556,7 +556,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'4 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-          
+
          ],
          [
             'name'=>'Remote Desktop Support',
@@ -564,7 +564,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'10 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-          
+
          ],
          [
             'name'=>'End-User Training',
@@ -572,7 +572,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'12 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-          
+
          ],
          [
             'name'=>'TroubleShooting Networks',
@@ -580,7 +580,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'10 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-          
+
          ],
          [
             'name'=>'System Optimization',
@@ -588,7 +588,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'6 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-          
+
          ],
          [
             'name'=>'Data Recovery',
@@ -596,7 +596,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'6 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-          
+
          ],
          [
             'name'=>'Malware Removal',
@@ -604,7 +604,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'3 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-          
+
          ],
          [
             'name'=>'Peripheral Setup',
@@ -612,7 +612,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'16 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-          
+
          ],
          [
             'name'=>'Disaster Recovery Planning',
@@ -620,7 +620,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'10 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-          
+
          ],
          [
             'name'=>'Geographic Information (GIS)',
@@ -628,7 +628,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'14 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-          
+
          ],
          [
             'name'=>'Web Mapping',
@@ -636,7 +636,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'10 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-          
+
          ],
          [
             'name'=>'Remote Sensing',
@@ -644,7 +644,7 @@ class DepartmentSeeder extends Seeder
             'duration'=>'10 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-          
+
          ],
          [
             'name'=>'Quantum Computing',
@@ -652,15 +652,24 @@ class DepartmentSeeder extends Seeder
             'duration'=>'12 weeks',
             'hod_id' => 1,
             'frequency'=>'Thrice a week',
-          
+
          ],
 
-        
-        
-        
-        
-        
-        
+         [
+            'name'=>'Promo Cohort',
+            'department_code'=>'PROMO',
+            'duration'=>'24 weeks',
+            'hod_id' => 1,
+            'frequency'=>'Thrice a week',
+
+         ],
+
+
+
+
+
+
+
         ]);
     }
 }

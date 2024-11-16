@@ -15,6 +15,14 @@ class Payment_SchedulesSeeder extends Seeder
     {
         DB::table('payment_schedules')->insert([
 
+            [ 'department_id'=>81,     //incase of promo courses
+              'cohort'=>1,
+              'year'=>'2024',
+              'amount'=>150000.00,
+              'purpose' => 'sch_fee',
+              'description' => 'School fees payment for promo courses',
+            ],
+
             [ 'department_id'=>1,
               'cohort'=>1,
               'year'=>'2024',
@@ -63,7 +71,7 @@ class Payment_SchedulesSeeder extends Seeder
               'amount'=>150000.00,
               'purpose' => 'sch_fee',
                'description' => 'School fees payment for Website development',
-              
+
 
             ],
             [ 'cohort'=>1,
@@ -118,7 +126,7 @@ class Payment_SchedulesSeeder extends Seeder
             'purpose' => 'sch_fee',
              'description' => 'School fees payment for Forex Trading',
             ],
-           
+
 
             [ 'cohort'=>1,
             'department_id'=>15,
@@ -214,7 +222,7 @@ class Payment_SchedulesSeeder extends Seeder
             'amount'=>150000.00,
             'purpose' => 'sch_fee',
             'description' =>  'School fees payment for for autocad',
-            
+
 
             ],
 
