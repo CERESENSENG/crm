@@ -166,15 +166,35 @@ class PromoController extends Controller
     }
 
 
-    public function  slip($app_no)
+    public function  slip($app_no, ApplicationService $appservice, StudentService $studservice, PaymentService $payservice)
     {
 
+         try {
 
-            dd('You are on slip apge');
-        //
-           //session()->put('success', 'test success message');
-     //   $courses =  ['Web Development', 'UI/UX Design', 'Data Analysis','Mobile Development'];
-       // return view('promo.register',compact('courses'));
+
+
+        $student =  $studservice->getStudentByAppNo($app_no);
+         // dd($student);
+         if($student)
+           {
+            $pay =  $payservice->getPaymentByPurpose($student->id, 'sch_fee');
+             if(!$pay)
+               return redirect()->to(route('promo.register'))->with('error', 'Payment information is not found for this applicant! if you have made the payment, Go and requery the payment');
+           }
+               else
+            return redirect()->to(route('promo.register'))->with('error', 'Invalid applicant!');
+
+        }
+          catch (\Exception $e) {
+          //  $err_message = $e->getMessage();
+            \Log::error($e->getMessage());
+              return redirect()->to(route('promo.register'))->with('error', 'Something went wrong  during application slip generation!');
+            }
+
+       $student = Student::where('app_no', $app_no)->first();
+
+
+       return view('promo.slip',compact('student','pay'));
     }
 
 

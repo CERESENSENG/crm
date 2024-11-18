@@ -151,6 +151,15 @@ public  function verify(string $txn_ref, string $secrete_key,string $verify_url)
       }
 
 
+      function getPaymentByPurpose($student_id, $purpose)
+       {
+
+           return  Payment::whereStudentId($student_id)->wherePurpose($purpose)
+           ->whereStatus(1)->first();
+
+
+       }
+
 
 
 
