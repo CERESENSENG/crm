@@ -36,13 +36,32 @@ use App\Http\Controllers\PromoController;
 
 
 
-Route::get('/promo-page', [PromoController::class, 'index'])->name('promo.index');
+Route::get('/', [PromoController::class, 'index'])->name('promo.index');
+
+
+Route::prefix('/promo-cohort')->name('promo.')->group(function() {
+    Route::get('/register',[PromoController::class,'register'])->name('register');
+    Route::post('/store',[PromoController::class,'store'])->name('store');
+    Route::get('/message/app/{app_no}',[PromoController::class,'screenMessage'])->name('message');
+    Route::get('/cart/app/{app_no}',[PromoController::class,'cart'])->name('cart');
+
+    Route::post('/checkout',[PromoController::class,'checkout'])->name('checkout');
+
+    Route::get('/initialize-txn/{tx_ref}',[PromoController::class,'initializeTx'])->name('initialize.txn');
+    Route::get('/paystack/callback',[PromoController::class,'verifyTx'])->name('verify.txn');
+
+    Route::get('/slip/app/{app_no}',[PromoController::class,'slip'])->name('slip');
+
+
+});
+
+
 
 // COMMENT:  No department default data in the table , You need to create depart seeder
 
   // COMMENT:  You need to change the content of welcome page to Home page, where it will display links to diiff pages: registration page, payment page, admin page etc.ec.
 
-Route::get('/', function () {return view('index');})->name('index');
+Route::get('/landing', function () {return view('index');})->name('index');
 Route::get('/homePage', function(){return view('home');})->name('home.page');
 
 Route::get('/registration/steps', function(){return view('application.registration'); })->name('registration.steps');

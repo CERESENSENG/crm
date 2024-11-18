@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::table('students', function (Blueprint $table) {
             //
+            $table->string('category')->default('regular');
+            $table->longText('promo_course')->nullable();
         });
     }
 

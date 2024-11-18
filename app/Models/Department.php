@@ -14,7 +14,7 @@ class Department extends Model
 {   use SoftDeletes;
     use HasFactory;
     protected $guarded=[];
-   
+
 
     public function student(){
      return $this->hasMany(Student::class);
@@ -25,13 +25,19 @@ class Department extends Model
     }
 
 
+      static function getDeptByCode($code)
+      {
+        return Department::where('department_code', $code)->first();
+      }
 
 
 
- // toDO  
 
 
-    
+ // toDO
+
+
+
 }
 
 

@@ -26,6 +26,47 @@
         <!-- css -->
         <link rel="stylesheet" href="{{asset('promo/css/style.min.css')}}" type="text/css" />
 
+        {{-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> --}}
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+
+        <style>
+
+.js-select2 {
+    height: 80px; /* Adjust this value to match the height of other form fields */
+    padding-left: 35px; /* Provide space for the icon */
+}
+
+/* Fix for the Select2 container to match input field height */
+.select2-container .select2-selection--multiple {
+   /* height: 40px !important;  Match the height of the input field */
+    padding-left: 35px !important; /* Space for the icon */
+}
+
+/* Prevent the placeholder text from overlapping the icon */
+.select2-container--default .select2-selection--multiple .select2-selection__rendered {
+    padding-left: 35px !important; /* Padding to avoid overlap with icon */
+   /* line-height: 36px;  Ensure vertical alignment of placeholder */
+}
+
+/* Style for the selected items (course choices) */
+.select2-container .select2-selection__choice {
+    padding-left: 8px; /* Adjust padding for selected items */
+    padding-right: 8px;
+}
+
+/* Style for the arrow button */
+
+
+/* Adjust icon size */
+.mdi {
+    font-size: 18px; /* Ensure the icon fits well within the input */
+    line-height: 36px; /* Center the icon vertically */
+}
+
+/* Ensure the Select2 dropdown has a consistent height */
+
+
+</style>
 
     </head>
 
@@ -48,10 +89,10 @@
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <ul class="navbar-nav mx-auto" id="navbar-navlist">
                         <li class="nav-item">
-                            <a class="nav-link active" href="#home">Home</a>
+                            <a class="nav-link " href="#home">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#features">Enrol </a>
+                            <a class="nav-link" href="{{route('promo.register')}}">Enrol </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#review">Application Slip</a>
@@ -64,18 +105,95 @@
                         </li>
                     </ul>
                     <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-white nav-btn" data-bs-toggle="modal" data-bs-target="#exampleModalLong">
-                        Sign Up
-                    </button>
+                    <a    href="{{route('promo.register')}}" class="btn btn-white nav-btn"   >
+                        Register
+                    </a>
                 </div>
             </div>
         </nav>
         <!-- End Navbar -->
 
+        <div class="overflow-hidden-x">
+
         {{ $slot }}
 
 
 
+
+
+
+<!-- Start cta -->
+<section class="section cta">
+    <marquee behavior="" direction="left"><p class="mb-0">
+        Can’t join us in January? Stay tuned for the second half of the year! Our next cohort runs from June 12th to October 12th, with onboarding week beginning on June 12th. Hostel opens, classes start, and a new journey begins
+
+    </p></marquee>
+    <div class="container">
+        <div class="row justify-content-center text-center">
+            <div class="col-lg-6">
+                <div data-aos="fade-down" data-aos-duration="1800">
+                    <div class="cta-heading">Unlock Your Career with Our Discounted Cohort Program!
+                        {{-- <span class="mb-3">
+                            <span class="counter_value" data-target="37">0</span>
+                            <span>% Off</span>
+                        </span>! --}}
+                    </div>
+
+                    <p>
+                        Our exclusive program offers you the chance to complete 3 in-demand professional courses in just 6 months for a single payment at almost 99% off! You can choose from the following courses:
+                        Web Development, UI/UX Design, Data Analysis, and Cybersecurity.
+                    </p>
+
+                        <!-- <p class="fs-18">Limited signup only. Order today before the discount period end.</p> -->
+                        <a class="btn btn-primary" href="{{route('promo.register')}}"> Enrol Now for  {{ app('settings')['session']  }}
+                             {{  (app('settings')['cohort']  ) ? 'January' : 'June' }}  Cohort </a>
+
+
+
+
+                    </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End cta -->
+
+<!-- Start Team -->
+<section class="section team" style="z-index: 1;">
+    <div id="particles-js" style="z-index: -1;">
+    </div>
+    <!-- end particles -->
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-7">
+                <div class="text-center mb-5">
+                    <h2 class="heading">Contact Us</h2>
+
+                    <div class="content">
+                        <h5 class="title"> Phone Numbers: </h5>
+                        <p class="text-muted"> +234-7063-419-718, +234-8036-436-594
+                        </p>
+
+                    </div>
+
+                    <div class="content">
+                        <h5 class="title"> Office Address: </h5>
+                        <p class="text-muted"> N0 2,Foyeke street,opposite tawheed junction,basin,ilorin,kwara state
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+
+            </div><!-- end col-->
+        </div><!-- end row -->
+
+    </div><!-- end cotainer-->
+</section>
+<!-- End Team -->
 
 
 <!-- START FOOTER -->
@@ -141,6 +259,10 @@
         </div>
     </div>
 </div>
+
+</div>
+
+
         <!--start back-to-top-->
         <button onclick="topFunction()" id="back-to-top">
             <i class="mdi mdi-arrow-up"></i>
@@ -167,7 +289,9 @@
         <!-- App Js -->
         <script src="{{asset('promo/js/app.js')}}"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        {{-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> --}}
 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 
         {{$customJs ?? ''}}
 

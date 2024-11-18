@@ -56,7 +56,7 @@
     </div> --}}
 <!-- End modal -->
 
-<div class="overflow-hidden-x">
+{{-- <div class="overflow-hidden-x"> --}}
     <!-- Start Home -->
 <section class="section home home-4" id="home">
     <div class="container">
@@ -72,7 +72,7 @@
 
 
                         <div class="home-btn hstack gap-2 flex-column d-sm-block">
-                    <a class="btn btn-white me-1" href="javascript:void(0)"> Enrol Now  </a>
+                    <a class="btn btn-white me-1" href="{{route('promo.register')}}"> Enrol Now  </a>
                         <a class="modal-btn" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target=".watchvideomodal">
                             <span class="avatar-sm">
                                 <span class="avatar-title rounded-circle btn-icon bg-white">
@@ -87,10 +87,14 @@
                             <div class="modal-header border-0">
                                 <button type="button" class="btn-close btn-close-black" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                            <video id="VisaChipCardVideo" class="video-box" controls="">
-                                <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                            <div id="video-container"> </div>
+                             {{-- <video id="video-player" class="video-box" controls="">
+                                <source src="https://www.youtube.com/embed/OBewEVZmpcg?autoplay=1" type="video/mp4" >
                                 <!--Browser does not support <video> tag -->
-                            </video>
+                            </video> --}}
+                             {{-- <iframe  id="video-player" width="550" height="415"  class="video-box"
+                           src="https://www.youtube.com/embed/OBewEVZmpcg?autoplay=1">
+                              </iframe> --}}
                         </div>
                     </div>
                 </div>
@@ -351,148 +355,7 @@
 
 
 
-<!-- Start cta -->
-<section class="section cta">
-    <marquee behavior="" direction="left"><p class="mb-0">
-        Can’t join us in January? Stay tuned for the second half of the year! Our next cohort runs from June 12th to October 12th, with onboarding week beginning on June 12th. Hostel opens, classes start, and a new journey begins
 
-    </p></marquee>
-    <div class="container">
-        <div class="row justify-content-center text-center">
-            <div class="col-lg-6">
-                <div data-aos="fade-down" data-aos-duration="1800">
-                    <div class="cta-heading">Unlock Your Career with Our Discounted Cohort Program!
-                        {{-- <span class="mb-3">
-                            <span class="counter_value" data-target="37">0</span>
-                            <span>% Off</span>
-                        </span>! --}}
-                    </div>
-
-                    <p>
-                        Our exclusive program offers you the chance to complete 3 in-demand professional courses in just 6 months for a single payment at almost 99% off! You can choose from the following courses:
-                        Web Development, UI/UX Design, Data Analysis, and Cybersecurity.
-                    </p>
-
-                        <!-- <p class="fs-18">Limited signup only. Order today before the discount period end.</p> -->
-                        <a class="btn btn-primary" href="javascript:void(0)"> Enroll Now for January Cohort  </a>
-
-
-
-
-                    </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- End cta -->
-
-<!-- Start Team -->
-<section class="section team" style="z-index: 1;">
-    <div id="particles-js" style="z-index: -1;">
-    </div>
-    <!-- end particles -->
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-7">
-                <div class="text-center mb-5">
-                    <h2 class="heading">Contact Us</h2>
-
-                    <div class="content">
-                        <h5 class="title"> Phone Numbers: </h5>
-                        <p class="text-muted"> +234-7063-419-718, +234-8036-436-594
-                        </p>
-
-                    </div>
-
-                    <div class="content">
-                        <h5 class="title"> Office Address: </h5>
-                        <p class="text-muted"> N0 2,Foyeke street,opposite tawheed junction,basin,ilorin,kwara state
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-
-
-            </div><!-- end col-->
-        </div><!-- end row -->
-
-    </div><!-- end cotainer-->
-</section>
-<!-- End Team -->
-
-<!-- Start contact -->
-{{-- <section class="section contact" id="contact">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-6">
-                <div class="text-center mb-5">
-                    <h2 class="heading">Contact Us</h2>
-                    <p class="text-muted mt-2 fs-17">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                        do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                </div>
-            </div><!-- end col -->
-        </div><!-- end row -->
-        <div class="row align-items-center gy-3">
-            <div class="col-lg-6">
-                <div data-aos="fade-right" data-aos-duration="1800">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="map">  <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d6030.418742494061!2d-111.34563870463673!3d26.01036670629853!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2smx!4v1471908546569"
-                                width="100%" height="325" style="border: 0" allowfullscreen></iframe>  </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--end col-->
-            <div class="col-lg-6">
-                <div data-aos="fade-left" data-aos-duration="1800">
-                    <form method="post" onsubmit="return validateForm()" class="contact-form" name="myForm" id="myForm">
-                        <span id="error-msg"></span>
-                        <div class="row rounded-3 py-3">
-                            <div class="col-lg-12">
-                                <div class="position-relative mb-3">
-                                    <span class="input-group-text"><i class="mdi mdi-account-outline"></i></span>
-                                    <input name="name" id="name" type="text" class="form-control" placeholder="Enter your name*">
-                                </div>
-                            </div>
-                            <div class="col-lg-12">
-                                <div class="position-relative mb-3">
-                                    <span class="input-group-text"><i class="mdi mdi-email-outline"></i></span>
-                                    <input name="email" id="email" type="email" class="form-control" placeholder="Enter your email*">
-                                </div>
-                            </div>
-                            <div class="col-lg-12">
-                                <div class="position-relative mb-3">
-                                    <span class="input-group-text"><i class="mdi mdi-file-document-outline"></i></span>
-                                    <input name="subject" id="subject" type="text" class="form-control" placeholder="Subject">
-                                </div>
-                            </div>
-                            <div class="col-lg-12">
-                                <div class="position-relative mb-3">
-                                <span class="input-group-text align-items-start"><i class="mdi mdi-comment-text-outline"></i></span>
-                                    <textarea name="comments" id="comments" rows="4" class="form-control" placeholder="Enter your message*"></textarea>
-                                </div>
-                            </div>
-                            <div class="col-lg-12">
-                                <div class="text-end">
-                                    <input type="submit" id="submit" name="send" class="btn btn-primary" value="Send Message">
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                    <!--end form-->
-                </div>
-            </div><!--end col-->
-        </div><!--end row-->
-    </div><!--end container-->
-</section> --}}
-<!-- End contect -->
-
-<!-- END FOOTER-ALT -->
-</div>
 
 
     <x-slot:customJs >
@@ -502,6 +365,27 @@
 const win  =  window.onload = () => {
     // Your function here
       $('#video-modal').modal('show');
+   //   $("#video-player")[0].autoplay = true;
+     // document.getElementById("video-player").setAttribute('autoplay', true);
+
+
+     const iframe = document.createElement('iframe');
+
+           // Set the necessary attributes for the iframe
+             iframe.setAttribute('width', '700');
+             iframe.setAttribute('height', '380');
+             iframe.setAttribute('src', `https://www.youtube.com/embed/OBewEVZmpcg?autoplay=1`);
+             iframe.setAttribute('frameborder', '0');
+             iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+             iframe.setAttribute('allowfullscreen', '');
+
+            // Append the iframe to the video container
+            const videoContainer = document.getElementById('video-container');
+            videoContainer.innerHTML = ''; // Clear any existing content
+            videoContainer.appendChild(iframe);
+
+
+
 };
 
 
