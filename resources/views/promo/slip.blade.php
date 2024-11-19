@@ -31,8 +31,8 @@
                 </tr>
             </table>
         </div>
-        <p  style="font-weight: bold; text-align:center;">
-                        <a href="javascript:window.print();" >Print</a>
+        <p  style="font-weight: bold; text-align:center;"   class="no-print"     >
+                       <span> <a href="{{route('promo.index')}}" >Home</a> | <a href="javascript:window.print();" >Print</a> </span>
 
         </p>
 
@@ -200,7 +200,7 @@
 
           <br><br>
 
-             <div  style="text-align:center"  class="text-info"> Applicants are advised to keep their application slip as you will be required to present them for official use.
+             <div  style="text-align:center"  class="text-info"> Applicants are advised to keep their application slip as you will be required to present it for official use.
                  </div>
 
 

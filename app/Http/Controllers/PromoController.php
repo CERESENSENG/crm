@@ -217,13 +217,23 @@ class PromoController extends Controller
     }
 
 
-    public function  cart($app_no,ApplicationService $appService,  PaymentService $payService)
+    public function  cart($app_no,ApplicationService $appService,  PaymentService $payService, StudentService $studservice)
     {
 
           try{
 
+
+            $student =  $studservice->getStudentByAppNo($app_no);
+            // dd($student);
+              if($student)
+               return redirect()->to(route('promo.register'))->with('error', ' Student information found for this applicant! Go to application slip to reprint it.');
+
+
               $session = strval(app('settings')['session']);
               $cohort = strval(app('settings')['cohort']);
+
+
+
 
              $app =  $appService->getApp($app_no);
 
@@ -264,7 +274,7 @@ class PromoController extends Controller
 
 
 
-    public function  checkout(Request $request,ApplicationService $appService,  PaymentService $payService,
+    public function  checkout(Request $request, StudentService $studservice,  PaymentService $payservice,
       InvoiceService $invoiceservice )
     {
 
@@ -289,6 +299,21 @@ class PromoController extends Controller
 
 
 
+
+          $student =  $studservice->getStudentByAppNo($request->app_no);
+         // dd($student);
+           if($student)
+            return redirect()->to(route('promo.register'))->with('error', ' Student information found for this applicant! Go to application slip to reprint it.');
+
+            // $pay =  $payservice->getPaymentByPurpose($student->id, 'sch_fee');
+            //  if(!$pay)
+            //    return redirect()->to(route('promo.register'))->with('error', 'Payment information is not found for this applicant! if you have made the payment, Go and requery the payment');
+
+
+        //     else {
+
+
+        //    }
 
 
 
