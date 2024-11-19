@@ -89,7 +89,7 @@
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <ul class="navbar-nav mx-auto" id="navbar-navlist">
                         <li class="nav-item">
-                            <a class="nav-link " href="#home">Home</a>
+                            <a class="nav-link " href="{{route('promo.index')}}">Home</a>
                         </li>
                         {{-- <li class="nav-item">
                             <a class="nav-link" href="{{route('promo.register')}}">Enrol </a>

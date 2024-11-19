@@ -40,7 +40,7 @@
         }
 
         .bg-img{
-            background: url( {{asset('assets/img/favicon.png')}} );
+            background: url( {{asset('assets/img/logo-watermark.png')}} );
             overflow: hidden;
             background-repeat : no-repeat;
             background-position: center;
@@ -115,8 +115,8 @@
                   </td>
                 <td  style="text-align:center">
                     <DIV STYLE="text-align:center; font-family:Tahoma, 'Trebuchet MS', sans-serif; color:rgb(21, 128, 222);font-weight: bold; font-size: 20pt; margin: 0; padding: 0;"> CERESENSE TRAINING INSTITUTE</div>
-                        <DIV STYLE="text-align:center; font-size: 12pt;font-weight:400; margin: auto; padding: auto;  color:rgb(247, 12, 59);padding:2px;"> <small><b> 2,foyeke str., opp. tawheed junction, basin, ilorin, kwara state.</b></small></div>
-                    <DIV STYLE="text-align:center; font-weight: bold; color:rgb(21, 128, 222); font-size: 15pt; margin: 0; padding: 0;"> Contact No: +234 7063419718, +234 8036436594</div>
+                        <DIV STYLE="text-align:center; font-size: 12pt;font-weight:400; margin: auto; padding: auto;  color:rgb(247, 12, 59);padding:2px;"> <small><b> 2, Foyeke Str., Opp. Tawheed Junction, Basin, Ilorin, Kwara state.</b></small></div>
+                    <DIV STYLE="text-align:center; font-weight: bold; color:rgb(21, 128, 222); font-size: 15pt; margin: 0; padding: 0;"> Contact No: +2347063419718, +2348036436594</div>
                         <DIV STYLE="text-align:center; font-weight: bold; font-size: 10pt; margin: 2px 0; padding: 0;">  Website: www.ceresense.com.ng </div>
                         <br>
 

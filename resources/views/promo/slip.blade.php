@@ -24,9 +24,9 @@
 
                            <td align="center"   >
                             <br/>
-             <div  >
+             {{-- <div  >
             <img  src="https://ui-avatars.com/api/?name={{$student->surname}}+{{$student->firstname}}" class="imageThumb" alt="passport" width="150px" height="150px" />
-            </div>
+            </div> --}}
             </td>
                 </tr>
             </table>
@@ -64,6 +64,14 @@
                                     {{$student->admission_year}} Cohort {{$student->cohort}}
                                 </td>
                             </tr>
+
+                            <td >
+                                Programme:
+                                </td>  <td >
+                                    {{$student->promo_course}}
+                                </td>
+                            </tr>
+
                         {{-- <tr>
                             <td >
                                 Application No:
