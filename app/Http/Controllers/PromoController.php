@@ -477,7 +477,7 @@ class PromoController extends Controller
 
                       // if($student){
 
-                        //     $pay['txn_ref'] = $tx_ref;
+                          $pay = [];
                               $pay['amount'] = $invoice->total;
                               $pay['student_id'] = $student->id;
                               $pay['invoice'] = $invoice->invoice;
@@ -486,7 +486,7 @@ class PromoController extends Controller
                               $pay['purpose'] = 'sch_fee';
                               $pay['invoice'] = $invoice->invoice;
                               $pay['transaction_reference'] = $tx_ref;
-                              $apy['status'] =   ($response['data']['status'] ==  'success')?1:0;
+                              $pay['status'] =   ($response['data']['status'] ==  'success')?1:0;
                               $pay['amount_due'] = $invoice->total;
                               $pay['gateway_response'] =  $response['data']['gateway_response'];
                             //  $pay['authorization_code'] = $response['authorization_code'];
