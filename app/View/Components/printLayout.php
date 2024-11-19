@@ -21,6 +21,6 @@ class printLayout extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('layouts.print-layout');
+        return view('components.print-layout');
     }
 }

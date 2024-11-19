@@ -21,6 +21,6 @@ class promoLayout extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('layouts.promo-layout');
+        return view('components.promo-layout');
     }
 }
