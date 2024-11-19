@@ -42,7 +42,7 @@ class SendApplicationNotification extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
-        $subject =  $this->session. '- Cohort '.$this->cohort.' Application Received - Secure Your Slot for the 3-in-1 IT Skills Programme!';
+        $subject =  'Application Received - Secure Your Slot for the 3-in-1 IT Skills Programme!';
         //'Ceresense '.$this->session. '- Cohort '.$this->cohort.' Application Registration';
 
         return (new MailMessage)

@@ -91,14 +91,14 @@
                         <li class="nav-item">
                             <a class="nav-link " href="#home">Home</a>
                         </li>
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a class="nav-link" href="{{route('promo.register')}}">Enrol </a>
-                        </li>
+                        </li> --}}
                         <li class="nav-item">
                             <a class="nav-link" href="#review">Application Slip</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#pricing">Programmes</a>
+                            <a class="nav-link" href="{{route('index')}}">Programmes</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link mb-3 mb-lg-0" href="#contact">Contact</a>
