@@ -65,6 +65,26 @@
 
 /* Ensure the Select2 dropdown has a consistent height */
 
+/* body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+} */
+
+
+.whatsapp-logo {
+    position: fixed;
+    bottom: 80px;  /* Adjust bottom distance */
+    right: 20px;  /* Offset it so it overflows */
+    z-index: 9999;  /* Ensure it stays above other elements */
+}
+
+.whatsapp-logo i {
+    width: 60px;  /* Size of the logo, adjust as needed */
+    height: auto;
+}
+
+
 
 </style>
 
@@ -125,7 +145,7 @@
 <!-- Start cta -->
 <section class="section cta">
     <marquee behavior="" direction="left"><p class="mb-0">
-        Can’t join us in January? Stay tuned for the second half of the year! Our next cohort runs from June 12th to October 12th, with onboarding week beginning on June 12th. Hostel opens, classes start, and a new journey begins
+        Can't join us in January? Stay tuned for the second half of the year! Our next cohort runs from June 12th to October 12th, with onboarding week beginning on June 12th. Hostel opens, classes start, and a new journey begins
 
     </p></marquee>
     <div class="container">
@@ -140,13 +160,13 @@
                     </div>
 
                     <p>
-                        Our exclusive program offers you the chance to complete 3 in-demand professional courses in just 6 months for a single payment at almost 99% off! You can choose from the following courses:
-                        Web Development, UI/UX Design, Data Analysis, and Cybersecurity.
+                        Our exclusive program offers you the chance to complete 3 in-demand professional courses in just 5 months for a single payment at almost 99% off! You can choose from the following courses:
+                        Web Development, UI/UX Design, Data Analysis, Mobile App and Cybersecurity.
                     </p>
 
                         <!-- <p class="fs-18">Limited signup only. Order today before the discount period end.</p> -->
                         <a class="btn btn-primary" href="{{route('promo.register')}}"> Enrol Now for  {{ app('settings')['session']  }}
-                             {{  (app('settings')['cohort']  ) ? 'January' : 'June' }}  Cohort </a>
+                             {{  (app('settings')['cohort']  ==  1 ) ? 'January' : 'June' }}  Cohort </a>
 
 
 
@@ -207,12 +227,12 @@
 
                 </p>
                 <ul class="list-unstyled mb-0 mt-4 social-icon">
-                    <li class="list-inline-item"><a href="javascript:void(0)"><i class="mdi mdi-facebook"></i></a></li>
-                    <li class="list-inline-item"><a href="javascript:void(0)"><i class="mdi mdi-twitter"></i></a></li>
-                    <li class="list-inline-item"><a href="javascript:void(0)"><i class="mdi mdi-instagram"></i></a></li>
-                    <li class="list-inline-item"><a href="javascript:void(0)"><i class="mdi mdi-vimeo"></i></a></li>
-                    <li class="list-inline-item"><a href="javascript:void(0)"><i class="mdi mdi-google-plus"></i></a></li>
-                    <li class="list-inline-item"><a href="javascript:void(0)"><i class="mdi mdi-linkedin"></i></a></li>
+                    <li class="list-inline-item"><a href="https://web.facebook.com/profile.php?id=100066922870824"><i class="mdi mdi-facebook"></i></a></li>
+                    {{-- <li class="list-inline-item"><a href="javascript:void(0)"><i class="mdi mdi-twitter"></i></a></li> --}}
+                    <li class="list-inline-item"><a href="https://www.instagram.com/ceresense/"><i class="mdi mdi-instagram"></i></a></li>
+                     {{-- <li class="list-inline-item"><a href="javascript:void(0)"><i class="mdi mdi-vimeo"></i></a></li> --}}
+                   {{-- <li class="list-inline-item"><a href="javascript:void(0)"><i class="mdi mdi-google-plus"></i></a></li>    --}}
+                    <li class="list-inline-item"><a href="https://www.linkedin.com/company/ceresense-training-institute/posts/?feedView=all"><i class="mdi mdi-linkedin"></i></a></li>
                 </ul>
             </div><!--end col-->
         </div><!--end row-->
@@ -263,11 +283,21 @@
 </div>
 
 
+
+
+<div class="whatsapp-logo"   style="color:rgb(33, 188, 33)">
+    {{-- <img src="whatsapp-logo.png" alt="WhatsApp"> --}}
+   <a style="color:rgb(33, 188, 33)" href="https://wa.me/+2347063419718" target="_blank" > <i  style="font-size:80px;" class="mdi mdi-whatsapp"></i></a>
+</div>
+
+
         <!--start back-to-top-->
         <button onclick="topFunction()" id="back-to-top">
             <i class="mdi mdi-arrow-up"></i>
         </button>
         <!--end back-to-top-->
+
+
 
         <!--Custom js-->
         <script src="{{asset('promo/js/counter.js')}}"></script>

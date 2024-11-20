@@ -25,7 +25,7 @@
 
                     @endif
 
-                    @if ($message = Session::get('error')  )
+                    @if ( $message = Session::get('error')  )
                     <div class="alert alert-danger alert-dismissible show fade"    role="alert" >
                         <div class="alert-body">
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -33,7 +33,7 @@
                         </div>
                       </div>
                     @endif
-
+{{--
                     @if (isset($error) )
                     <div class="alert alert-danger alert-dismissible show fade"    role="alert" >
                         <div class="alert-body">
@@ -41,7 +41,7 @@
                           {!! $error !!}
                         </div>
                       </div>
-                    @endif
+                    @endif --}}
 
                     @if ($message = Session::get('warning'))
                     <div class="alert alert-warning alert-dismissible show fade"    role="alert"  >

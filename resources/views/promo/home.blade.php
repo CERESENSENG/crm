@@ -130,37 +130,42 @@
                         the professional world. Here's what you need to know about your journey with us</p>
                 </div>
                 {{-- <h3 class="feature-heading"> What to Expect as a Ceresense Student   </h3> --}}
+                <h6 class="feature-heading"> What to Expect as a Ceresense Student  </h6>
             </div><!-- end col-->
         </div><!-- end row-->
+
+
         <div class="row justify-content-center">
             <div class="col-lg-4 col-md-7 mt-sm-4">
                 <div data-aos="fade-right" data-aos-duration="1800">
                     <div class="feature-card p-3 py-sm-4 rounded d-flex">
                         <div class="flex-shrink-0">
-                            <i class="mdi mdi-responsive text-primary float-start me-3 h2"></i>
+                            <i class="mdi mdi-clock text-primary float-start me-3 h2"></i>
                         </div>
                         <div class="flex-grow-1 ms-2">
                                 <div class="content">
-                                    <h5 class="title"> Program Timeline  </h5>
+                                    <h5 class="title">  Timetable Access </h5>
                                     <p class="text-muted">
-                                    The full program timeline will be displayed on the notice board and available on the student forum
-                                    </p>
-                                    <a href="javascipt:void(0)" class="text-dark">Read More <i class="mdi mdi-chevron-right"></i></a>
+                                    The class timetable will be accessible on the student forum and posted on the notice board.
+                                </p>
+                                    {{-- <a href="javascipt:void(0)" class="text-dark">Read More <i class="mdi mdi-chevron-right"></i></a> --}}
+
                                 </div>
                         </div>
                     </div>
                 </div>
             </div><!-- end col -->
+
             <div class="col-lg-4 col-md-7 mt-sm-4">
                 <div class="feature-card p-3 py-sm-4 rounded">
-                    <i class="mdi mdi-layers-triple-outline text-primary float-start me-3 h2"></i>
+                    <i class="mdi mdi-checkbox-multiple-marked-outline text-primary float-start me-3 h2"></i>
                     <div class="content d-block overflow-hidden">
-                        <h5 class="title">  Presentations Week </h5>
+                        <h5 class="title">    Mandatory Attendance </h5>
                         <p class="text-muted mt-2">
-                        Participation in Presentations Week is required for every student, whether presenting or not. Attendance will contribute to your certification eligibility.
-
+                        Attendance is essential for all classes as scheduled.
                         </p>
-                        <a href="javascipt:void(0)" class="text-dark">Read More <i class="mdi mdi-chevron-right"></i></a>
+                        {{-- <a href="javascipt:void(0)" class="text-dark">Read More <i class="mdi mdi-chevron-right"></i></a> --}}
+
                     </div>
                 </div>
             </div><!-- end col -->
@@ -170,16 +175,78 @@
                         <i class="mdi mdi-clipboard-flow-outline text-primary float-start me-3 h2"></i>
                         <div class="content d-block overflow-hidden">
                             <h5 class="title">
-                                Final Project Defense  </h5>
+                                Presentations Week  </h5>
                             <p class="text-muted mt-2">
-                                Completion and defense of your final project are mandatory for program clearance and certification.
-                              </p>
-                            <a href="javascipt:void(0)" class="text-dark">Read More <i class="mdi mdi-chevron-right"></i></a>
+
+                         Participation in Presentations Week is required for every student, whether presenting or not. Attendance will contribute to your certification eligibility.
+
+                            </p>
+                            {{-- <a href="javascipt:void(0)" class="text-dark">Read More <i class="mdi mdi-chevron-right"></i></a> --}}
                         </div>
                     </div>
                 </div>
             </div><!-- end col -->
         </div><!-- end row -->
+
+
+        <div class="row justify-content-center">
+            <div class="col-lg-4 col-md-7 mt-sm-4">
+                <div data-aos="fade-right" data-aos-duration="1800">
+                    <div class="feature-card p-3 py-sm-4 rounded d-flex">
+                        <div class="flex-shrink-0">
+                            <i class="mdi mdi-calendar text-primary float-start me-3 h2"></i>
+                        </div>
+                        <div class="flex-grow-1 ms-2">
+                                <div class="content">
+                                    <h5 class="title"> Program Timeline  </h5>
+                                    <p class="text-muted">
+                                    The full program timeline will be displayed on the notice board and available on the student forum
+                                    </p>
+                                    
+
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- end col -->
+
+            <div class="col-lg-4 col-md-7 mt-sm-4">
+                <div class="feature-card p-3 py-sm-4 rounded">
+                    <i class="mdi mdi-bookmark-check-outline text-primary float-start me-3 h2"></i>
+                    <div class="content d-block overflow-hidden">
+                        <h5 class="title">  Final Project Defense </h5>
+                        <p class="text-muted mt-2">
+                      Completion and defense of your final project are mandatory for program clearance and certification.
+                        </p>
+                        {{-- <a href="javascipt:void(0)" class="text-dark">Read More <i class="mdi mdi-chevron-right"></i></a> --}}
+
+
+                    </div>
+                </div>
+            </div><!-- end col -->
+            <div class="col-lg-4 col-md-7 mt-sm-4">
+                <div data-aos="fade-left" data-aos-duration="1800">
+                    <div class="feature-card p-3 py-sm-4 rounded">
+                        <i class="mdi mdi-school-outline text-primary float-start me-3 h2"></i>
+                        <div class="content d-block overflow-hidden">
+                            <h5 class="title">
+                                Alumni Forum Access </h5>
+                            <p class="text-muted mt-2">
+
+                            After graduation, students are added to the alumni forum, where they can access resources and career support.
+
+
+                            </p>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div><!-- end col -->
+        </div><!-- end row -->
+
+
+
         <div class="row my-sm-5 py-5 align-items-center justify-content-between">
             <div class="col-lg-6">
 
@@ -372,8 +439,8 @@ const win  =  window.onload = () => {
      const iframe = document.createElement('iframe');
 
            // Set the necessary attributes for the iframe
-             iframe.setAttribute('width', '700');
-             iframe.setAttribute('height', '380');
+             iframe.setAttribute('width', '500');
+             iframe.setAttribute('height', '250');
              iframe.setAttribute('src', `https://www.youtube.com/embed/OBewEVZmpcg?autoplay=1`);
              iframe.setAttribute('frameborder', '0');
              iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');

@@ -48,8 +48,10 @@ class PromoController extends Controller
             'phone' => ['required','string'],
             'email' => ['required','string','email:rfc,dns','max:255','unique:applications'],
             'address' => ['required','string'],
-            'course' => ['required','array']
+            'course' => ['required','array','min:3','max:3']
 
+          ],[
+              'course.min' => 'You must select three courses'
           ]);
 
 
@@ -161,7 +163,7 @@ class PromoController extends Controller
     {
         //
            //session()->put('success', 'test success message');
-        $courses =  ['Web Development', 'UI/UX Design', 'Data Analysis','Mobile Development'];
+        $courses =  ['Web Development', 'UI/UX Design', 'Cyber Security', 'Data Analysis','Mobile Development'];
         return view('promo.register',compact('courses'));
     }
 
