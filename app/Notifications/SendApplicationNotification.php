@@ -65,7 +65,7 @@ class SendApplicationNotification extends Notification
                     ->line('We highly recommend finalizing your payment soon to secure your discounted rate and ensure your participation in the programme.')
                     ->line('If you have any questions or need further assistance, please do not hesitate to contact our customer support team at +234-7063-419-718, +234-8036-436-594.')
 
-                    ->line('We look forward to welcoming you to the 3-in-1 IT Skills Programme at Ceresense!')
+                    ->line('We look forward to welcoming you to the 3-in-1 IT Skills Programme at Ceresense!');
 
     }
 
