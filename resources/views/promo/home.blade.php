@@ -202,7 +202,7 @@
                                     <p class="text-muted">
                                     The full program timeline will be displayed on the notice board and available on the student forum
                                     </p>
-                                    
+
 
                                 </div>
                         </div>
@@ -371,7 +371,7 @@
        <div data-aos="fade-left" data-aos-duration="1800">
                     <h3 class="feature-heading mb-2">Flexible Class Schedule for Your Convenience </h3>
                     <p class="text-muted">
-                        Our courses are held Monday through Friday, with both morning and afternoon sessions to fit your schedule. Each session lasts 2-3 hours, spread over six months to ensure comprehensive learning at a comfortable pace.
+                        Our courses are held Monday through Friday, with both morning and afternoon sessions to fit your schedule. Each session lasts 2-3 hours, spread over five months to ensure comprehensive learning at a comfortable pace.
                     </p>
                     {{-- <ul class="feature-list">
                         <li><i class="mdi mdi-checkbox-marked-circle-outline text-primary"></i>Laptop and</li>
@@ -429,6 +429,7 @@
 
 <script>
 
+/*
 const win  =  window.onload = () => {
     // Your function here
       $('#video-modal').modal('show');
@@ -454,6 +455,7 @@ const win  =  window.onload = () => {
 
 
 };
+*/
 
 
 

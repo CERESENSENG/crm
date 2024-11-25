@@ -42,7 +42,7 @@
                                 </div> --}}
                                   @include('promo.include.alert')
                                 <div class="text-center">
-                                    <h5 class="text-white"> <i class="mdi mdi-credit-card-outline"></i> Registration Payment Advice  </h5>
+                                    <h5 class="text-white"> <i class="mdi mdi-credit-card-outline"></i> Registration Invoice  </h5>
                                 </div>
                                 <span id="error-msg"></span>
                                 <div class="row rounded-3 py-3">
