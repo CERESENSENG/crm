@@ -73,7 +73,10 @@
 
                         <div class="home-btn hstack gap-2 flex-column d-sm-block">
                     <a class="btn btn-white me-1" href="{{route('promo.register')}}"> Enrol Now  </a>
-                        <a class="modal-btn" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target=".watchvideomodal">
+                        {{-- <a class="modal-btn" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target=".watchvideomodal"> --}}
+                            <a class="modal-btn" href="#"    >
+
+
                             <span class="avatar-sm">
                                 <span class="avatar-title rounded-circle btn-icon bg-white">
                                     <i class="mdi mdi-play"></i>
@@ -86,15 +89,10 @@
                         <div class="modal-content home-modal p-1">
                             <div class="modal-header border-0">
                                 <button type="button" class="btn-close btn-close-black" data-bs-dismiss="modal" aria-label="Close"></button>
+
                             </div>
                             <div id="video-container"> </div>
-                             {{-- <video id="video-player" class="video-box" controls="">
-                                <source src="https://www.youtube.com/embed/OBewEVZmpcg?autoplay=1" type="video/mp4" >
-                                <!--Browser does not support <video> tag -->
-                            </video> --}}
-                             {{-- <iframe  id="video-player" width="550" height="415"  class="video-box"
-                           src="https://www.youtube.com/embed/OBewEVZmpcg?autoplay=1">
-                              </iframe> --}}
+
                         </div>
                     </div>
                 </div>

@@ -183,7 +183,7 @@
     <div id="particles-js" style="z-index: -1;">
     </div>
     <!-- end particles -->
-    <div class="container">
+    <div id="contact" class="container">
         <div class="row justify-content-center">
             <div class="col-lg-7">
                 <div class="text-center mb-5">
