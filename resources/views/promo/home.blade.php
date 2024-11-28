@@ -73,8 +73,8 @@
 
                         <div class="home-btn hstack gap-2 flex-column d-sm-block">
                     <a class="btn btn-white me-1" href="{{route('promo.register')}}"> Enrol Now  </a>
-                        {{-- <a class="modal-btn" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target=".watchvideomodal"> --}}
-                            <a class="modal-btn" href="#"    >
+                         <a class="modal-btn" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target=".watchvideomodal">
+
 
 
                             <span class="avatar-sm">
@@ -427,7 +427,7 @@
 
 <script>
 
-/*
+
 const win  =  window.onload = () => {
     // Your function here
       $('#video-modal').modal('show');
@@ -440,7 +440,7 @@ const win  =  window.onload = () => {
            // Set the necessary attributes for the iframe
              iframe.setAttribute('width', '500');
              iframe.setAttribute('height', '250');
-             iframe.setAttribute('src', `https://www.youtube.com/embed/OBewEVZmpcg?autoplay=1`);
+             iframe.setAttribute('src', `https://www.youtube.com/embed/DYO-ygU4jXI?autoplay=1`);
              iframe.setAttribute('frameborder', '0');
              iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
              iframe.setAttribute('allowfullscreen', '');
@@ -453,7 +453,7 @@ const win  =  window.onload = () => {
 
 
 };
-*/
+
 
 
 
