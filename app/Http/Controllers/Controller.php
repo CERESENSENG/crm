@@ -39,11 +39,11 @@ public function getYear()
    {
 
 
-    $max=intval(date('Y'));
+    $max=intval(date('Y'))+1;
     $years=[];
     $years[0]['name']=2020;
     for ($i=1; $i<=($max-2020); $i++){
-        $years[$i]['name']=2020 +$i;    
+        $years[$i]['name']=2020 +$i;
 
     }
 
@@ -59,7 +59,7 @@ public function getYear()
           return $ch;
 
     }
-    
+
     public function getHod(){
         $arr=[1,2,3,4,5,6];
 
@@ -69,7 +69,7 @@ public function getYear()
     $id=[81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,99,100];
     return $id;
   }
-  
+
   public function purpose(){
     $purposes = ['sch_fee','others'];
     return $purposes;
@@ -95,7 +95,7 @@ public function getYear()
      if($payments)
       {
            return  $payments->invoice;
-           
+
       }else if(!$payments)
       {
         $inv =  $this->generateInvoice();
@@ -120,7 +120,7 @@ public function getYear()
 
     $student = student::where('matric_no', $matric_no)->first();
      return $student;
-   
+
 
 
   }
@@ -129,8 +129,8 @@ public function getYear()
 
      $schedule = Payment_schedule::find($schedule_id);
     return $schedule;
-   
-  
+
+
 
   }
 
@@ -142,12 +142,12 @@ public function getYear()
   }
 
   public function convinientfees($realamount)
-  {  
+  {
     if($realamount < 2500){
 
       $amount = $realamount/(1-(1.5/100)) +0.03;
 
-     
+
 
     } else if($realamount >2500){
 
@@ -159,7 +159,7 @@ public function getYear()
 
       $convinienceFees =  ceil($convinience);
 
-    
+
     if($convinienceFees > 2000){
 
       $Charges = 2000;

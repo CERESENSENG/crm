@@ -70,11 +70,14 @@ class AdmissionController extends Controller
         $students->update(['status' => $status, 'rejected_at' => $reject_date]);
         return redirect()->back()->with('rejectMessage', 'Applicant Rejected Successfully');
     }
-    
+
     public function show()
     {
 
-        
+
+
+         $pendingPromoCourse =    (new \App\Services\ApplicationService())->pendingApplications();
+
         $pendingStudents= Student::with('department')
         ->where('status', '0')
         ->where('department_id', '!=','null ')
@@ -86,9 +89,9 @@ class AdmissionController extends Controller
         $rejectedStudents = Student::with('department')
         ->where('department_id', '!=','null ')
         ->where('status', -1)->get();
-         return view('admission.admission', compact('pendingStudents','approveStudents','rejectedStudents'));
+         return view('admission.admission', compact('pendingPromoCourse','pendingStudents','approveStudents','rejectedStudents'));
     }
-  
+
     public function admissionSlip(request $request)
     {
         $request = $request->query('app_no');
@@ -110,7 +113,7 @@ class AdmissionController extends Controller
 
         }
         else  {return  redirect()->back()->with('message','you have not make payment');
-            
+
         }
     }
 

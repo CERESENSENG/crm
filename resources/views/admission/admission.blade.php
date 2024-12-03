@@ -14,8 +14,14 @@
                         <br>
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs" role="tablist">
+
+
                             <li class="nav-item">
-                                <a class="nav-link active" data-toggle="tab" href="#home">Pending</a>
+                                <a class="nav-link active" data-toggle="tab" href="#pending">Pending (Promo Course)</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link " data-toggle="tab" href="#home">Pending</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" data-toggle="tab" href="#menu1">Approved</a>
@@ -27,7 +33,52 @@
 
                         <!-- Tab panes -->
                         <div class="tab-content">
-                            <div id="home" class="container tab-pane active"><br>
+                            <div id="pending" class="container tab-pane active"><br>
+                                <table class="table table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Email</th>
+                                            <th scope="col">App No</th>
+
+                                           <th scope="col">Phone</th>
+
+                                            <th scope="col"> Course </th>
+                                            <th scope="col">  Session </th>
+                                            <th scope="col"> Cohort </th>
+
+                                            {{-- <th scope="col">Action</th> --}}
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+
+                                        @foreach ($pendingPromoCourse as $index => $student)
+                                             @php
+                                                $info = json_decode($student->info);
+                                               @endphp
+                                            <tr>
+                                                <td scope="row"> {{ $index + 1 }}</td>
+                                                <td> {{ucfirst(strtolower($student->firstname ))}} {{ ucfirst(strtolower( $student->surname)) }}
+                                                </td>
+                                                <td> {{$student->email }}
+                                                </td>
+                                                <td><a
+                                                        href="#">  {{ $student->app_no }} </a>
+                                                </td>
+                                                {{-- <td> {{ $student->department->name }}</td> --}}
+                                                <td>{{ $info->phone }} </td>
+                                                <td>{{ $info->course }} </td>
+                                                <td>{{ $info->session }} </td>
+                                                <td>{{ $info->cohort }} </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div id="home" class="container tab-pane fade"><br>
                                 <table class="table table-striped table-hover">
                                     <thead>
                                         <tr>
@@ -95,6 +146,7 @@
                                     </tbody>
                                 </table>
                             </div>
+
                             <div id="menu1" class="container tab-pane fade"><br>
                                 <table class="table table-striped table-hover">
                                     <thead>

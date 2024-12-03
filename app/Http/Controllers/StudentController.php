@@ -33,7 +33,7 @@ class StudentController extends Controller
     /****
      * Menus:  Dasboard
      *          Students main menu: sub-menu: seach, view, enrol
-     *        Admission: 
+     *        Admission:
      *        Payment Main menu: sub-menu:  schedule, manage, upload       */
 
 
@@ -144,7 +144,7 @@ class StudentController extends Controller
             $rad =  mt_rand(1000, 9999);
 
             //  $passportName ='passport_'.time().''. $passport->getClientOriginalname();
-            //  let hash the possport name to avoid name collision      
+            //  let hash the possport name to avoid name collision
             $passportName =  md5($passport->getClientOriginalName()) . mt_rand(000, 999) . '.' . $passport->getClientOriginalExtension();
 
 
@@ -190,8 +190,8 @@ class StudentController extends Controller
 
 
     /**
-     * 
-       
+     *
+
      * Display the specified resource.
      */
 
@@ -263,7 +263,10 @@ class StudentController extends Controller
     public function view()
     {
         $status = 1;
-        $students = Student::with('department')->where('status', $status)->get();
+        $students = Student::with('department')
+                     ->where('status', $status)
+                    // ->where('')
+                     ->get();
 
         return view('student.view', compact('students'));
     }
@@ -335,7 +338,7 @@ class StudentController extends Controller
             $rad =  mt_rand(1000, 9999);
 
             //  $passportName ='passport_'.time().''. $passport->getClientOriginalname();
-            //  let hash the possport name to avoid name collision      
+            //  let hash the possport name to avoid name collision
             $passportName =  md5($passport->getClientOriginalName()) . mt_rand(000, 999) . '.' . $passport->getClientOriginalExtension();
 
 
@@ -373,7 +376,7 @@ class StudentController extends Controller
         $students = Student::where('app_no', $appNo)->first();
         // dd($students);
         return $students;
-     
+
     }
 
 
@@ -397,8 +400,8 @@ class StudentController extends Controller
 
        // $error = $error_n_appNo = false;
        $check = [];
-        
-       
+
+
         foreach ($studentRows as $r) {
             $surname = ucfirst(strtolower($r[0]));
             $firstname = ucfirst(strtolower($r[1]));
@@ -427,11 +430,11 @@ class StudentController extends Controller
             $error_in_row = $error_in_csv = false;
             $error = $error_n_appNo = false;
             $error = $error_n_email = false;
-          
+
 
             if (
                 trim($surname) == '' && trim($firstname) == '' && trim($othername) == ''
-               // && trim($appNo) == '' && trim($matricNo) == '' 
+               // && trim($appNo) == '' && trim($matricNo) == ''
                 && trim($admission_year) == ''
                 && trim($cohort) == '' && trim($status) == '' && trim($department_id) == ''
                 && trim($classMethod) == '' && trim($next_of_kin) == '' && trim($next_of_kin_phone) == ''
@@ -439,14 +442,14 @@ class StudentController extends Controller
                 && trim($terms) == '' && trim($sponsorsPhone) == '' && trim($wifi) == '' && trim($hostel) == ''
                 && trim($skillMonetization) == '' && trim($paymentMethod) == ''
             ) {
- 
+
                 $error = 'one of the CSV column is empty';
-    
-                
+
+
 
             } else if (
                 trim($surname) == '' || trim($firstname) == '' || trim($othername) == '' ||
-                
+
                 // trim($appNo) == '' || trim($matricNo) == '' ||
                   trim($admission_year) == '' ||
                  trim($cohort) == '' || trim($status) == '' || trim($department_id) == '' ||
@@ -454,7 +457,7 @@ class StudentController extends Controller
              || trim($email) == '' ||  trim($phone) == '' || trim($sponsors) == '' || trim($address) == ''
                 || trim($terms) == '' || trim($sponsorsPhone) == '' || trim($wifi) == '' || trim($hostel) == ''
             || trim($skillMonetization) == '' || trim($paymentMethod) == ''
-            ) 
+            )
             {
 
                 $error_in_csv = true;
@@ -463,7 +466,7 @@ class StudentController extends Controller
                 $myErr = true;
 
                 // return $error;
-            } 
+            }
                 $dpmt = new DepartmentController();
 
                 $dept = $dpmt->getDepartment($department_id);
@@ -472,7 +475,7 @@ class StudentController extends Controller
                 $appNo = Student::genAppNo($admission_year);
 
                 $chkappNo = $this->checkAppno($appNo);
-            
+
                 // if ($chkappNo) {
                 //     $error_in_csv = true;
                 //     $error_in_row = true;
@@ -490,10 +493,10 @@ class StudentController extends Controller
                 // }
 
                if($dept){
-  
+
                 $deptName = $dept->name;
                 $deptId = $dept->id;
-            
+
 
                }else{
                 $error_in_csv = true;
@@ -523,8 +526,8 @@ class StudentController extends Controller
                 $error .= ($error) ? 'duplicate email address  ' : 'duplicate email address';
                 $myErr = true;
             }
-   
-    
+
+
             $data[$k]['sn'] = $k + 1;
             $data[$k]['surname'] = $surname;
             $data[$k]['firstname'] = $firstname;
@@ -549,10 +552,10 @@ class StudentController extends Controller
             $data[$k]['hostel'] = $hostel;
             $data[$k]['skillMonetization'] = $skillMonetization;
             $data[$k]['paymentMethod'] = $paymentMethod;
-            
+
             $data[$k]['error'] = $error;
             $data[$k]['error_in_appNo'] = $error_n_appNo;
-          
+
             if ($error)
                 $data[$k]['comment'] = $error;
             elseif ($error_in_row)
@@ -625,7 +628,7 @@ class StudentController extends Controller
     public function showCertificate(){
 
       $students = Student::with('department')->where('department_id', '!=', 'null')->get();
-    
+
       return view('certificate.view',compact('students',));
     }
 
@@ -661,7 +664,7 @@ class StudentController extends Controller
 
          $students = Student::with('department')
                              ->where('department_id', '!=', 'null')
-                             ->where('matric_no',$matric_no)->get(); 
+                             ->where('matric_no',$matric_no)->get();
         } else{
 
             $students  =  Student::with('department')->where('department_id', '!=', 'null')
@@ -670,11 +673,11 @@ class StudentController extends Controller
               })->when($certificate_no, function ($query) use ($certificate_no) {
                 return $query->where('certificate_no', $certificate_no);
               })
-      
-             ->get();
-        }  
 
-    
+             ->get();
+        }
+
+
 
         $studentCert = $students;
 
@@ -723,11 +726,11 @@ class StudentController extends Controller
                 $error_in_row = true;
                 $error = 'One of required field(s) omiited .';
                 $myErr = true;
-            } 
+            }
 
                 $student = $this->checkMatricno($matric_no);
                 $certificate = $this->checkCertificate($certificate_id);
-               
+
                 if ($certificate) {
                     $existingCert = $certificate->certificate_no;
                     $error_in_csv = true;
@@ -739,7 +742,7 @@ class StudentController extends Controller
                 } else{
 
                     $certificate_id =$certificate_id;
-                  
+
                 }
 
                 if (!$student) {
@@ -764,8 +767,8 @@ class StudentController extends Controller
                     $myErr = true;
                 }
 
-              
-            
+
+
 
             $data[$k]['sn'] = $k + 1;
             $data[$k]['student_name'] = $student_name;
@@ -795,7 +798,7 @@ class StudentController extends Controller
 
 
 
-    public function certificateStore(request $request)   
+    public function certificateStore(request $request)
     {
 
         $validate = $request->validate(
@@ -805,7 +808,7 @@ class StudentController extends Controller
             ],
             ['required' => ':attribute is required.']
         );
-   
+
         foreach ($validate['data'] as $rowStd) {
             $student = Student::where('id', $rowStd['student_id'])->first();
             if ($student) {
@@ -814,7 +817,7 @@ class StudentController extends Controller
         }
 
         return redirect()->route('page.certificate')->with('success', 'Data stored successfully!');
-         
+
     }
 
 

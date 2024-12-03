@@ -51,4 +51,11 @@ class ApplicationService {
 
 
 
+    function pendingApplications()
+    {
+        return Application::whereStage(1)->get();
+    }
+
+
+
 }

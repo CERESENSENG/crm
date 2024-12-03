@@ -79,6 +79,7 @@
                                         <th scope="col">Dept</th>
                                         <th scope="col">Phone</th>
                                         <th scope="col">Email</th>
+                                        <th scope="col">Promo Course </th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -95,6 +96,7 @@
                                             <td> {{ $student->department->name }}</td>
                                             <td>{{ $student->phone }} </td>
                                             <td>{{ $student->email }} </td>
+                                            <td>{{ $student->promo_course }} </td>
 
                                             <td>
 
