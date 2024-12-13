@@ -402,7 +402,7 @@ class PromoController extends Controller
                  else{
 
                      Log::error($res['message']);
-                     $msg = 'OHHHH!!!!  :::  SOMETHING WENT WRONG DURING PAYMENT PROCESSING :: INCASE YOU HAVE GEBERATED AN INVOICE BFORE, GO TO MAIL YOU RECEIVED AND  \' CLICK ON PROCEED TO PAYMENT \' BUTTON';
+                     $msg = 'OHHHH!!!!  :::  SOMETHING WENT WRONG DURING PAYMENT PROCESSING :: INCASE YOU HAVE GENERATED AN INVOICE BFORE, GO TO MAIL YOU RECEIVED AND  "CLICK ON PROCEED TO PAYMENT"  BUTTON';
                      return redirectWithMsg(route('promo.register'),$msg) ;
 
                  }
