@@ -13,6 +13,7 @@ use App\Services\InvoiceService;
 use App\Services\PaymentService;
 use App\Services\StudentService;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 
 class PromoController extends Controller
